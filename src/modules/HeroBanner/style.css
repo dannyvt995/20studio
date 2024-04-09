@@ -1,0 +1,25 @@
+.hero_banner {
+    height:150vh;
+    width: 100%;
+
+    position:relative;
+}
+.hero_banner .content {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+}
+.hero_banner {
+    background: url('/home/hero_banner_bgsection.png');
+    background-size: cover;
+}
+.hero_banner .content .head {
+    font-size: 9rem;
+
+    grid-column-start: 1;
+    grid-column-end: 9;
+}
+.hero_banner .content .des {
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
