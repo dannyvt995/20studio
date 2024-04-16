@@ -65,11 +65,23 @@ main {
     left:0;
     margin: auto;
     width:100%;
-    /* height:100vh;  */
-    height: fit-content;
+    height:100vh; 
+  /*   height: fit-content; */
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
     will-change:tranform,opacity;
 
+}
+.section1 {
+    position:relative;
+    width:100vw;
+    height:100vh;
+    background:blue;
+}
+.section2 {
+    position:relative;
+    width:100vw;
+    height:100vh;
+    background:green;
 }
 .page * {
   

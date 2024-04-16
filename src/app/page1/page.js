@@ -1,6 +1,8 @@
 "use client"
 import HeroBanner from "@/modules/HeroBanner";
 import data from "@/data/data.json"
+import VirtualScroll from 'virtual-scroll'
+
 
 export default  function Page1() {
 

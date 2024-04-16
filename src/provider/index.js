@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Children } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import gsap from 'gsap';
 import $ from 'jquery'
@@ -190,7 +190,7 @@ export default function Providers() {
                 {!showPage2 &&
                     <Page2/>
                 }
-
+   
             </div>
         </main>
     );

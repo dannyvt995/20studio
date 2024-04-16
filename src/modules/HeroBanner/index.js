@@ -4,7 +4,7 @@ import "./style.css"
 export default function HeroBanner({ hero_img }) {
     return (
 
-        <div id="hero_banner_section light_background" className="hero_banner dark_background" style={{ background: `url(${hero_img})`, backgroundSize: "cover" }}>
+        <section id="hero_banner_section" className="hero_banner dark_background" style={{ background: `url(${hero_img})`, backgroundSize: "cover" }}>
             <div className="content_hero_banner grid_12col_container grid_3row">
                 <div className="head row1"><span>Fashion Brand Development</span></div>
                 <div className="des row2"><p>We are where production takes place. Each country has its specialties. Our offices know them inside and out. Our teams are connected to customers and production partners through our digital platform.</p></div>
@@ -26,7 +26,7 @@ export default function HeroBanner({ hero_img }) {
                         </ul>
                     </div>
             </div>
-        </div>
+        </section>
 
 
     )

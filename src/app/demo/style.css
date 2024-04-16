@@ -1,0 +1,17 @@
+.testFix {
+    position:fixed;
+    top:0;
+    left:0;
+}
+.section1 {
+    position:relative;
+    width:100vw;
+    height:100vh;
+    background:blue;
+}
+.section2 {
+    position:relative;
+    width:100vw;
+    height:100vh;
+    background:green;
+}
