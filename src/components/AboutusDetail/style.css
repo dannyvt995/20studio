@@ -1,0 +1,61 @@
+.aboutus_detail_section .detail {
+    grid-column-start: 1;
+    grid-column-end: 6;
+}
+.aboutus_detail_section .detail .tag  {
+    display:flex;
+}
+.aboutus_detail_section .detail .tag span {
+    width:20px;
+}
+.aboutus_detail_section .detail h3  {
+    font-size: var(--font-s-h3);
+    letter-spacing: var(--font-ls-h3);
+    line-height: var(--font-lh-h3);
+}
+.advan_1,.advan_2,.advan_3,.advan_4 {
+
+}
+.advan_1 h3,.advan_2 h3,.advan_3 h3,.advan_4 h3{
+    font-size: 3rem;
+}
+.advan_1>div,.advan_2>div,.advan_3>div,.advan_4>div {
+    position: relative;
+}
+.advan_1 > p,.advan_2 > p,.advan_3 > p,.advan_4 > p  {
+    color: var(--gray);
+}
+.advan_1>div span,.advan_2>div span,.advan_3>div span,.advan_4>div span {
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+    transform: translateX(-100%);
+    font-weight: bold;
+    color: var(--gray);
+    padding: 0 20px 0 0;
+}
+.advan_1 {
+    grid-column-start: 3;
+    grid-column-end: 6;
+}
+.advan_2 {
+    grid-column-start: 8;
+    grid-column-end: 11;
+
+    margin-top:10vw;
+}
+.aboutus_detail_section .head_anim {
+    grid-column-start: 1;
+    grid-column-end: 12;
+    font-size: 200px;
+}
+.advan_3 {
+    grid-column-start: 2;
+    grid-column-end: 5;
+}
+.advan_4 {
+    grid-column-start: 7;
+    grid-column-end: 10;
+
+    margin-top:10vw;
+}

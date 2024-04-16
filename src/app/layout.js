@@ -26,15 +26,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body >
         <DebugGrid />
-       {/*  <LenisScrolling> */}
-          <Providers>
-
-
-            {children}
-
-
-          </Providers>
-     {/*    </LenisScrolling> */}
+      {/*   <Providers>
+          {children}
+        </Providers> */}
+        <LenisScrolling>
+          {children}
+        </LenisScrolling>
       </body>
     </html>
   );

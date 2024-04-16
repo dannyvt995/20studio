@@ -1,0 +1,49 @@
+.footer_section {
+    width: 100%;
+    height: 100vh;
+}
+.first_footer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.first_footer .text  {
+    width: 50%;
+}
+.first_footer .text h3 {
+    font-size: 250px;
+    line-height:100%;
+}
+.first_footer .text  p{
+    width: 75%;
+    font-size: 2rem;
+}
+.first_footer  .image {
+    width: 50%;
+    height:100%;
+    background:blue;
+}
+
+.second_footer {
+
+}
+.second_footer .info {
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+.second_footer .menu_footer {
+    grid-column-start: 4;
+    grid-column-end: 6;
+}
+.second_footer .socal_footer {
+    grid-column-start: 6;
+    grid-column-end: 8;
+}
+.second_footer .btn_more {
+    grid-column-start: 12;
+    grid-column-end: 13;
+
+    display: flex;
+    align-items: end;
+
+}

@@ -1,5 +1,5 @@
 .grid {
-    width:100vw;
+    width:100%;
     height: 100vh;
     position: fixed;
     top:0;
@@ -23,13 +23,16 @@
    
 }
 .grid .wrapperGrid span {
-   /*  background:rgba(255, 0, 0, 0.1); */
+    background:rgba(255, 0, 0, 0.1);
     
 }
 
-
+.padding_forGrid {
+    padding: 0 var(--grid_margin_des);
+}
 
 .grid_12col_container {
+    width: 100%;
     display: grid;
     padding: 0 var(--grid_margin_des);
     grid-template-columns: var(--grid_col_count);
@@ -37,6 +40,7 @@
 }
 
 .grid_12col_container_nomargin {
+    width: 100%;
     display: grid;
     grid-template-columns: var(--grid_col_count);
     gap: var(--grid_gap);

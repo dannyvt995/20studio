@@ -1,0 +1,34 @@
+.aboutus_intro_section {
+    padding: 70vh 0 100px 0;
+}
+.aboutus_intro_section .tag {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+    align-self: end;
+}
+.aboutus_intro_section .tag * {
+    height: fit-content;
+}
+.aboutus_intro_section .tag  span {
+    margin-right:1rem;
+    width: 20px;
+}
+.aboutus_intro_section .detail {
+    grid-column-start: 3;
+    grid-column-end: 10;
+}
+.aboutus_intro_section .detail p {
+    font-size: 3.5em;
+    font-weight: 600;
+}
+.aboutus_intro_section .more {
+    padding-top:50px;
+    grid-column-start: 3;
+    grid-column-end: 5;
+}
+.aboutus_intro_section .more p {
+    color: var(--gray);
+}
