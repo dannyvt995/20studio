@@ -1,0 +1,96 @@
+#page1 {
+
+    background:url('/home/ser1.png');
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    display:flex;
+
+}
+.page h1 {
+    z-index:9999;
+    margin: auto;
+    font-size:5rem;
+    color:white;
+}
+#page2 {
+    display:flex;
+    background:url('/home/ser4.png');
+
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#id_2 {
+  
+}
+main {
+    height:100vh;
+    overflow:hidden;
+}
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:50px;
+    
+    z-index:1111;
+}
+.navbar ul {
+    display:flex;
+    flex-direction: row;
+}.navbar ul li {
+    margin: 0 50px;
+}
+.navbar a {
+    font-size: 2rem;
+    display:block;
+    padding: 1rem 2rem;
+    border: 1px solid green;
+}
+.ProvidersProviders {
+    position:relative;
+    width:100%;
+    height:auto;
+}
+.scroll {
+    position:fixed;
+    top:0;
+    left:0;
+  
+}
+.page {
+    position: absolute;
+    top:0;
+    left:0;
+    marign: auto;
+    width:100%;
+    height:100vh; 
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    will-change:tranform,opacity;
+
+}
+.page * {
+  
+}
+.overplay {
+    background:blue;
+    width:100%;
+    height:100vh;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:2;
+
+    /* clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); */
+}
+
+
+
+
+
+
+/* main.css */
+a {
+    font-size:2.2rem;
+}

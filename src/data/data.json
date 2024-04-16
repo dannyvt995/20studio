@@ -1,0 +1,12 @@
+{
+    "homepage": {
+        "hero_image" : "/home/hero_banner_bgsection.png"
+    },
+    "page1": {
+        "hero_image" : "/page1/hero_about_us.png.png"
+    },
+    "page2": {
+        "hero_image" : "/page1/hero_about_us.png.png"
+    }
+  }
+  
