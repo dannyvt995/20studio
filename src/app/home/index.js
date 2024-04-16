@@ -16,25 +16,29 @@ export default function HomePage() {
     useEffect(() => {
         const scroller = new VirtualScroll();
         const heroSection = document.getElementById("hero_banner_section")
-        const section1 = document.getElementById("section1")
-        const section2 = document.getElementById("section2")
+        const listSection = document.querySelectorAll('.sametime')
         scroller.on(event => {
             scrollPos.current = Math.abs(event.y);
         });
-
      
-
+        console.log(listSection)
         function updateScroll() {
-
+            let val = 1
+          
             const interpolatedY = previousY.current + (scrollPos.current - previousY.current) * lerpFactor;
-            previousY.current = interpolatedY ;
-
-
-            console.log(interpolatedY)
+           
+            previousY.current = interpolatedY  ;
+     
+            let aa = interpolatedY
+            aa /= 100
+            console.log(aa)
             if(heroSection  && section1 && previousY.current > 0.0000000001 ) {
-                heroSection.style.transform = `translateY(${(-interpolatedY)}px)`;
-                section1.style.transform = `translateY(${(-interpolatedY)}px)`;
-                section2.style.transform = `translateY(${(-interpolatedY)}px)`;
+                heroSection.style.transform = `translateY(-${(interpolatedY)}px)`;
+                for (let i = 0; i < listSection.length; i++) {
+                    listSection[i].style.transform = `translateY(-${(interpolatedY)}px)`;
+                }
+                section1.style.transform = `translateY(-${(interpolatedY)}px)`;
+                section2.style.transform = `translateY(-${(interpolatedY)}px)`;
             }
           
 
@@ -54,14 +58,14 @@ export default function HomePage() {
                 <NavbarSection />
                
                 <HeroBanner hero_img={data["homepage"]["hero_image"]}/>
-                <section className='section1' id="section1">
+                <section className='section1 sametime' id="section1">
                     Section1
                 </section>
-                <section className='section2' id="section2">
+                <section className='section2 sametime' id="section2">
                     Section2
                 </section>
-             
-                <WorkSection/>
+                <Aboutusintro backgroundClass={'light_background'}/>
+            <Aboutusintro backgroundClass={'dark_background'}/>
             </div>
         </div>
     )

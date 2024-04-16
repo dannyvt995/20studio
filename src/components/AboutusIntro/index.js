@@ -4,7 +4,7 @@ import './style.css'
 const Aboutusintro = ({backgroundClass}) => {
     return (
 
-        <section className={`aboutus_intro_section ${backgroundClass}`}>
+        <section className={`sametime aboutus_intro_section ${backgroundClass}`}>
             <div className='grid_12col_container grid_2row'>
                 <div className='tag row1'>
                     <Star />
