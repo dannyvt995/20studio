@@ -1,10 +1,5 @@
 "use client"
-import HeroBanner from "@/modules/HeroBanner";
-import data from "@/data/data.json"
 
-
-import { useRef , useEffect} from "react";
-import Aboutusintro from "@/components/AboutusIntro";
 import AboutUs from "../aboutus/page";
 
 export default function Page1() {

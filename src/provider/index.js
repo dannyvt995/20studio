@@ -1,14 +1,15 @@
 'use client'
-import { useState, useEffect, useRef, Children } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import gsap from 'gsap';
-import $ from 'jquery'
+
 import HomePage from '@/app/home';
 import Page2 from '@/app/page2/page';
-import Page1Components from '@/components/Page1Component';
-import HeroBanner from '@/modules/HeroBanner';
+
 import Page1 from '@/app/page1/page';
 import Lenis from "@studio-freight/lenis";
+import AboutUs from '@/app/aboutus/page';
+import NavbarSection from '@/components/NavbarSection';
 
 function removeSplash(target) {
     let value
@@ -28,7 +29,7 @@ export default function Providers() {
     const isRunning = useRef(false)
     const rls = removeSplash(pathName)
     const linkTarget = useRef(null)
-    const activeState = useRef(null)
+    const activeState = useRef(false)
     // choice from c to n
     // 1. display n nằm dưới c (index & state)
     // 2. action anim : c hidden & n show (clippatch)
@@ -38,17 +39,16 @@ export default function Providers() {
     // 3 index
 
     const indexCurrent = 5
-    const indexNext = 10
 
     const lenisRef = useRef()
-    const scrollRef = useRef(null)
     const scrollContainerRef = useRef(null)
 
     const totalTime = 1
 
     // RUN ON FIRST TIME , JUST ONCE
     useEffect(() => {
-        console.log('this run when enter page')
+        console.log('this run when enter page JUST ONCE TIME')
+        activeState.current = true
         if (pathName === "/page1") {
             setShowPage1(true);
             setShowPage2(false);
@@ -63,14 +63,13 @@ export default function Providers() {
             setShowPage2(false);
         }
     }, []);
-    
+
 
     // INIT LENIS, STILL WAIT 1 SECOND TO USE
     useEffect(() => {
         console.log('init lenis')
-        const rm = removeSplash(pathName)
         setTimeout(() => {
-            scrollContainerRef.current = document.getElementById(`${rm}`)
+            scrollContainerRef.current = document.getElementById(`${rls}`)
 
             scrollContainerRef.current.style.zIndex = indexCurrent
             lenisRef.current = new Lenis({
@@ -81,14 +80,16 @@ export default function Providers() {
                 easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)), // https://easings.net
 
             })
+
             isRunning.current = false
 
-        }, 100);
+        }, 300);
+        gsap.ticker.add(update)
         function update(time) {
             lenisRef.current?.raf(time * 1000);
         }
 
-        gsap.ticker.add(update)
+
         return () => {
             console.log('enter page == base patchName')
             console.log("must clear lenis")
@@ -98,135 +99,82 @@ export default function Providers() {
     }, [pathName])
 
     // CONTROLS STATE EACH PAGE
+
+    const animatePage = (domTarget, nextPage) => {
+        gsap.timeline({
+            onComplete: () => {
+                gsap.set(`#${rls}`, {
+                    opacity: 0,
+                    zIndex: 0,
+                    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+                    rotate: 5,
+                    scale: 1.3
+                });
+
+                if (pathName === "/page1") {
+                    setShowPage1(false);
+                } else if (pathName === "/page2") {
+                    setShowPage2(false);
+                } else if (pathName === "/") {
+                    setShowHome(false);
+                }
+
+                router.push(nextPage);
+            }
+        })
+            .set(domTarget, {
+                zIndex: 2,
+                opacity: 1,
+                rotate: 5,
+                scale: 1.3,
+            })
+            .to(domTarget, {
+                rotate: 0,
+                scale: 1,
+                duration: totalTime
+            })
+            .to(`#${rls}`, {
+                clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+                rotate: -4,
+                scale: 1.2,
+                duration: totalTime
+            }, '<');
+    };
+
     useEffect(() => {
+        if (showPage1 && activeState.current) {
+            const domtarget = document.getElementById("page1")
+            gsap.to(domtarget, {
+                rotate: 0,
+                scale: 1,
+                duration: totalTime
+            })
+        }
         if (showPage1 && linkTarget.current == '/page1') {
             const domtarget = document.getElementById("page1")
-            gsap.timeline({
-                onComplete: () => {
-                    gsap.set(`#${rls}`, {
-                        opacity: 0,
-                        zIndex: 0,
-                        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-                        rotate: 5,
-                        scale: 1.3
-                    })
-
-                    if (pathName === "/page1") {
-                        setShowPage1(false);
-                    } else if (pathName === "/page2") {
-                        setShowPage2(false);
-                    } else if (pathName === "/") {
-                        setShowHome(false);
-                    }
-
-                    router.push(linkTarget.current)
-                }
-            })
-                .set(domtarget, {
-                    zIndex: 2, opacity: 1,
-                    rotate: 5,
-                    scale: 1.3,
-                })
-                .to(domtarget, {
-                    rotate: 0,
-                    scale: 1,
-                    duration: totalTime
-                })
-                .to(`#${rls}`, {
-                    clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
-                    rotate: -4,
-                    scale: 1.2,
-                    duration: totalTime
-                }, '<')
-
+            animatePage(domtarget, linkTarget.current);
         }
 
     }, [showPage1])
     useEffect(() => {
+        if (showPage2 && activeState.current) {
+            console.log('FIRE ANIM ENTER PAGE')
+        }
         if (showPage2 && linkTarget.current == '/page2') {
             const domtarget = document.getElementById("page2")
-            gsap.timeline({
-                onComplete: () => {
-                    gsap.set(`#${rls}`, {
-                        opacity: 0,
-                        zIndex: 0,
-                        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-                        rotate: 5,
-                        scale: 1.3
-                    })
-
-                    if (pathName === "/page1") {
-                        setShowPage1(false);
-                    } else if (pathName === "/page2") {
-                        setShowPage2(false);
-                    } else if (pathName === "/") {
-                        setShowHome(false);
-                    }
-
-                    router.push(linkTarget.current)
-                }
-            })
-                .set(domtarget, {
-                    zIndex: 2, opacity: 1,
-                    rotate: 5,
-                    scale: 1.3,
-                })
-                .to(domtarget, {
-                    rotate: 0,
-                    scale: 1,
-                    duration: totalTime
-                })
-                .to(`#${rls}`, {
-                    clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
-                    rotate: -4,
-                    scale: 1.2,
-                    duration: totalTime
-                }, '<')
+            animatePage(domtarget, linkTarget.current);
 
         }
 
     }, [showPage2])
-    useEffect(() => {
 
+    useEffect(() => {
+        if (showHome && activeState.current) {
+            console.log('FIRE ANIM ENTER PAGE')
+        }
         if (showHome && linkTarget.current == '/') {
             const domtarget = document.getElementById("home")
-            gsap.timeline({
-                onComplete: () => {
-                    gsap.set(`#${rls}`, {
-                        opacity: 0,
-                        zIndex: 0,
-                        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-                        rotate: 5,
-                        scale: 1.3
-                    })
-
-                    if (pathName === "/page1") {
-                        setShowPage1(false);
-                    } else if (pathName === "/page2") {
-                        setShowPage2(false);
-                    } else if (pathName === "/") {
-                        setShowHome(false);
-                    }
-
-                    router.push(linkTarget.current)
-                }
-            })
-                .set(domtarget, {
-                    zIndex: 2, opacity: 1,
-                    rotate: 5,
-                    scale: 1.3,
-                })
-                .to(domtarget, {
-                    rotate: 0,
-                    scale: 1,
-                    duration: totalTime
-                })
-                .to(`#${rls}`, {
-                    clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
-                    rotate: -4,
-                    scale: 1.2,
-                    duration: totalTime
-                }, '<')
+            animatePage(domtarget, linkTarget.current);
 
         }
 
@@ -237,8 +185,10 @@ export default function Providers() {
         e.preventDefault()
         const datalink = e.target.getAttribute("data-link")
         if (datalink == pathName) return
+
         if (!isRunning.current) {
             isRunning.current = true
+            activeState.current = false
             linkTarget.current = e.target.getAttribute("data-link");
 
             if (linkTarget.current == '/page1') {
@@ -260,30 +210,44 @@ export default function Providers() {
 
     return (
         <main>
-            <div className='navbar'>
-                <ul>
-                    <li>
-                        <a onClick={handleRedirect} data-link="/">Home</a>
-                    </li>
-                    <li>
-                        <a onClick={handleRedirect} data-link="/page1">Page 1</a>
-                    </li>
-                    <li>
-                        <a onClick={handleRedirect} data-link="/page2">Page 2</a>
-                    </li>
-                </ul>
+        
+            <nav>
+            <div className="navbar_section">
+                <div className="grid_12col_container">
+                <div className="logo">
+                    <span><a onClick={handleRedirect} data-link="/">20 studio</a></span>
+                </div>
+                <div className="menu_list">
+                    <ul>
+                        <li><a onClick={handleRedirect} data-link="/page1">Work</a></li>
+                        <li><a onClick={handleRedirect} data-link="/">Studio</a></li>
+                        <li><a onClick={handleRedirect} data-link="/page2">News</a></li>
+                        <li><a >Contact</a></li>
+                    </ul>
+                </div>
+                </div>
+                
             </div>
-            <div className="ProvidersProviders">
+        </nav>
+            <div className="View_Switch_Compo">
 
 
                 {showHome &&
-                    <HomePage />
+                    <div className="page" id="home" >
+                        <HomePage />
+                    </div>
+
                 }
                 {showPage1 &&
-                    <Page1 />
+                    <div className="page" id="page1" >
+                        <AboutUs />
+                    </div>
                 }
                 {showPage2 &&
-                    <Page2 />
+                    <div className="page" id="page2">
+                         <Page2 />
+                    </div>
+                   
                 }
 
             </div>

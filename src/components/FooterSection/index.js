@@ -13,7 +13,7 @@ const FooterSection = ({backgroundClass}) => {
                 </div>
             </div>
             <div className='second_footer'>
-                <divc className="grid_12col_container">
+                <div className="grid_12col_container">
                     <div className='info'>
                         <p>63 Ly Chinh Thang,  Quan3</p>
                         <p>support@20studio.vn</p>
@@ -53,7 +53,7 @@ const FooterSection = ({backgroundClass}) => {
                     <div className='btn_more'>
                         <a>More Story</a>
                     </div>
-                </divc>
+                </div>
             </div>
         </section>
     );
