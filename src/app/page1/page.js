@@ -1,16 +1,19 @@
 "use client"
 import HeroBanner from "@/modules/HeroBanner";
 import data from "@/data/data.json"
-import VirtualScroll from 'virtual-scroll'
 
 
-export default  function Page1() {
+import { useRef , useEffect} from "react";
+import Aboutusintro from "@/components/AboutusIntro";
+import AboutUs from "../aboutus/page";
+
+export default function Page1() {
 
     return (
-        <div className="page" id="page1">
-        {/* <div className='overplay'></div> */}
-  
-        <HeroBanner hero_img={data["page1"]["hero_image"]}/>
-    </div>
+        <div className="page" id="page1" >
+            {/* <div className='overplay'></div> */}
+
+           <AboutUs/>
+        </div>
     )
 }

@@ -1,5 +1,5 @@
 "use client"
-import {useRef,useEffect} from 'react'
+import { useRef, useEffect } from 'react'
 import HeroBanner from "@/modules/HeroBanner";
 import data from "@/data/data.json"
 import VirtualScroll from 'virtual-scroll'
@@ -13,60 +13,54 @@ export default function HomePage() {
     const previousY = useRef(0);
     const lerpFactor = 0.08; // Adjust this value for the desired smoothness
 
-    useEffect(() => {
-        const scroller = new VirtualScroll();
-        const heroSection = document.getElementById("hero_banner_section")
-        const listSection = document.querySelectorAll('.sametime')
-        scroller.on(event => {
-            scrollPos.current = Math.abs(event.y);
-        });
-     
-        console.log(listSection)
-        function updateScroll() {
-            let val = 1
-          
-            const interpolatedY = previousY.current + (scrollPos.current - previousY.current) * lerpFactor;
+    /*  useEffect(() => {
+         const scroller = new VirtualScroll();
+         const heroSection = document.getElementById("hero_banner_section")
+         const listSection = document.querySelectorAll('.sametime')
+         scroller.on(event => {
+             scrollPos.current = Math.abs(event.y);
+         });
+      
+         console.log(listSection)
+         function updateScroll() {
+             let val = 1
            
-            previousY.current = interpolatedY  ;
-     
-            let aa = interpolatedY
-            aa /= 100
-            console.log(aa)
-            if(heroSection  && section1 && previousY.current > 0.0000000001 ) {
-                heroSection.style.transform = `translateY(-${(interpolatedY)}px)`;
-                for (let i = 0; i < listSection.length; i++) {
-                    listSection[i].style.transform = `translateY(-${(interpolatedY)}px)`;
-                }
-                section1.style.transform = `translateY(-${(interpolatedY)}px)`;
-                section2.style.transform = `translateY(-${(interpolatedY)}px)`;
-            }
-          
+             const interpolatedY = previousY.current + (scrollPos.current - previousY.current) * lerpFactor;
+            
+             previousY.current = interpolatedY  ;
+      
+             let aa = interpolatedY
+             aa /= 100
+             console.log(aa)
+             if(heroSection  && section1 && previousY.current > 0.0000000001 ) {
+                 heroSection.style.transform = `translateY(-${(interpolatedY)}px)`;
+                 for (let i = 0; i < listSection.length; i++) {
+                     listSection[i].style.transform = `translateY(-${(interpolatedY)}px)`;
+                 }
+             }
+           
+ 
+             requestAnimationFrame(updateScroll);
+         }
+         
+         requestAnimationFrame(updateScroll);
+ 
+         return () => {
+             scroller.destroy(); // Cleanup VirtualScroll when component unmounts
+         };
+     }, []); */
 
-            requestAnimationFrame(updateScroll);
-        }
-        
-        requestAnimationFrame(updateScroll);
 
-        return () => {
-            scroller.destroy(); // Cleanup VirtualScroll when component unmounts
-        };
-    }, []);
     return (
 
-        <div className="page" id="home">
-            <div className='scroll'>
-                <NavbarSection />
-               
-                <HeroBanner hero_img={data["homepage"]["hero_image"]}/>
-                <section className='section1 sametime' id="section1">
-                    Section1
-                </section>
-                <section className='section2 sametime' id="section2">
-                    Section2
-                </section>
-                <Aboutusintro backgroundClass={'light_background'}/>
-            <Aboutusintro backgroundClass={'dark_background'}/>
-            </div>
+        <div className="page" id="home" >
+
+            <NavbarSection />
+
+            <HeroBanner hero_img={data["homepage"]["hero_image"]} />
+            <WorkSection/>
+            <Aboutusintro backgroundClass={'light_background'} />
+            <Aboutusintro backgroundClass={'dark_background'} />
         </div>
     )
 }
