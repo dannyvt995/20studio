@@ -6,10 +6,7 @@
 }
 #page1 {
 
-    background:url('/home/ser1.png');
-
-    background-repeat: no-repeat;
-    background-size: cover;
+  
 
     z-index: 0;
 }
@@ -19,12 +16,8 @@
     font-size:5rem;
     color:white;
 }
-#page2 {
-    
-    background:url('/home/ser4.png');
-
-    background-repeat: no-repeat;
-    background-size: cover;
+#page2,#page3,#page4 {
+  
     z-index: 0;
 }
 #id_2 {
@@ -62,11 +55,28 @@ main {
     width:100%;
     height:auto;
 }
-.scroll {
-   /*  position:fixed;
+.fix {
+    position:fixed;
     top:0;
-    left:0; */
-  
+    left:0;
+    bottom: 0;
+    right   :0;
+    width:100%;
+    height:100vh; 
+}
+.page .content {
+    position: absolute;
+    top:0;
+    left:0;
+    margin: auto;
+    width:100%;
+    height:100vh; 
+    overflow: hidden;
+    transform-origin: top top ;
+    will-change:tranform;
+    
+
+    
 }
 .page {
     position: absolute;
@@ -77,8 +87,9 @@ main {
     height:100vh; 
     overflow: hidden;
   /*   height: fit-content; */
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-    will-change:tranform,opacity;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 123%, 0% 100%);
+  
+    will-change:tranform;
     
 
 }

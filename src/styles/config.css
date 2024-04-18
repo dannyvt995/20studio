@@ -153,6 +153,7 @@ p,a,button,span,div {
 a,
 button:hover {
     cursor: pointer;
+    user-select: none;
 }
 
 ul,ol {

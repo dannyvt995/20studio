@@ -10,6 +10,8 @@ import Page1 from '@/app/page1/page';
 import Lenis from "@studio-freight/lenis";
 import AboutUs from '@/app/aboutus/page';
 import NavbarSection from '@/components/NavbarSection';
+import FooterSection from '@/components/FooterSection';
+import WorkSection from '@/components/WorkSection';
 
 function removeSplash(target) {
     let value
@@ -20,12 +22,13 @@ function removeSplash(target) {
 export default function Providers() {
     const router = useRouter();
     const pathName = usePathname();
-    const durationTrans = 1;
+
     const [showHome, setShowHome] = useState(false);
     const [showPage1, setShowPage1] = useState(false);
     const [showPage2, setShowPage2] = useState(false);
-    const listSelector = ["home", "page1", "page2"]
-    const listAnother = useRef([])
+    const [showPage3, setShowPage3] = useState(false);
+    const [showPage4, setShowPage4] = useState(false);
+
     const isRunning = useRef(false)
     const rls = removeSplash(pathName)
     const linkTarget = useRef(null)
@@ -43,24 +46,45 @@ export default function Providers() {
     const lenisRef = useRef()
     const scrollContainerRef = useRef(null)
 
-    const totalTime = 1
+    const totalTime = 1.5
 
     // RUN ON FIRST TIME , JUST ONCE
     useEffect(() => {
         console.log('this run when enter page JUST ONCE TIME')
         activeState.current = true
         if (pathName === "/page1") {
+           
             setShowPage1(true);
             setShowPage2(false);
+            setShowPage3(false);
+            setShowPage4(false);
             setShowHome(false);
+         
         } else if (pathName === "/page2") {
-            setShowPage2(true);
             setShowPage1(false);
+            setShowPage2(true);
+            setShowPage3(false);
+            setShowPage4(false);
             setShowHome(false);
-        } else {
-            setShowHome(true);
+        }if (pathName === "/page3") {
             setShowPage1(false);
             setShowPage2(false);
+            setShowPage3(true);
+            setShowPage4(false);
+            setShowHome(false);
+         
+        } else if (pathName === "/page4") {
+            setShowPage1(false);
+            setShowPage2(false);
+            setShowPage3(false);
+            setShowPage4(true);
+            setShowHome(false);
+        } else {
+            setShowPage1(false);
+            setShowPage2(false);
+            setShowPage3(false);
+            setShowPage4(false);
+            setShowHome(true);
         }
     }, []);
 
@@ -69,7 +93,7 @@ export default function Providers() {
     useEffect(() => {
         console.log('init lenis')
         setTimeout(() => {
-            scrollContainerRef.current = document.getElementById(`${rls}`)
+            scrollContainerRef.current = document.getElementById(`${rls}scroll`)
 
             scrollContainerRef.current.style.zIndex = indexCurrent
             lenisRef.current = new Lenis({
@@ -100,82 +124,156 @@ export default function Providers() {
 
     // CONTROLS STATE EACH PAGE
 
-    const animatePage = (domTarget, nextPage) => {
+    const animatePage = (domwrap, domTarget, nextPage) => {
         gsap.timeline({
             onComplete: () => {
-                gsap.set(`#${rls}`, {
-                    opacity: 0,
-                    zIndex: 0,
-                    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-                    rotate: 5,
-                    scale: 1.3
-                });
+                // gsap.timeline().set(`#${rls}`, {
+                //     zIndex: 0,
+                //     clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 150%)",
+
+                // }).set(`#${rls}scroll`, {
+
+                //     rotate: 5,
+                //     scale: 1.5,
+                //     y: 400
+                // })
 
                 if (pathName === "/page1") {
                     setShowPage1(false);
                 } else if (pathName === "/page2") {
                     setShowPage2(false);
-                } else if (pathName === "/") {
+                } else if (pathName === "/page3") {
+                    setShowPage3(false);
+                } else if (pathName === "/page4") {
+                    setShowPage4(false);
+                }  else if (pathName === "/") {
                     setShowHome(false);
                 }
 
                 router.push(nextPage);
-            }
+            },
+        }).set(domwrap, {
+            clipPath: "polygon(0% 100%, 100% 123%, 100% 100%, 0% 100%)"
+        }).set(`#${rls}`, {
+            clipPath: 'polygon(0% 0%, 100% 0%, 100% 123%, 0% 100%)',
         })
             .set(domTarget, {
                 zIndex: 2,
-                opacity: 1,
-                rotate: 5,
+                rotate: 7,
                 scale: 1.3,
+                y: 600,
             })
             .to(domTarget, {
                 rotate: 0,
                 scale: 1,
-                duration: totalTime
-            })
+                y: 0,
+                duration: totalTime,
+                ease: "power4.out",
+            }).to(domwrap, {
+                clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+                duration: totalTime,
+                ease: "power4.out",
+            }, '<')
             .to(`#${rls}`, {
                 clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
-                rotate: -4,
-                scale: 1.2,
-                duration: totalTime
-            }, '<');
+                duration: totalTime,
+                ease: "power4.out",
+            }, '<').to(`#${rls}scroll`, {
+                rotate: -7,
+                scale: 1.3,
+                y: -600,
+                duration: totalTime,
+                ease: "power4.out",
+            }, '<').to(`#${rls}scroll`, {     '-webkit-filter':'grayscale(100%) ',
+            filter: 'grayscale(100%)'
+        }, '<')
     };
 
-    useEffect(() => {
-        if (showPage1 && activeState.current) {
-            const domtarget = document.getElementById("page1")
-            gsap.to(domtarget, {
+    const firstLoadAnimation = (elParent,elChild) => {
+        const duration = totalTime
+        gsap.set(elParent,{
+            zIndex:4,
+            clipPath: "polygon(0% 100%, 100% 123%, 100% 100%, 0% 100%)"
+        })
+        gsap.set(elChild,{
+            rotate: 7,
+            scale: 1.3,
+            y: 600,
+        })
+       setTimeout(() => {
+            gsap.timeline({}).to(elChild,{
                 rotate: 0,
                 scale: 1,
-                duration: totalTime
-            })
+                y: 0,
+                duration: duration,
+                ease: "power4.out",
+            }).to(elParent,{
+                clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+                duration: duration,
+                ease: "power4.out",
+            },'<')
+       }, 500);
+    }
+    useEffect(() => {
+        const domwrap = document.getElementById("page1")
+        const domtarget = document.getElementById("page1scroll")
+        if (showPage1 && activeState.current) {
+            console.log('FIRE ANIM ENTER PAGE')
+          
+            firstLoadAnimation(domwrap,domtarget)
         }
         if (showPage1 && linkTarget.current == '/page1') {
-            const domtarget = document.getElementById("page1")
-            animatePage(domtarget, linkTarget.current);
+            animatePage(domwrap, domtarget, linkTarget.current);
         }
 
     }, [showPage1])
     useEffect(() => {
+        const domwrap = document.getElementById("page2")
+        const domtarget = document.getElementById("page2scroll")
         if (showPage2 && activeState.current) {
             console.log('FIRE ANIM ENTER PAGE')
+            firstLoadAnimation(domwrap,domtarget)
         }
         if (showPage2 && linkTarget.current == '/page2') {
-            const domtarget = document.getElementById("page2")
-            animatePage(domtarget, linkTarget.current);
-
+            animatePage(domwrap, domtarget, linkTarget.current);
         }
 
     }, [showPage2])
+    useEffect(() => {
+        const domwrap = document.getElementById("page3")
+        const domtarget = document.getElementById("page3scroll")
+        if (showPage3 && activeState.current) {
+            console.log('FIRE ANIM ENTER PAGE')
+          
+            firstLoadAnimation(domwrap,domtarget)
+        }
+        if (showPage3 && linkTarget.current == '/page3') {
+            animatePage(domwrap, domtarget, linkTarget.current);
+        }
+
+    }, [showPage3])
+    useEffect(() => {
+        const domwrap = document.getElementById("page4")
+        const domtarget = document.getElementById("page4scroll")
+        if (showPage4 && activeState.current) {
+            console.log('FIRE ANIM ENTER PAGE')
+            firstLoadAnimation(domwrap,domtarget)
+        }
+        if (showPage4 && linkTarget.current == '/page4') {
+            animatePage(domwrap, domtarget, linkTarget.current);
+        }
+
+    }, [showPage4])
 
     useEffect(() => {
+        const domwrap = document.getElementById("home")
+        const domtarget = document.getElementById("homescroll")
         if (showHome && activeState.current) {
             console.log('FIRE ANIM ENTER PAGE')
+            firstLoadAnimation(domwrap,domtarget)
         }
         if (showHome && linkTarget.current == '/') {
-            const domtarget = document.getElementById("home")
-            animatePage(domtarget, linkTarget.current);
-
+            animatePage(domwrap, domtarget, linkTarget.current);
         }
 
     }, [showHome])
@@ -197,7 +295,13 @@ export default function Providers() {
             } else if (linkTarget.current == '/page2') {
                 setShowPage2(true);
 
-            } else if (linkTarget.current == '/') {
+            } else if (linkTarget.current == '/page3') {
+                setShowPage3(true);
+
+            } else if (linkTarget.current == '/page4') {
+                setShowPage4(true);
+
+            }  else if (linkTarget.current == '/') {
 
                 setShowHome(true);
 
@@ -210,46 +314,73 @@ export default function Providers() {
 
     return (
         <main>
-        
+
             <nav>
-            <div className="navbar_section">
-                <div className="grid_12col_container">
-                <div className="logo">
-                    <span><a onClick={handleRedirect} data-link="/">20 studio</a></span>
+                <div className="navbar_section">
+                    <div className="grid_12col_container">
+                        <div className="logo">
+                            <span><a onClick={handleRedirect} data-link="/">20 studio</a></span>
+                        </div>
+                        <div className="menu_list">
+                            <ul>
+                                <li><a onClick={handleRedirect} data-link="/page1">Work</a></li>
+                                <li><a onClick={handleRedirect} data-link="/page2">Studio</a></li>
+                                <li><a onClick={handleRedirect} data-link="/page3">News</a></li>
+                                <li><a onClick={handleRedirect} data-link="/page4">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
-                <div className="menu_list">
-                    <ul>
-                        <li><a onClick={handleRedirect} data-link="/page1">Work</a></li>
-                        <li><a onClick={handleRedirect} data-link="/">Studio</a></li>
-                        <li><a onClick={handleRedirect} data-link="/page2">News</a></li>
-                        <li><a >Contact</a></li>
-                    </ul>
-                </div>
-                </div>
-                
-            </div>
-        </nav>
+            </nav>
             <div className="View_Switch_Compo">
 
 
                 {showHome &&
                     <div className="page" id="home" >
-                        <HomePage />
+                        <div className='fix' >
+                            <div className='content' id="homescroll">
+                                <HomePage />
+                            </div>
+                        </div>
                     </div>
-
                 }
                 {showPage1 &&
                     <div className="page" id="page1" >
-                        <AboutUs />
+                        <div className='fix'  >
+                            <div className='content' id="page1scroll">
+                                <AboutUs />
+                            </div>
+                        </div>
                     </div>
                 }
                 {showPage2 &&
                     <div className="page" id="page2">
-                         <Page2 />
+                        <div className='fix' >
+                            <div className='content' id="page2scroll">
+                                <Page2 />
+                            </div>
+                        </div>
                     </div>
-                   
                 }
-
+                 {showPage3 &&
+                    <div className="page" id="page3">
+                        <div className='fix' >
+                            <div className='content' id="page3scroll">
+                                <FooterSection />
+                            </div>
+                        </div>
+                    </div>
+                }
+                  {showPage4 &&
+                    <div className="page" id="page4">
+                        <div className='fix' >
+                            <div className='content' id="page4scroll">
+                                <WorkSection />
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </main>
     );
