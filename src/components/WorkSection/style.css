@@ -2,10 +2,14 @@
     padding:  0 var(--grid_margin_des);
 }
 .work_section .tittle {
+
+    overflow: hidden;
+}
+.work_section .tittle > h2 {
     font-size:7rem;
     text-transform: uppercase;
+    will-change: transform;
 }
-
 .work_section .intro {
     grid-row: 1;
     grid-column-start: 9;

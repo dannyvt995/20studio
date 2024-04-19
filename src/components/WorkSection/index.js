@@ -3,33 +3,48 @@ import Image from "next/image"
 import Star from "../icons/Star"
 import { useInView } from 'react-intersection-observer';
 import gsap from "gsap"
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import SplitType from 'split-type'
 import "./style.css"
 import { useEffect, useRef } from "react"
 export default function WorkSection() {
-  
+
     const work_sectionRef = useRef(null)
- 
-    const { ref, inView, entry } = useInView({
-        /* Optional options */
-        threshold: 0,
-        onChange: (inView,entry) => {
-            console.log(entry
-            )
-            if(inView == true)  entry.target?.classList.add('m1')
-            if(inView == false)  entry.target?.classList.remove('m1')
-        }
-      });
-    
- 
+    const titRef = useRef(null)
+    const splitHead = useRef(null)
+   
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger)
+        splitHead.current = new SplitType('#splitHead', { types: ' chars' })
+        const ctx = gsap.context(() => {
+            gsap.from(splitHead.current.chars, {
+                y: 200,
+                stagger:.1,
+                scrollTrigger: {
+                    scroller: "#homescroll",
+                    trigger: titRef.current,
+                    start: "top 80%",
+                    end: "bottom 60%",
+                 //   pin:true, // this nees set proxy fix , still not exaly get target
+                    scrub: .8,
+                    markers: true,
+                   // invalidateOnRefresh: true,
+                }
+            });
+       
+        });
+        return () => ctx.revert();
+    }, [work_sectionRef,splitHead,titRef]);
+
     return (
         <section className="work_section light_background" ref={work_sectionRef}>
-  
-            <div className="tittle"  ref={ref} id="checkc">
-                <h2>Work</h2>
+
+            <div className="tittle" ref={titRef} >
+                <h2 id="splitHead">Work</h2>
 
             </div>
-            <div className="grid_12col_container_nomargin" >
+            <div className="grid_12col_container_nomargin" id="trick">
                 <div className="intro">
                     <div className="tittle">
                         <Star />
@@ -40,58 +55,58 @@ export default function WorkSection() {
                     </div>
                 </div>
                 <div className="gr_item grid_12col_container_nomargin">
-                <a>
-                            <div>
-                                <Image
-                                 src="/home/ser1.png"
+                    <a>
+                        <div>
+                            <Image
+                                src="/home/ser1.png"
                                 width={0}
                                 height={0}
                                 sizes="100vw"
-                                style={{width:"100%",height:"auto"}}
+                                style={{ width: "100%", height: "auto" }}
                                 alt="services1"
-                                />
-                            </div>
-                            <p>Phát Triển Mẫu</p>
-                        </a>
-                        <a>
-                            <div>
-                                <Image
+                            />
+                        </div>
+                        <p>Phát Triển Mẫu</p>
+                    </a>
+                    <a>
+                        <div>
+                            <Image
                                 src="/home/ser2.png"
                                 width={0}
                                 height={0}
                                 sizes="100vw"
-                                style={{width:"100%",height:"auto"}}
+                                style={{ width: "100%", height: "auto" }}
                                 alt="services1"
-                                />
-                            </div>
-                            <p>Phát Triển Mẫu</p>
-                        </a>
-                        <a>
-                            <div>
-                                <Image
-                             src="/home/ser3.png"
+                            />
+                        </div>
+                        <p>Phát Triển Mẫu</p>
+                    </a>
+                    <a>
+                        <div>
+                            <Image
+                                src="/home/ser3.png"
                                 width={0}
                                 height={0}
                                 sizes="100vw"
-                                style={{width:"100%",height:"auto"}}
+                                style={{ width: "100%", height: "auto" }}
                                 alt="services1"
-                                />
-                            </div>
-                            <p>Phát Triển Mẫu</p>
-                        </a>
-                        <a>
-                            <div>
-                                <Image
-                                 src="/home/ser4.png"
+                            />
+                        </div>
+                        <p>Phát Triển Mẫu</p>
+                    </a>
+                    <a>
+                        <div>
+                            <Image
+                                src="/home/ser4.png"
                                 width={0}
                                 height={0}
                                 sizes="100vw"
-                                style={{width:"100%",height:"auto"}}
+                                style={{ width: "100%", height: "auto" }}
                                 alt="services1"
-                                />
-                            </div>
-                            <p>Phát Triển Mẫu</p>
-                        </a>
+                            />
+                        </div>
+                        <p>Phát Triển Mẫu</p>
+                    </a>
                 </div>
             </div>
         </section>

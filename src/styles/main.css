@@ -4,6 +4,10 @@
     z-index: 99999;
     position: relative;
 }
+section{
+    width:100%;
+    height:fit-content;
+}
 #page1 {
 
   

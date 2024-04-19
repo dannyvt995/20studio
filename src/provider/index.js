@@ -12,6 +12,9 @@ import AboutUs from '@/app/aboutus/page';
 import NavbarSection from '@/components/NavbarSection';
 import FooterSection from '@/components/FooterSection';
 import WorkSection from '@/components/WorkSection';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
+import ContactPage from '@/modules/ContactPage';
+import ProjectsSection from '@/components/ProjectsSection';
 
 function removeSplash(target) {
     let value
@@ -54,7 +57,7 @@ export default function Providers() {
     useEffect(() => {
         console.log('This runs when entering the page just once.');
         activeState.current = true;
-    
+
         switch (pathName) {
             case "/page1":
                 setShowPage1(true);
@@ -93,32 +96,60 @@ export default function Providers() {
                 break;
         }
     }, []);
-    
+
 
     // INIT LENIS, STILL WAIT 1 SECOND TO USE
     useEffect(() => {
         console.log('init lenis')
+    
+
         setTimeout(() => {
+            gsap.registerPlugin(ScrollTrigger)
             scrollContainerRef.current = document.getElementById(`${rls}scroll`)
-            const a = document.getElementById("contentLenis")
+
+
+
             scrollContainerRef.current.style.zIndex = indexCurrent
             lenisRef.current = new Lenis({
 
                 wrapper: scrollContainerRef.current,
-               
+
                 duration: 1.2,
                 easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)), // https://easings.net
 
             })
-            console.log( lenisRef.current)
+          
+            /* UPDATE THIS PROXY */
+            lenisRef.current.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
+                // console.log({ scroll, limit, velocity, direction, progress })
+                ScrollTrigger.update()
+            })
+            ScrollTrigger.scrollerProxy(`#${rls}scroll`, { pinType: "fixed" });
+            ScrollTrigger.defaults({ scroller: `#${rls}scroll` });
+
+            // ScrollTrigger.scrollerProxy(`#${rls}scroll`, {
+            //     scrollTop(value) {
+            //         if (arguments.length) {
+            //             lenisRef.current.scroll = value; // setter
+            //         }
+            //         return lenisRef.current.scroll;    // getter
+            //     },
+            //     getBoundingClientRect() {
+            //         return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+            //     }
+            // });
+
+
+            gsap.ticker.add(update)
+         
+
             isRunning.current = false
 
         }, 300);
-        gsap.ticker.add(update)
+
         function update(time) {
             lenisRef.current?.raf(time * 1000);
         }
-
 
         return () => {
             console.log('enter page == base patchName')
@@ -152,7 +183,7 @@ export default function Providers() {
                     setShowPage3(false);
                 } else if (pathName === "/page4") {
                     setShowPage4(false);
-                }  else if (pathName === "/") {
+                } else if (pathName === "/") {
                     setShowHome(false);
                 }
 
@@ -168,11 +199,13 @@ export default function Providers() {
                 rotate: 7,
                 scale: 1.3,
                 y: 600,
+                x: -300,
             })
             .to(domTarget, {
                 rotate: 0,
                 scale: 1,
                 y: 0,
+                x:0,
                 duration: totalTime,
                 ease: "power4.out",
             }).to(domwrap, {
@@ -188,37 +221,41 @@ export default function Providers() {
                 rotate: -7,
                 scale: 1.3,
                 y: -600,
+                x:-300,
                 duration: totalTime,
                 ease: "power4.out",
-            }, '<').to(`#${rls}scroll`, {     '-webkit-filter':'grayscale(100%) ',
-            filter: 'grayscale(100%)'
-        }, '<')
+            }, '<').to(`#${rls}scroll`, {
+                '-webkit-filter': 'grayscale(100%) ',
+                filter: 'grayscale(100%)'
+            }, '<')
     };
 
-    const firstLoadAnimation = (elParent,elChild) => {
+    const firstLoadAnimation = (elParent, elChild) => {
         const duration = totalTime
-        gsap.set(elParent,{
-            zIndex:4,
+        gsap.set(elParent, {
+            zIndex: 4,
             clipPath: "polygon(0% 100%, 100% 123%, 100% 100%, 0% 100%)"
         })
-        gsap.set(elChild,{
+        gsap.set(elChild, {
             rotate: 7,
             scale: 1.3,
+            x:-300,
             y: 600,
         })
-       setTimeout(() => {
-            gsap.timeline({}).to(elChild,{
+        setTimeout(() => {
+            gsap.timeline({}).to(elChild, {
                 rotate: 0,
                 scale: 1,
                 y: 0,
+                x:0,
                 duration: duration,
                 ease: "power4.out",
-            }).to(elParent,{
+            }).to(elParent, {
                 clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
                 duration: duration,
                 ease: "power4.out",
-            },'<')
-       }, 500);
+            }, '<')
+        }, 500);
     }
 
 
@@ -227,8 +264,8 @@ export default function Providers() {
         const domtarget = document.getElementById("page1scroll")
         if (showPage1 && activeState.current) {
             console.log('FIRE ANIM ENTER PAGE')
-          
-            firstLoadAnimation(domwrap,domtarget)
+
+            firstLoadAnimation(domwrap, domtarget)
         }
         if (showPage1 && linkTarget.current == '/page1') {
             animateTransitionPage(domwrap, domtarget, linkTarget.current);
@@ -240,7 +277,7 @@ export default function Providers() {
         const domtarget = document.getElementById("page2scroll")
         if (showPage2 && activeState.current) {
             console.log('FIRE ANIM ENTER PAGE')
-            firstLoadAnimation(domwrap,domtarget)
+            firstLoadAnimation(domwrap, domtarget)
         }
         if (showPage2 && linkTarget.current == '/page2') {
             animateTransitionPage(domwrap, domtarget, linkTarget.current);
@@ -252,8 +289,8 @@ export default function Providers() {
         const domtarget = document.getElementById("page3scroll")
         if (showPage3 && activeState.current) {
             console.log('FIRE ANIM ENTER PAGE')
-          
-            firstLoadAnimation(domwrap,domtarget)
+
+            firstLoadAnimation(domwrap, domtarget)
         }
         if (showPage3 && linkTarget.current == '/page3') {
             animateTransitionPage(domwrap, domtarget, linkTarget.current);
@@ -265,7 +302,7 @@ export default function Providers() {
         const domtarget = document.getElementById("page4scroll")
         if (showPage4 && activeState.current) {
             console.log('FIRE ANIM ENTER PAGE')
-            firstLoadAnimation(domwrap,domtarget)
+            firstLoadAnimation(domwrap, domtarget)
         }
         if (showPage4 && linkTarget.current == '/page4') {
             animateTransitionPage(domwrap, domtarget, linkTarget.current);
@@ -278,7 +315,7 @@ export default function Providers() {
         const domtarget = document.getElementById("homescroll")
         if (showHome && activeState.current) {
             console.log('FIRE ANIM ENTER PAGE')
-            firstLoadAnimation(domwrap,domtarget)
+            firstLoadAnimation(domwrap, domtarget)
         }
         if (showHome && linkTarget.current == '/') {
             animateTransitionPage(domwrap, domtarget, linkTarget.current);
@@ -309,7 +346,7 @@ export default function Providers() {
             } else if (linkTarget.current == '/page4') {
                 setShowPage4(true);
 
-            }  else if (linkTarget.current == '/') {
+            } else if (linkTarget.current == '/') {
 
                 setShowHome(true);
 
@@ -322,64 +359,64 @@ export default function Providers() {
 
 
 
-    
-    const openMenu = (elParent,elChild) => {
+
+    const openMenu = (elParent, elChild) => {
         menuAnimRuning.current = true
         const duration = totalTime
-        if(menuActive.current == true) {
-          
+        if (menuActive.current == true) {
+
             gsap.timeline({
                 onComplete: () => {
                     menuActive.current = false
                     menuAnimRuning.current = false
-                    gsap.set("#menu",{zIndex:0,opacity:0})
+                    gsap.set("#menu", { zIndex: 0, opacity: 0 })
                 }
-            }).to(elChild,{
+            }).to(elChild, {
                 rotate: 0,
                 scale: 1,
                 y: 0,
                 duration: duration,
                 ease: "power4.out",
-            }).to(elParent,{
+            }).to(elParent, {
                 clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
                 duration: duration,
                 ease: "power4.out",
-            },'<').to("#menuscroll",{
+            }, '<').to("#menuscroll", {
                 rotate: -7,
-                scale: 1.3,
+                scale: 1.5,
                 y: -400,
                 duration: duration,
                 ease: "power4.out",
-            },"<")
-        }else{
+            }, "<")
+        } else {
             gsap.timeline({
                 onComplete: () => {
                     menuActive.current = true
                     menuAnimRuning.current = false
                 }
-            }).set("#menu",{zIndex:0,opacity:1}).set("#menuscroll",{
+            }).set("#menu", { zIndex: 0, opacity: 1 }).set("#menuscroll", {
                 rotate: -7,
-                scale: 1.3,
+                scale: 1.5,
                 y: -400,
-            }).to(elChild,{
+            }).to(elChild, {
                 rotate: 7,
                 scale: 1.3,
                 y: 600,
                 duration: duration,
                 ease: "power4.out",
-            }).to(elParent,{
+            }).to(elParent, {
                 clipPath: "polygon(0% 110%, 100% 100%, 100% 100%, 0% 100%)",
                 duration: duration,
                 ease: "power4.out",
-            },'<').to("#menuscroll",{
+            }, '<').to("#menuscroll", {
                 rotate: 0,
                 scale: 1,
                 y: 0,
                 duration: duration,
                 ease: "power4.out",
-            },"<")
+            }, "<")
         }
-       
+
     }
 
     const handleOpenMenu = () => {
@@ -387,9 +424,9 @@ export default function Providers() {
         const idPage = `${dd}`
         const domwrap = document.getElementById(idPage)
         const domtarget = document.getElementById(`${idPage}scroll`)
-        if(!menuAnimRuning.current) openMenu(domwrap,domtarget)
+        if (!menuAnimRuning.current) openMenu(domwrap, domtarget)
 
-        
+
     }
     return (
         <main>
@@ -421,7 +458,7 @@ export default function Providers() {
                     <div className="page" id="menu" >
                         <div className='fix' >
                             <div className='content' id="menuscroll">
-                                <FooterSection backgroundClass={'dark_background'}/>
+                                <FooterSection backgroundClass={'dark_background'} />
                             </div>
                         </div>
                     </div>
@@ -430,8 +467,7 @@ export default function Providers() {
                     <div className="page" id="home" >
                         <div className='fix' >
                             <div className='content' id="homescroll">
-                               <div id="contentLenis">
-                               <HomePage /></div>
+                                <HomePage />
                             </div>
                         </div>
                     </div>
@@ -440,7 +476,7 @@ export default function Providers() {
                     <div className="page" id="page1" >
                         <div className='fix'  >
                             <div className='content' id="page1scroll">
-                                <Page2 />
+                                <ProjectsSection/>
                             </div>
                         </div>
                     </div>
@@ -454,7 +490,7 @@ export default function Providers() {
                         </div>
                     </div>
                 }
-                 {showPage3 &&
+                {showPage3 &&
                     <div className="page" id="page3">
                         <div className='fix' >
                             <div className='content' id="page3scroll">
@@ -463,11 +499,11 @@ export default function Providers() {
                         </div>
                     </div>
                 }
-                  {showPage4 &&
+                {showPage4 &&
                     <div className="page" id="page4">
                         <div className='fix' >
                             <div className='content' id="page4scroll">
-                                <WorkSection />
+                                    <ContactPage />
                             </div>
                         </div>
                     </div>
