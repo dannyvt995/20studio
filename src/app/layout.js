@@ -1,6 +1,7 @@
 
 import "@/styles/config.css";
 import "@/styles/main.css";
+import "@/styles/intersection.css";
 import "@/styles/home.css";
 import "@/styles/grid.css";
 /* import "@/styles/lenis.css"; */

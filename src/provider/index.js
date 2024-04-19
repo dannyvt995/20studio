@@ -22,7 +22,7 @@ function removeSplash(target) {
 export default function Providers() {
     const router = useRouter();
     const pathName = usePathname();
-
+    const [showMenu, setShowMenu] = useState(false);
     const [showHome, setShowHome] = useState(false);
     const [showPage1, setShowPage1] = useState(false);
     const [showPage2, setShowPage2] = useState(false);
@@ -33,6 +33,8 @@ export default function Providers() {
     const rls = removeSplash(pathName)
     const linkTarget = useRef(null)
     const activeState = useRef(false)
+    const menuActive = useRef(false)
+    const menuAnimRuning = useRef(false)
     // choice from c to n
     // 1. display n nằm dưới c (index & state)
     // 2. action anim : c hidden & n show (clippatch)
@@ -50,61 +52,65 @@ export default function Providers() {
 
     // RUN ON FIRST TIME , JUST ONCE
     useEffect(() => {
-        console.log('this run when enter page JUST ONCE TIME')
-        activeState.current = true
-        if (pathName === "/page1") {
-           
-            setShowPage1(true);
-            setShowPage2(false);
-            setShowPage3(false);
-            setShowPage4(false);
-            setShowHome(false);
-         
-        } else if (pathName === "/page2") {
-            setShowPage1(false);
-            setShowPage2(true);
-            setShowPage3(false);
-            setShowPage4(false);
-            setShowHome(false);
-        }if (pathName === "/page3") {
-            setShowPage1(false);
-            setShowPage2(false);
-            setShowPage3(true);
-            setShowPage4(false);
-            setShowHome(false);
-         
-        } else if (pathName === "/page4") {
-            setShowPage1(false);
-            setShowPage2(false);
-            setShowPage3(false);
-            setShowPage4(true);
-            setShowHome(false);
-        } else {
-            setShowPage1(false);
-            setShowPage2(false);
-            setShowPage3(false);
-            setShowPage4(false);
-            setShowHome(true);
+        console.log('This runs when entering the page just once.');
+        activeState.current = true;
+    
+        switch (pathName) {
+            case "/page1":
+                setShowPage1(true);
+                setShowPage2(false);
+                setShowPage3(false);
+                setShowPage4(false);
+                setShowHome(false);
+                break;
+            case "/page2":
+                setShowPage1(false);
+                setShowPage2(true);
+                setShowPage3(false);
+                setShowPage4(false);
+                setShowHome(false);
+                break;
+            case "/page3":
+                setShowPage1(false);
+                setShowPage2(false);
+                setShowPage3(true);
+                setShowPage4(false);
+                setShowHome(false);
+                break;
+            case "/page4":
+                setShowPage1(false);
+                setShowPage2(false);
+                setShowPage3(false);
+                setShowPage4(true);
+                setShowHome(false);
+                break;
+            default:
+                setShowPage1(false);
+                setShowPage2(false);
+                setShowPage3(false);
+                setShowPage4(false);
+                setShowHome(true);
+                break;
         }
     }, []);
-
+    
 
     // INIT LENIS, STILL WAIT 1 SECOND TO USE
     useEffect(() => {
         console.log('init lenis')
         setTimeout(() => {
             scrollContainerRef.current = document.getElementById(`${rls}scroll`)
-
+            const a = document.getElementById("contentLenis")
             scrollContainerRef.current.style.zIndex = indexCurrent
             lenisRef.current = new Lenis({
 
                 wrapper: scrollContainerRef.current,
-
+               
                 duration: 1.2,
                 easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)), // https://easings.net
 
             })
-
+            console.log( lenisRef.current)
             isRunning.current = false
 
         }, 300);
@@ -124,7 +130,7 @@ export default function Providers() {
 
     // CONTROLS STATE EACH PAGE
 
-    const animatePage = (domwrap, domTarget, nextPage) => {
+    const animateTransitionPage = (domwrap, domTarget, nextPage) => {
         gsap.timeline({
             onComplete: () => {
                 // gsap.timeline().set(`#${rls}`, {
@@ -214,6 +220,8 @@ export default function Providers() {
             },'<')
        }, 500);
     }
+
+
     useEffect(() => {
         const domwrap = document.getElementById("page1")
         const domtarget = document.getElementById("page1scroll")
@@ -223,7 +231,7 @@ export default function Providers() {
             firstLoadAnimation(domwrap,domtarget)
         }
         if (showPage1 && linkTarget.current == '/page1') {
-            animatePage(domwrap, domtarget, linkTarget.current);
+            animateTransitionPage(domwrap, domtarget, linkTarget.current);
         }
 
     }, [showPage1])
@@ -235,7 +243,7 @@ export default function Providers() {
             firstLoadAnimation(domwrap,domtarget)
         }
         if (showPage2 && linkTarget.current == '/page2') {
-            animatePage(domwrap, domtarget, linkTarget.current);
+            animateTransitionPage(domwrap, domtarget, linkTarget.current);
         }
 
     }, [showPage2])
@@ -248,7 +256,7 @@ export default function Providers() {
             firstLoadAnimation(domwrap,domtarget)
         }
         if (showPage3 && linkTarget.current == '/page3') {
-            animatePage(domwrap, domtarget, linkTarget.current);
+            animateTransitionPage(domwrap, domtarget, linkTarget.current);
         }
 
     }, [showPage3])
@@ -260,7 +268,7 @@ export default function Providers() {
             firstLoadAnimation(domwrap,domtarget)
         }
         if (showPage4 && linkTarget.current == '/page4') {
-            animatePage(domwrap, domtarget, linkTarget.current);
+            animateTransitionPage(domwrap, domtarget, linkTarget.current);
         }
 
     }, [showPage4])
@@ -273,7 +281,7 @@ export default function Providers() {
             firstLoadAnimation(domwrap,domtarget)
         }
         if (showHome && linkTarget.current == '/') {
-            animatePage(domwrap, domtarget, linkTarget.current);
+            animateTransitionPage(domwrap, domtarget, linkTarget.current);
         }
 
     }, [showHome])
@@ -312,6 +320,77 @@ export default function Providers() {
 
     };
 
+
+
+    
+    const openMenu = (elParent,elChild) => {
+        menuAnimRuning.current = true
+        const duration = totalTime
+        if(menuActive.current == true) {
+          
+            gsap.timeline({
+                onComplete: () => {
+                    menuActive.current = false
+                    menuAnimRuning.current = false
+                    gsap.set("#menu",{zIndex:0,opacity:0})
+                }
+            }).to(elChild,{
+                rotate: 0,
+                scale: 1,
+                y: 0,
+                duration: duration,
+                ease: "power4.out",
+            }).to(elParent,{
+                clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+                duration: duration,
+                ease: "power4.out",
+            },'<').to("#menuscroll",{
+                rotate: -7,
+                scale: 1.3,
+                y: -400,
+                duration: duration,
+                ease: "power4.out",
+            },"<")
+        }else{
+            gsap.timeline({
+                onComplete: () => {
+                    menuActive.current = true
+                    menuAnimRuning.current = false
+                }
+            }).set("#menu",{zIndex:0,opacity:1}).set("#menuscroll",{
+                rotate: -7,
+                scale: 1.3,
+                y: -400,
+            }).to(elChild,{
+                rotate: 7,
+                scale: 1.3,
+                y: 600,
+                duration: duration,
+                ease: "power4.out",
+            }).to(elParent,{
+                clipPath: "polygon(0% 110%, 100% 100%, 100% 100%, 0% 100%)",
+                duration: duration,
+                ease: "power4.out",
+            },'<').to("#menuscroll",{
+                rotate: 0,
+                scale: 1,
+                y: 0,
+                duration: duration,
+                ease: "power4.out",
+            },"<")
+        }
+       
+    }
+
+    const handleOpenMenu = () => {
+        const dd = removeSplash(pathName)
+        const idPage = `${dd}`
+        const domwrap = document.getElementById(idPage)
+        const domtarget = document.getElementById(`${idPage}scroll`)
+        if(!menuAnimRuning.current) openMenu(domwrap,domtarget)
+
+        
+    }
     return (
         <main>
 
@@ -329,18 +408,30 @@ export default function Providers() {
                                 <li><a onClick={handleRedirect} data-link="/page4">Contact</a></li>
                             </ul>
                         </div>
+                        <div className='menu_icon'>
+                            <button onClick={handleOpenMenu}>Menu</button>
+                        </div>
                     </div>
 
                 </div>
             </nav>
             <div className="View_Switch_Compo">
 
-
+                {!showMenu &&
+                    <div className="page" id="menu" >
+                        <div className='fix' >
+                            <div className='content' id="menuscroll">
+                                <FooterSection backgroundClass={'dark_background'}/>
+                            </div>
+                        </div>
+                    </div>
+                }
                 {showHome &&
                     <div className="page" id="home" >
                         <div className='fix' >
                             <div className='content' id="homescroll">
-                                <HomePage />
+                               <div id="contentLenis">
+                               <HomePage /></div>
                             </div>
                         </div>
                     </div>
@@ -349,7 +440,7 @@ export default function Providers() {
                     <div className="page" id="page1" >
                         <div className='fix'  >
                             <div className='content' id="page1scroll">
-                                <AboutUs />
+                                <Page2 />
                             </div>
                         </div>
                     </div>
@@ -358,7 +449,7 @@ export default function Providers() {
                     <div className="page" id="page2">
                         <div className='fix' >
                             <div className='content' id="page2scroll">
-                                <Page2 />
+                                <AboutUs />
                             </div>
                         </div>
                     </div>
