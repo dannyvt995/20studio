@@ -40,10 +40,11 @@ export default function AboutusDetail() {
                         </div>
                         <p>We aim to push boundaries and exceed expectations with every project, consistently delivering award-winning digital experiences. We recognize that true art lies in the intricacies, so we approach each project with a meticulous eye for detail and a commitment to crafting tailor-made experiences that capture the essence of your brand. Down to earth but reaching for the stars</p>
                     </div>
-                    <div className="head_anim row4">
-                        <h3>Forever&nbsp;Upwards</h3>
-                    </div>
+                  
                 </div>
+           {/*      <div className="head_anim ">
+                        <h3>Forever&nbsp;Upwards</h3>
+                    </div> */}
         </section>
     )
 }

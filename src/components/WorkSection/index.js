@@ -12,38 +12,40 @@ export default function WorkSection() {
     const work_sectionRef = useRef(null)
     const titRef = useRef(null)
     const splitHead = useRef(null)
-   
+
 
     useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger)
-        splitHead.current = new SplitType('#splitHead', { types: ' chars' })
+
+        splitHead.current = new SplitType(titRef.current.children[0], { types: ' chars' })
         const ctx = gsap.context(() => {
             gsap.from(splitHead.current.chars, {
                 y: 200,
-                stagger:.1,
+                stagger: .1,
                 scrollTrigger: {
                     scroller: "#homescroll",
                     trigger: titRef.current,
                     start: "top 80%",
                     end: "bottom 60%",
-                 //   pin:true, // this nees set proxy fix , still not exaly get target
+                    //   pin:true, // this nees set proxy fix , still not exaly get target
                     scrub: .8,
-                    markers: true,
-                   // invalidateOnRefresh: true,
+                   // markers: true,
+                    // invalidateOnRefresh: true,
                 }
             });
-       
+      return () => ctx.revert();
         });
-        return () => ctx.revert();
-    }, [work_sectionRef,splitHead,titRef]);
+  
+    }, [work_sectionRef, splitHead, titRef]);
 
     return (
         <section className="work_section light_background" ref={work_sectionRef}>
+            <div className="grid_12col_container_nomargin">
+                <div className="tittle" ref={titRef} >
+                    <h2 id="splitHead">Work</h2>
 
-            <div className="tittle" ref={titRef} >
-                <h2 id="splitHead">Work</h2>
-
+                </div>
             </div>
+
             <div className="grid_12col_container_nomargin" id="trick">
                 <div className="intro">
                     <div className="tittle">
@@ -54,7 +56,7 @@ export default function WorkSection() {
                         20Studio cung cấp các sản phẩm dịch vụ dành cho đối tácg cấp các sản phẩm dịch vụ dành cho đối tácg cấp các sản phẩm dịch vụ dành cho đối tác
                     </div>
                 </div>
-                <div className="gr_item grid_12col_container_nomargin">
+                <div className="gr_item grid_12col_container_nomargin" id="workSectionOnHome">
                     <a>
                         <div>
                             <Image
@@ -62,7 +64,7 @@ export default function WorkSection() {
                                 width={0}
                                 height={0}
                                 sizes="100vw"
-                                style={{ width: "100%", height: "auto" }}
+                                style={{ width: "auto", height: "100%" }}
                                 alt="services1"
                             />
                         </div>
@@ -75,7 +77,7 @@ export default function WorkSection() {
                                 width={0}
                                 height={0}
                                 sizes="100vw"
-                                style={{ width: "100%", height: "auto" }}
+                                style={{ width: "auto", height: "100%" }}
                                 alt="services1"
                             />
                         </div>
@@ -101,7 +103,7 @@ export default function WorkSection() {
                                 width={0}
                                 height={0}
                                 sizes="100vw"
-                                style={{ width: "100%", height: "auto" }}
+                                style={{ width: "auto", height: "100%" }}
                                 alt="services1"
                             />
                         </div>

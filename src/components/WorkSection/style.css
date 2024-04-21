@@ -1,8 +1,12 @@
 .work_section {
-    padding:  0 var(--grid_margin_des);
+    position: relative;
+    padding:  100px var(--grid_margin_des) ;
+    width: 100%;
+    height: fit-content;
 }
 .work_section .tittle {
-
+    grid-column-start: 2;
+    grid-column-end: 8;
     overflow: hidden;
 }
 .work_section .tittle > h2 {
@@ -23,6 +27,8 @@
 }
 .work_section .intro .tittle span {
     width: 20px;
+    height: 20px;
+    margin-right:1rem;
 }
 
 .work_section .gr_item {
@@ -42,12 +48,12 @@
 }
 .work_section .gr_item a:nth-child(2) {
 
-    margin-top:15vw;
+    margin-top:20vw;
     grid-column-start: 9;
     grid-column-end: 13;
 }
 .work_section .gr_item a:nth-child(3) {
-    margin-top:45vw;
+    margin-top:55vw;
     grid-column-start: 6;
     grid-column-end: 10;
 }
@@ -55,4 +61,25 @@
     margin-top:70vw;
     grid-column-start: 2;
     grid-column-end: 5;
+}
+
+#workSectionOnHome a  {
+    position: relative;
+    background-color: blue;
+}
+#workSectionOnHome a > div {
+    height:100%;
+    overflow: hidden;
+}
+#workSectionOnHome a:nth-child(1) {
+    height:70vh;
+}
+#workSectionOnHome a:nth-child(2) {
+    height:60vh;
+}
+#workSectionOnHome a:nth-child(3) {
+    height:60vh;
+}
+#workSectionOnHome a:nth-child(4) {
+    height:60vh;
 }

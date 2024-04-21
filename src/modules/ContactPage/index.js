@@ -9,7 +9,7 @@ import FooterSection from '@/components/FooterSection';
 const ContactPage = () => {
     return (
         <>
-        <section className='contact_page_section'>
+        <section className='contact_page_section light_background'>
             <div className='over_play'>
                 <span>supports@20studio.vn</span>
             </div>
@@ -45,7 +45,7 @@ const ContactPage = () => {
                 </div>
             </div>
         </section>
-        <FooterSection backgroundClass={'dark_background'}/>
+        <FooterSection idWrapperScroll="#page4scroll" backgroundClass={'dark_background'}/>
         </>
     );
 }

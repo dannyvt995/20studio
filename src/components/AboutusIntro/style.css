@@ -1,5 +1,5 @@
 .aboutus_intro_section {
-    padding: 70vh 0 100px 0;
+    height:170vh;
 }
 .aboutus_intro_section .tag {
     grid-column-start: 1;
@@ -25,10 +25,50 @@
     font-weight: 600;
 }
 .aboutus_intro_section .more {
-    padding-top:50px;
+    margin-top:3.6805555556vw;
     grid-column-start: 3;
     grid-column-end: 5;
 }
 .aboutus_intro_section .more p {
     color: var(--gray);
+}
+
+
+.aboutus_intro_section .tag,
+.aboutus_intro_section .detail {
+    margin-top: 6.74vw;
+}
+/* image */
+.aboutus_intro_section .img {
+    grid-column-start: 1;
+    grid-column-end: 13;
+    position: relative;
+}
+
+#list_img >div:nth-child(n) {
+    overflow: hidden;
+    will-change: transform;
+}
+#list_img >div:nth-child(1) {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    height:37.2222222222vw;
+}
+#list_img>div:nth-child(2) {
+    grid-column-start: 6;
+    grid-column-end: 11;
+    display: flex;
+    height: fit-content;
+    align-self: self-end;
+}
+
+#list_img>div:nth-child(3) {
+    grid-column-start: 10;
+    grid-column-end: 12;
+    
+   
+    bottom:0%;
+    height:16.9444444444vw;
+    display: flex;
+    align-self: self-end;
 }

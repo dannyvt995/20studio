@@ -61,3 +61,11 @@
     grid-column-end: 12;
   
 }
+
+
+/* about us */
+.detail_from_aboutus {
+    grid-column-start: 7;
+    grid-column-end: 12;
+  
+}

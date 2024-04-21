@@ -1,10 +1,13 @@
-
+"use client"
+import React from 'react'
 import ProjectsSection from "@/components/ProjectsSection";
-export default function Page2() {
-  
+const Page2 = () => {
+    console.log('Page2 RENDER')
     return (
         < >
           <ProjectsSection/> 
         </>
     )
 }
+
+export default React.memo(Page2);

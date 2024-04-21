@@ -9,17 +9,14 @@ const AboutUs = () => {
   
     return (
         <>
-          <HeroBanner hero_img={data["page1"]["hero_image"]}/>
+            <HeroBanner pageName="aboutus" hero_img={data["page1"]["hero_image"]}/>
             <Aboutusintro backgroundClass={'light_background'}/>
-            <AboutusDetail/>
-            <Aboutusintro backgroundClass={'light_background'}/>
-            <Aboutusintro backgroundClass={'dark_background'}/>
-            <Aboutusintro backgroundClass={'light_background'}/>
-            <FooterSection backgroundClass={'dark_background'} />
+            
+            <FooterSection idWrapperScroll="#page2scroll" backgroundClass={'dark_background'} />
         </>
           
      
     );
 }
+export default React.memo(AboutUs);
 
-export default AboutUs;

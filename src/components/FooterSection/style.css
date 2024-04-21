@@ -2,6 +2,21 @@
     position:relative;
     width: 100%;
     height: 100vh;
+
+   
+    overflow: hidden;
+}
+.content_footer_section {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
 }
 .first_footer {
     width: 100%;
@@ -12,7 +27,7 @@
     width: 50%;
 }
 .first_footer .text h3 {
-    font-size: 250px;
+    font-size: 7vw;
     line-height:100%;
 }
 .first_footer .text  p{
@@ -24,9 +39,12 @@
     height:100%;
     background:blue;
 }
-
-.second_footer {
-
+.first_footer {
+    padding-left:var(--grid_margin_des);
+    padding-right:var(--grid_margin_des);
+}
+.second_footer,.first_footer {
+    padding-top:50px;
 }
 .second_footer .info {
     grid-column-start: 1;

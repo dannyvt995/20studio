@@ -14,7 +14,7 @@ div,p,a,span {
 
     --black: #0d0e13;
     --white: #e4e0db;
-    --gray: hsla(33,14%,88%,.8);
+    --gray: hsl(0, 0%, 49%);
 
     --fsdf : 1rem;
     --fslarge: 10rem;

@@ -23,6 +23,7 @@ function removeSplash(target) {
     return value
 }
 export default function Providers() {
+    gsap.registerPlugin(ScrollTrigger)
     const router = useRouter();
     const pathName = usePathname();
     const [showMenu, setShowMenu] = useState(false);
@@ -101,10 +102,11 @@ export default function Providers() {
     // INIT LENIS, STILL WAIT 1 SECOND TO USE
     useEffect(() => {
         console.log('init lenis')
-    
+      
+
 
         setTimeout(() => {
-            gsap.registerPlugin(ScrollTrigger)
+          
             scrollContainerRef.current = document.getElementById(`${rls}scroll`)
 
 
@@ -124,7 +126,7 @@ export default function Providers() {
                 // console.log({ scroll, limit, velocity, direction, progress })
                 ScrollTrigger.update()
             })
-            ScrollTrigger.scrollerProxy(`#${rls}scroll`, { pinType: "fixed" });
+       //     ScrollTrigger.scrollerProxy(`#${rls}scroll`, { pinType: "fixed" });
             ScrollTrigger.defaults({ scroller: `#${rls}scroll` });
 
             // ScrollTrigger.scrollerProxy(`#${rls}scroll`, {
@@ -145,8 +147,14 @@ export default function Providers() {
 
             isRunning.current = false
 
-        }, 300);
 
+
+            setTimeout(() => {
+                ScrollTrigger.refresh()
+            },1000)
+          
+        }, 300);
+      
         function update(time) {
             lenisRef.current?.raf(time * 1000);
         }
@@ -164,16 +172,7 @@ export default function Providers() {
     const animateTransitionPage = (domwrap, domTarget, nextPage) => {
         gsap.timeline({
             onComplete: () => {
-                // gsap.timeline().set(`#${rls}`, {
-                //     zIndex: 0,
-                //     clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 150%)",
-
-                // }).set(`#${rls}scroll`, {
-
-                //     rotate: 5,
-                //     scale: 1.5,
-                //     y: 400
-                // })
+    
 
                 if (pathName === "/page1") {
                     setShowPage1(false);
@@ -236,12 +235,12 @@ export default function Providers() {
             zIndex: 4,
             clipPath: "polygon(0% 100%, 100% 123%, 100% 100%, 0% 100%)"
         })
-        gsap.set(elChild, {
-            rotate: 7,
-            scale: 1.3,
-            x:-300,
-            y: 600,
-        })
+        // gsap.set(elChild, {
+        //     rotate: 7,
+        //     scale: 1.3,
+        //     x:-300,
+        //     y: 600,
+        // })
         setTimeout(() => {
             gsap.timeline({}).to(elChild, {
                 rotate: 0,
@@ -458,7 +457,7 @@ export default function Providers() {
                     <div className="page" id="menu" >
                         <div className='fix' >
                             <div className='content' id="menuscroll">
-                                <FooterSection backgroundClass={'dark_background'} />
+                                {/* <FooterSection backgroundClass={'dark_background'} /> */}
                             </div>
                         </div>
                     </div>
@@ -494,7 +493,7 @@ export default function Providers() {
                     <div className="page" id="page3">
                         <div className='fix' >
                             <div className='content' id="page3scroll">
-                                <FooterSection />
+                                <FooterSection backgroundClass={'light_background'} />
                             </div>
                         </div>
                     </div>

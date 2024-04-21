@@ -1,9 +1,9 @@
 "use client"
-
+import React from 'react'
 import AboutUs from "../aboutus/page";
 
-export default function Page1() {
-
+const Page1 = () => {
+    console.log('Page1 RENDER')
     return (
         <div className="page" id="page1" >
             {/* <div className='overplay'></div> */}
@@ -12,3 +12,5 @@ export default function Page1() {
         </div>
     )
 }
+
+export default React.memo(Page1);

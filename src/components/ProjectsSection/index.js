@@ -116,6 +116,7 @@ export default function ProjectsSection() {
     const isRuninngOpen = useRef(false)
     const timeLineSLiderInfinity = useRef(null)
     const observerRefSliderInfi = useRef(null)
+    let ObserverInfi
     useEffect(() => {
         const boxall = $('.slider_list button')
         const list = []
@@ -130,7 +131,7 @@ export default function ProjectsSection() {
         console.log(timeLineSLiderInfinity.current)
      //   list.forEach((box, i) => box.addEventListener("click", () => timeLineSLiderInfinity.current.toIndex(i - 2, { duration: 0.8, ease: "power1.inOut" })));
         // now use an Observer to listen to pointer/touch/wheel events and set the timeScale of the infinite looping timeline accordingly. 
-      Observer.create({
+        ObserverInfi = Observer.create({
              target: "#SLIDER_WORK_LIST",
              type: "pointer,touch,wheel",
              wheelSpeed: -.2,
@@ -139,7 +140,7 @@ export default function ProjectsSection() {
                  slow.invalidate().restart(); // now decelerate
              }
          });
-         //observerRefSliderInfi.current.enable()
+         ObserverInfi.disable()
     }, [])
     const openListActive = useRef(false)
     const handleOpenList = (e) => {
@@ -154,12 +155,12 @@ export default function ProjectsSection() {
         itemList[boxCheck].style.opacity = 0
         if (timeLineSLiderInfinity.current && !openListActive.current){
          //   boxTargetSmall.style.opacity = 0
-            observeRefPageWheel.current.disable()
+         ObserverInfi.disable()
             //observerRefSliderInfi.current.enable()
             timeLineSLiderInfinity.current.toIndex(boxCheck -2, {duration: .2, ease: "power1.inOut" })
         }else{
            // observerRefSliderInfi.current.disable()
-            observeRefPageWheel.current.enable()
+           ObserverInfi.enable()
         }
        
         if (isOpenList.current) {
@@ -209,7 +210,7 @@ export default function ProjectsSection() {
 
     return (
         <>
-            <div className="work_section">
+            <div className="projects_section">
 
                 <div className="background" ref={BACKGROUND_PROJECTS}>
 
