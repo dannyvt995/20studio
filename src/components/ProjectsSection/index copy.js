@@ -76,14 +76,14 @@ export default function ProjectsSection() {
         gsapSlider(slide, "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)", "10%", 1.2);
     }
     function handleMouseDown() {
-      //  console.log('handleMouseDown')
+        console.log('handleMouseDown')
         if (stopNow.current === false) {
             stopNow.current = true
             handleClickPrev()
         }
     }
     function handleMouseUp() {
-      //  console.log('handleMouseUp')
+        console.log('handleMouseUp')
         if (stopNow.current === false) {
             stopNow.current = true
             handleClickNext()
@@ -100,7 +100,7 @@ export default function ProjectsSection() {
 
             preventDefault: true
         });
-        observeRefPageWheel.current.disable()
+
       
     }, [observeRefPageWheel])
     const handleRedirectToDetailWork = (e) => {
@@ -123,29 +123,24 @@ export default function ProjectsSection() {
         for (let i = 0; i < boxall.length; i++) {
             list.push(boxall[i])
         }
-        timeLineSLiderInfinity.current = horizontalLoop("#SLIDER_WORK_LIST button", {repeat: -1,center:true,paused: false});
+        timeLineSLiderInfinity.current = horizontalLoop("#SLIDER_WORK_LIST button", {repeat: -1 });
         // create a tween that'll always decelerate the timeScale of the timeline back to 0 over the course of 0.5 seconds (or whatever)
         const slow = gsap.to(timeLineSLiderInfinity.current, { timeScale: 0, duration: 0.5 });
-     //   timeLineSLiderInfinity.current.toIndex(-2, {duration: .1, ease: "power1.inOut" })
-        timeLineSLiderInfinity.current.timeScale(15);
+        timeLineSLiderInfinity.current.toIndex(-2, {duration: .1, ease: "power1.inOut" })
+        timeLineSLiderInfinity.current.timeScale(0);
         console.log(timeLineSLiderInfinity.current)
-      list.forEach((box, i) => box.addEventListener("click", () => {
-        timeLineSLiderInfinity.current.toIndex(i, { duration: 0.8, ease: "power1.inOut" })
-        
-      }));
-      console.log(timeLineSLiderInfinity)
+     //   list.forEach((box, i) => box.addEventListener("click", () => timeLineSLiderInfinity.current.toIndex(i - 2, { duration: 0.8, ease: "power1.inOut" })));
         // now use an Observer to listen to pointer/touch/wheel events and set the timeScale of the infinite looping timeline accordingly. 
-        ObserverInfi=  Observer.create({
+        ObserverInfi = Observer.create({
              target: "#SLIDER_WORK_LIST",
              type: "pointer,touch,wheel",
              wheelSpeed: -.2,
              onChange: self => {
-           
                  timeLineSLiderInfinity.current.timeScale(Math.abs(self.deltaX) > Math.abs(self.deltaY) ? -self.deltaX : -self.deltaY); // whichever direction is bigger
                  slow.invalidate().restart(); // now decelerate
              }
          });
-    //    ObserverInfi.disable()
+         ObserverInfi.disable()
     }, [])
     const openListActive = useRef(false)
     const handleOpenList = (e) => {
@@ -160,10 +155,9 @@ export default function ProjectsSection() {
         itemList[boxCheck].style.opacity = 0
         if (timeLineSLiderInfinity.current && !openListActive.current){
          //   boxTargetSmall.style.opacity = 0
-        // ObserverInfi.disable()
-        ObserverInfi.enable()
+         ObserverInfi.disable()
             //observerRefSliderInfi.current.enable()
-           // timeLineSLiderInfinity.current.toIndex(boxCheck -2, {duration: .2, ease: "power1.inOut" })
+            timeLineSLiderInfinity.current.toIndex(boxCheck -2, {duration: .2, ease: "power1.inOut" })
         }else{
            // observerRefSliderInfi.current.disable()
            ObserverInfi.enable()

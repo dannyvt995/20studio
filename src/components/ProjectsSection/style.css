@@ -24,9 +24,9 @@
     top:50%;
  /*    left:calc(calc(calc(100vw - var(--width_item)) / 2) - calc(var(--width_item) + var(--gap_item)));
  */
-/* left:calc(calc(var(--width_item) + var(--width_item)) /5.11);  */
+//left:calc(calc(var(--width_item) + var(--width_item)) /-4.2); 
    transform:translateY(-50%);
-   left: -300px;
+   left:0;
     z-index:8;
     display: flex;
 }

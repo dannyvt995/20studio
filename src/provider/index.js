@@ -15,6 +15,7 @@ import WorkSection from '@/components/WorkSection';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import ContactPage from '@/modules/ContactPage';
 import ProjectsSection from '@/components/ProjectsSection';
+import NavbarOpenFull from '@/components/NavbarOpenFull';
 
 function removeSplash(target) {
     let value
@@ -34,7 +35,7 @@ export default function Providers() {
     const [showPage4, setShowPage4] = useState(false);
 
     const isRunning = useRef(false)
-    const rls = removeSplash(pathName)
+    const pathNameFormat = removeSplash(pathName)
     const linkTarget = useRef(null)
     const activeState = useRef(false)
     const menuActive = useRef(false)
@@ -107,7 +108,7 @@ export default function Providers() {
 
         setTimeout(() => {
           
-            scrollContainerRef.current = document.getElementById(`${rls}scroll`)
+            scrollContainerRef.current = document.getElementById(`${pathNameFormat}scroll`)
 
 
 
@@ -126,10 +127,10 @@ export default function Providers() {
                 // console.log({ scroll, limit, velocity, direction, progress })
                 ScrollTrigger.update()
             })
-       //     ScrollTrigger.scrollerProxy(`#${rls}scroll`, { pinType: "fixed" });
-            ScrollTrigger.defaults({ scroller: `#${rls}scroll` });
+       //     ScrollTrigger.scrollerProxy(`#${pathNameFormat}scroll`, { pinType: "fixed" });
+            ScrollTrigger.defaults({ scroller: `#${pathNameFormat}scroll` });
 
-            // ScrollTrigger.scrollerProxy(`#${rls}scroll`, {
+            // ScrollTrigger.scrollerProxy(`#${pathNameFormat}scroll`, {
             //     scrollTop(value) {
             //         if (arguments.length) {
             //             lenisRef.current.scroll = value; // setter
@@ -169,7 +170,7 @@ export default function Providers() {
 
     // CONTROLS STATE EACH PAGE
 
-    const animateTransitionPage = (domwrap, domTarget, nextPage) => {
+    const animateTransitionPage = (targetDomWrapper, targetDomScroll, nextPage) => {
         gsap.timeline({
             onComplete: () => {
     
@@ -188,59 +189,59 @@ export default function Providers() {
 
                 router.push(nextPage);
             },
-        }).set(domwrap, {
-            clipPath: "polygon(0% 100%, 100% 123%, 100% 100%, 0% 100%)"
-        }).set(`#${rls}`, {
-            clipPath: 'polygon(0% 0%, 100% 0%, 100% 123%, 0% 100%)',
-        })
-            .set(domTarget, {
+            }).set(targetDomWrapper, {
+                clipPath: "polygon(0% 100%, 100% 123%, 100% 100%, 0% 100%)"
+            }).set(`#${pathNameFormat}`, {
+                clipPath: 'polygon(0% 0%, 100% 0%, 100% 123%, 0% 100%)',
+            })
+            .set(targetDomScroll, {
+                opacity:1
+            })
+            .set(targetDomScroll, {
                 zIndex: 2,
                 rotate: 7,
                 scale: 1.3,
                 y: 600,
                 x: -300,
             })
-            .to(domTarget, {
+            .to(targetDomScroll, {
                 rotate: 0,
                 scale: 1,
                 y: 0,
                 x:0,
                 duration: totalTime,
                 ease: "power4.out",
-            }).to(domwrap, {
+            }).to(targetDomWrapper, {
                 clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
                 duration: totalTime,
                 ease: "power4.out",
             }, '<')
-            .to(`#${rls}`, {
+            .to(`#${pathNameFormat}`, {
                 clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
                 duration: totalTime,
                 ease: "power4.out",
-            }, '<').to(`#${rls}scroll`, {
+            }, '<').to(`#${pathNameFormat}scroll`, {
                 rotate: -7,
                 scale: 1.3,
                 y: -600,
                 x:-300,
                 duration: totalTime,
                 ease: "power4.out",
-            }, '<').to(`#${rls}scroll`, {
+            }, '<').to(`#${pathNameFormat}scroll`, {
                 '-webkit-filter': 'grayscale(100%) ',
                 filter: 'grayscale(100%)'
             }, '<')
     };
 
     const firstLoadAnimation = (elParent, elChild) => {
-        const duration = totalTime
+        const duration = 1.5
         gsap.set(elParent, {
             zIndex: 4,
             clipPath: "polygon(0% 100%, 100% 123%, 100% 100%, 0% 100%)"
         })
-        // gsap.set(elChild, {
-        //     rotate: 7,
-        //     scale: 1.3,
-        //     x:-300,
-        //     y: 600,
-        // })
+        gsap.set(elChild, {
+            opacity: 1
+        })
         setTimeout(() => {
             gsap.timeline({}).to(elChild, {
                 rotate: 0,
@@ -257,71 +258,153 @@ export default function Providers() {
         }, 500);
     }
 
+    const animateTransitionPageOutside = (targetDomWrapper, targetDomScroll, nextPage) => {
+        if (pathName === "/page1") {
+            setShowPage1(false);
+        } else if (pathName === "/page2") {
+            setShowPage2(false);
+        } else if (pathName === "/page3") {
+            setShowPage3(false);
+        } else if (pathName === "/page4") {
+            setShowPage4(false);
+        } else if (pathName === "/") {
+            setShowHome(false);
+        }
+        gsap.timeline({
+            onComplete: () => {
+                gsap.set(`#menu`, {
+                    clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+                })
+                gsap.set('#menuscroll', {
+                    rotate: 0,
+                    scale: 1,
+                    y: 0,
+                    x:0,
+                  
+            })
+                router.push(nextPage);
+            },
+            }).set(targetDomWrapper, {
+                clipPath: "polygon(0% 100%, 100% 123%, 100% 100%, 0% 100%)"
+            }).set(`#menu`, {
+                clipPath: 'polygon(0% 0%, 100% 0%, 100% 123%, 0% 100%)',
+            })
+            .set(targetDomScroll, {
+                opacity:1
+            })
+            .set(targetDomScroll, {
+                zIndex: 2,
+                rotate: 7,
+                scale: 1.3,
+                y: 600,
+                x: -300,
+            })
+            .to(targetDomScroll, {
+                rotate: 0,
+                scale: 1,
+                y: 0,
+                x:0,
+                duration: totalTime,
+                ease: "power4.out",
+            }).to(targetDomWrapper, {
+                clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+                duration: totalTime,
+                ease: "power4.out",
+            }, '<')
+            .to(`#menu`, {
+                clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+                duration: totalTime,
+                ease: "power4.out",
+            }, '<').to(`#menuscroll`, {
+                rotate: -7,
+                scale: 1.3,
+                y: -600,
+                x:-300,
+                duration: totalTime,
+                ease: "power4.out",
+            }, '<').to(`#menuscroll`, {
+                '-webkit-filter': 'grayscale(100%) ',
+                filter: 'grayscale(100%)'
+            }, '<')
+    };
 
     useEffect(() => {
-        const domwrap = document.getElementById("page1")
-        const domtarget = document.getElementById("page1scroll")
+        const targetDomWrapper = document.getElementById("page1")
+        const targetDomScroll = document.getElementById("page1scroll")
         if (showPage1 && activeState.current) {
             console.log('FIRE ANIM ENTER PAGE')
 
-            firstLoadAnimation(domwrap, domtarget)
+            firstLoadAnimation(targetDomWrapper, targetDomScroll)
         }
-        if (showPage1 && linkTarget.current == '/page1') {
-            animateTransitionPage(domwrap, domtarget, linkTarget.current);
+        if (showPage1 && linkTarget.current == '/page1' && saveTypeLink.current == 'onsite') {
+            animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current);
         }
-
+        if (showPage1 && linkTarget.current == '/page1' && saveTypeLink.current == 'outsite') {
+            animateTransitionPageOutside(targetDomWrapper, targetDomScroll, linkTarget.current);
+        }
     }, [showPage1])
     useEffect(() => {
-        const domwrap = document.getElementById("page2")
-        const domtarget = document.getElementById("page2scroll")
+        const targetDomWrapper = document.getElementById("page2")
+        const targetDomScroll = document.getElementById("page2scroll")
         if (showPage2 && activeState.current) {
             console.log('FIRE ANIM ENTER PAGE')
-            firstLoadAnimation(domwrap, domtarget)
+            firstLoadAnimation(targetDomWrapper, targetDomScroll)
         }
-        if (showPage2 && linkTarget.current == '/page2') {
-            animateTransitionPage(domwrap, domtarget, linkTarget.current);
+        if (showPage2 && linkTarget.current == '/page2' && saveTypeLink.current == 'onsite') {
+            animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current);
         }
-
+        if (showPage2 && linkTarget.current == '/page2' && saveTypeLink.current == 'outsite') {
+            animateTransitionPageOutside(targetDomWrapper, targetDomScroll, linkTarget.current);
+        }
     }, [showPage2])
     useEffect(() => {
-        const domwrap = document.getElementById("page3")
-        const domtarget = document.getElementById("page3scroll")
+        const targetDomWrapper = document.getElementById("page3")
+        const targetDomScroll = document.getElementById("page3scroll")
         if (showPage3 && activeState.current) {
             console.log('FIRE ANIM ENTER PAGE')
 
-            firstLoadAnimation(domwrap, domtarget)
+            firstLoadAnimation(targetDomWrapper, targetDomScroll)
         }
-        if (showPage3 && linkTarget.current == '/page3') {
-            animateTransitionPage(domwrap, domtarget, linkTarget.current);
+        if (showPage3 && linkTarget.current == '/page3' && saveTypeLink.current == 'onsite') {
+            animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current);
         }
-
+        if (showPage3 && linkTarget.current == '/page3' && saveTypeLink.current == 'outsite') {
+            animateTransitionPageOutside(targetDomWrapper, targetDomScroll, linkTarget.current);
+        }
     }, [showPage3])
     useEffect(() => {
-        const domwrap = document.getElementById("page4")
-        const domtarget = document.getElementById("page4scroll")
+        const targetDomWrapper = document.getElementById("page4")
+        const targetDomScroll = document.getElementById("page4scroll")
         if (showPage4 && activeState.current) {
             console.log('FIRE ANIM ENTER PAGE')
-            firstLoadAnimation(domwrap, domtarget)
+            firstLoadAnimation(targetDomWrapper, targetDomScroll)
         }
-        if (showPage4 && linkTarget.current == '/page4') {
-            animateTransitionPage(domwrap, domtarget, linkTarget.current);
+        if (showPage4 && linkTarget.current == '/page4' && saveTypeLink.current == 'onsite') {
+            animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current);
         }
-
+        if (showPage4 && linkTarget.current == '/page4' && saveTypeLink.current == 'outsite') {
+            animateTransitionPageOutside(targetDomWrapper, targetDomScroll, linkTarget.current);
+        }
     }, [showPage4])
 
     useEffect(() => {
-        const domwrap = document.getElementById("home")
-        const domtarget = document.getElementById("homescroll")
+        const targetDomWrapper = document.getElementById("home")
+        const targetDomScroll = document.getElementById("homescroll")
         if (showHome && activeState.current) {
             console.log('FIRE ANIM ENTER PAGE')
-            firstLoadAnimation(domwrap, domtarget)
+            firstLoadAnimation(targetDomWrapper, targetDomScroll)
         }
         if (showHome && linkTarget.current == '/') {
-            animateTransitionPage(domwrap, domtarget, linkTarget.current);
+            animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current);
         }
 
     }, [showHome])
 
+    const saveTypeLink = useRef(null)
+    const navbarFullOpenRef =  useRef(null)
+    useEffect(() => {
+        navbarFullOpenRef.current = document.getElementById("menu")
+    },[navbarFullOpenRef])
     // HANDLE REDIRECT
     const handleRedirect = (e) => {
         e.preventDefault()
@@ -332,7 +415,7 @@ export default function Providers() {
             isRunning.current = true
             activeState.current = false
             linkTarget.current = e.target.getAttribute("data-link");
-
+            saveTypeLink.current = e.target.getAttribute("data-type");
             if (linkTarget.current == '/page1') {
                 setShowPage1(true);
 
@@ -374,6 +457,8 @@ export default function Providers() {
                 rotate: 0,
                 scale: 1,
                 y: 0,
+                '-webkit-filter': 'grayscale(0%) ',
+                filter: 'grayscale(0%)',
                 duration: duration,
                 ease: "power4.out",
             }).to(elParent, {
@@ -397,10 +482,12 @@ export default function Providers() {
                 rotate: -7,
                 scale: 1.5,
                 y: -400,
-            }).to(elChild, {
+            }).set(elChild,{opacity:1}).to(elChild, {
                 rotate: 7,
                 scale: 1.3,
                 y: 600,
+                '-webkit-filter': 'grayscale(100%) ',
+                filter: 'grayscale(100%)',
                 duration: duration,
                 ease: "power4.out",
             }).to(elParent, {
@@ -421,9 +508,12 @@ export default function Providers() {
     const handleOpenMenu = () => {
         const dd = removeSplash(pathName)
         const idPage = `${dd}`
-        const domwrap = document.getElementById(idPage)
-        const domtarget = document.getElementById(`${idPage}scroll`)
-        if (!menuAnimRuning.current) openMenu(domwrap, domtarget)
+        const targetDomWrapper = document.getElementById(idPage)
+        const targetDomScroll = document.getElementById(`${idPage}scroll`)
+        if (!menuAnimRuning.current) {
+            console.log("Menu is opening...")
+            openMenu(targetDomWrapper, targetDomScroll)
+        }
 
 
     }
@@ -434,14 +524,14 @@ export default function Providers() {
                 <div className="navbar_section">
                     <div className="grid_12col_container">
                         <div className="logo">
-                            <span><a onClick={handleRedirect} data-link="/">20 studio</a></span>
+                            <span><a onClick={handleRedirect} data-link="/" data-type="onsite">20 studio</a></span>
                         </div>
                         <div className="menu_list">
                             <ul>
-                                <li><a onClick={handleRedirect} data-link="/page1">Work</a></li>
-                                <li><a onClick={handleRedirect} data-link="/page2">Studio</a></li>
-                                <li><a onClick={handleRedirect} data-link="/page3">News</a></li>
-                                <li><a onClick={handleRedirect} data-link="/page4">Contact</a></li>
+                                <li><a onClick={handleRedirect} data-link="/page1"  data-type="onsite">Work</a></li>
+                                <li><a onClick={handleRedirect} data-link="/page2"  data-type="onsite">Studio</a></li>
+                                <li><a onClick={handleRedirect} data-link="/page3"  data-type="onsite">News</a></li>
+                                <li><a onClick={handleRedirect} data-link="/page4"  data-type="onsite">Contact</a></li>
                             </ul>
                         </div>
                         <div className='menu_icon'>
@@ -457,7 +547,7 @@ export default function Providers() {
                     <div className="page" id="menu" >
                         <div className='fix' >
                             <div className='content' id="menuscroll">
-                                {/* <FooterSection backgroundClass={'dark_background'} /> */}
+                                <NavbarOpenFull handleRedirect={handleRedirect}/>
                             </div>
                         </div>
                     </div>
@@ -502,7 +592,7 @@ export default function Providers() {
                     <div className="page" id="page4">
                         <div className='fix' >
                             <div className='content' id="page4scroll">
-                                    <ContactPage />
+                                <ContactPage />
                             </div>
                         </div>
                     </div>
