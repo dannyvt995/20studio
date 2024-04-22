@@ -69,9 +69,9 @@ ul#small_background li:nth-child(n) a {
 ul#small_background li:nth-child(n) a {
     background:unset;
 }
-ul#small_background li.active:nth-child(n),
-ul#big_background li.active:nth-child(n) {
-    z-index:20;
+ul#small_background li:nth-child(1),
+ul#big_background li:nth-child(1) {
+    z-index: 20;
 }
 ul#small_background li:nth-child(1),
 ul#big_background li:nth-child(1){

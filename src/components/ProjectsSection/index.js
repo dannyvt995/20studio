@@ -3,26 +3,18 @@ import React, { useEffect, useRef } from 'react'
 import $ from 'jquery'
 import gsap from 'gsap'
 import { Observer } from "gsap/dist/Observer";
-import { Draggable } from 'gsap/dist/Draggable';
-//https://gsap.com/community/forums/topic/30583-endless-gsap-slider/
-//https://codepen.io/GreenSock/pen/gOvvJee
-//https://codepen.io/GreenSock/pen/gOvvJee
-//https://codepen.io/GreenSock/pen/gOvvJee
-//https://gsap.com/community/forums/topic/30583-endless-gsap-slider/
-//https://gsap.com/community/forums/topic/30583-endless-gsap-slider/
-//https://gsap.com/community/forums/topic/30583-endless-gsap-slider/
-//https://gsap.com/community/forums/topic/30583-endless-gsap-slider/
-//https://gsap.com/community/forums/topic/30583-endless-gsap-slider/
-//https://gsap.com/community/forums/topic/30583-endless-gsap-slider/
+
 import './style.css'
 
 export default function ProjectsSection() {
-  gsap.registerPlugin(Observer, Draggable);
+  gsap.registerPlugin(Observer);
   let i_of_slider = 999
   const durationAnim = 1
   const delayAnim = .05
   const stopNow = useRef(false)
   const small_imgRef = useRef(null)
+
+
   function runSlider(what) {
     what.addClass("active").siblings("li").removeClass("active");
   }
@@ -51,7 +43,7 @@ export default function ProjectsSection() {
         .to("ul#small_background li.active", {
           clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
           backgroundPositionY: 0,
-          // delay: delayAnim,
+          delay: delayAnim,
           duration: durationAnim,
           ease: "power4.out"
         }, "<")
@@ -135,6 +127,8 @@ export default function ProjectsSection() {
         </div>
 
         <div className="content" >
+          <button onClick={handleClickPrev}>Prev</button>
+          <button onClick={handleClickNext}>Next</button>
           <ul id="small_background" ref={small_imgRef}>
             <li className='active'><a onClick={handleRedirectToDetailWork} data_link="project1"></a></li>
             <li><a onClick={handleRedirectToDetailWork} data_link="project2"></a></li>
@@ -143,9 +137,9 @@ export default function ProjectsSection() {
             <li><a onClick={handleRedirectToDetailWork} data_link="project5"></a></li>
           </ul>
         </div>
-        <div className='btn_open_list'>
+     {/*    <div className='btn_open_list'>
           <button onClick={handleOpenList}>handleOpenList</button>
-        </div>
+        </div> */}
       </div>
     </>
   )
