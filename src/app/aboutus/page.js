@@ -11,7 +11,7 @@ const AboutUs = () => {
         <>
             <HeroBanner pageName="aboutus" hero_img={data["page1"]["hero_image"]}/>
             <Aboutusintro backgroundClass={'light_background'}/>
-            
+            <AboutusDetail />
             <FooterSection idWrapperScroll="#page2scroll" backgroundClass={'dark_background'} />
         </>
           

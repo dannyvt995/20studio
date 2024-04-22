@@ -101,10 +101,11 @@ export default function Providers() {
 
 
     // INIT LENIS, STILL WAIT 1 SECOND TO USE
+    const navbarListTabRef = useRef(null)
+    const navbarIconTabRef = useRef(null)
     useEffect(() => {
         console.log('init lenis')
-      
-
+        
 
         setTimeout(() => {
           
@@ -124,7 +125,16 @@ export default function Providers() {
           
             /* UPDATE THIS PROXY */
             lenisRef.current.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
-                // console.log({ scroll, limit, velocity, direction, progress })
+              // console.log({ scroll, limit, velocity, direction, progress })
+               if(navbarListTabRef.current && navbarIconTabRef.current) {
+                    if(scroll > 500) {
+                        navbarListTabRef.current.style.display = 'none'
+                        navbarIconTabRef.current.style.display = 'block'
+                    }else{
+                        navbarListTabRef.current.style.display = 'block'
+                        navbarIconTabRef.current.style.display = 'none'
+                    }
+               }
                 ScrollTrigger.update()
             })
        //     ScrollTrigger.scrollerProxy(`#${pathNameFormat}scroll`, { pinType: "fixed" });
@@ -439,9 +449,6 @@ export default function Providers() {
 
     };
 
-
-
-
     const openMenu = (elParent, elChild) => {
         menuAnimRuning.current = true
         const duration = totalTime
@@ -517,24 +524,27 @@ export default function Providers() {
 
 
     }
+
+
+
     return (
         <main>
 
             <nav>
                 <div className="navbar_section">
                     <div className="grid_12col_container">
-                        <div className="logo">
+                        <div className="logo row1">
                             <span><a onClick={handleRedirect} data-link="/" data-type="onsite">20 studio</a></span>
                         </div>
-                        <div className="menu_list">
+                        <div className="menu_list row1" ref={navbarListTabRef}>
                             <ul>
-                                <li><a onClick={handleRedirect} data-link="/page1"  data-type="onsite">Work</a></li>
-                                <li><a onClick={handleRedirect} data-link="/page2"  data-type="onsite">Studio</a></li>
-                                <li><a onClick={handleRedirect} data-link="/page3"  data-type="onsite">News</a></li>
-                                <li><a onClick={handleRedirect} data-link="/page4"  data-type="onsite">Contact</a></li>
+                                <li><a onClick={handleRedirect} data-link="/page1"  data-type="onsite">Dự án</a></li>
+                                <li><a onClick={handleRedirect} data-link="/page2"  data-type="onsite">Về chúng tôi</a></li>
+                                <li><a onClick={handleRedirect} data-link="/page3"  data-type="onsite">????</a></li>
+                                <li><a onClick={handleRedirect} data-link="/page4"  data-type="onsite">Liên hệ</a></li>
                             </ul>
                         </div>
-                        <div className='menu_icon'>
+                        <div className='menu_icon row1' ref={navbarIconTabRef}>
                             <button onClick={handleOpenMenu}>Menu</button>
                         </div>
                     </div>

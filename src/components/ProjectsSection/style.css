@@ -9,6 +9,7 @@
     background-color: var(--white);
     overflow:hidden;
 }
+
 .btn_open_list {
     position: absolute;
     bottom: 0;
@@ -16,35 +17,8 @@
     padding: 100px;
     z-index: 99;
 }
-#SLIDER_WORK_LIST {
-    position: absolute;
-   
-    width: fit-content;
-    height: fit-content;
-    top:50%;
- /*    left:calc(calc(calc(100vw - var(--width_item)) / 2) - calc(var(--width_item) + var(--gap_item)));
- */
-//left:calc(calc(var(--width_item) + var(--width_item)) /-4.2); 
-   transform:translateY(-50%);
-   left:0;
-    z-index:8;
-    display: flex;
-}
-#SLIDER_WORK_LIST button.active {
-        opacity:0 !important;
-}
 
-#SLIDER_WORK_LIST button {
-    display: block;
-    width:var(--width_item);
-    height: 64vh;
-
-    padding:  1vw;
-    outline: none;
-    border:none;
-  
-}
-.work_section > .content {
+.projects_section > .content {
     position:absolute;
     top:50%;
     left:50%;
@@ -55,7 +29,7 @@
     padding:  1vw;
     overflow:hidden;
 }
-.work_section .background {
+.projects_section .background {
     position:absolute;
     width:100%;
     height:100%;

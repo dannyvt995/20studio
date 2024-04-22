@@ -28,6 +28,15 @@
     grid-column-end: 13;
 
 }
+.navbar_section .menu_icon {
+    grid-column-start: 12;
+    grid-column-end: 13;
+
+    display: flex;
+    justify-content: flex-end;
+
+    display:none;
+}
 .navbar_section .menu_list ul {
 
     display: flex;

@@ -8,17 +8,17 @@ export default function HeroBanner({ pageName, hero_img }) {
             <div className="content_hero_banner grid_12col_container grid_3row">
                 {pageName == 'home' &&
                     <>
-                        <div className="head row1"><span>Fashion Brand Development</span></div>
+                        <div className="head row1"><span>Phát Triển Thương Hiệu Thời Trang</span></div>
                         <div className="des row2"><p>We are where production takes place. Each country has its specialties. Our offices know them inside and out. Our teams are connected to customers and production partners through our digital platform.</p></div>
                         <div className="icon row3">
                             <span >20 Studio</span>
                         </div>
                         <div className="menu row3">
                             <ul>
-                                <li><a>Works</a></li>
-                                <li><a>Services</a></li>
-                                <li><a>About us</a></li>
-                                <li><a>Contact</a></li>
+                                <li><a>Dự án</a></li>
+                                <li><a>Dịch vụ</a></li>
+                                <li><a>Về chúng tôi</a></li>
+                                <li><a>Liên hệ</a></li>
                             </ul>
                         </div>
                         <div className="more_info row3">
@@ -32,8 +32,8 @@ export default function HeroBanner({ pageName, hero_img }) {
 
                 {pageName == 'aboutus' &&
                     <>
-                        <div className="head row1"><span>Fashion Brand Development</span></div>
-                        <div className="des row2"><p>We are where production takes place. Each country has its specialties. Our offices know them inside and out. Our teams are connected to customers and production partners through our digital platform.</p></div>
+                        <div className="head row1"><span>Sáng Tạo Chất Lượng Tối Ưu</span></div>
+                        <div className="des row2"><p>Ba ưu tiên hàng đầu của chúng tôi đối với dịch vụ và sản phẩm cung cấp cho khách hàng.</p></div>
 
                         <div className="detail_from_aboutus row3">
                             <h3>

@@ -53,13 +53,13 @@ const Aboutusintro = ({backgroundClass}) => {
                 </div>
                 <div className='tag row2'>
                     <Star />
-                    <p>Partners</p>
+                    <p>Lĩnh vực hoạt động</p>
                 </div>
                 <div className='detail row2'>
-                    <p>We partner with brands and businesses that create exceptional experiences where people live, work and unwind.</p>
+                    <p>20Studio là một mạng lưới các nhà cung cấp thời trang được thiết kế hệ thống theo quy trình bài bản  </p>
                 </div>
                 <div className='more row3' >
-                    <p>Interior Design & Furniture Architecture & Real Estate Hospitality, Travel & Tourism</p>
+                    <p>Thời Trang, Sản Xuất May Mặc, Nhiếp Ảnh, Marketing Thời Trang, Công Nghệ Thông Tin</p>
                 </div>
             </div>
         </section>

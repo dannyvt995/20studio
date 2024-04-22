@@ -47,7 +47,7 @@ export default function FooterSection({ idWrapperScroll, backgroundClass }) {
                     <div className='first_footer'  >
                         <div className='text'>
                             <h3>Hành Trình của 20Studio</h3>
-                            <p>The story behind Exo Ape is one of exploration, creativity and curiosity.</p>
+                            <p>20STUDIO mong muốn đồng hành cùng bạn và tạo ra những sản phẩm chất lượng nhất với giá thành cạnh tranh theo đúng thời hạn cam kết.</p>
                         </div>
                         <div className='image'>
 
@@ -62,16 +62,13 @@ export default function FooterSection({ idWrapperScroll, backgroundClass }) {
                             <div className='menu_footer'>
                                 <ul>
                                     <li>
-                                        <a>Work</a>
+                                        <a>Dự án</a>
                                     </li>
                                     <li>
-                                        <a>Services</a>
+                                        <a>Dịch vụ</a>
                                     </li>
                                     <li>
-                                        <a>News</a>
-                                    </li>
-                                    <li>
-                                        <a>Contact</a>
+                                        <a>Liên hệ</a>
                                     </li>
                                 </ul>
                             </div>
@@ -92,7 +89,7 @@ export default function FooterSection({ idWrapperScroll, backgroundClass }) {
                                 </ul>
                             </div>
                             <div className='btn_more'>
-                                <a>More Story</a>
+                                <a>Về chúng tôi</a>
                             </div>
                         </div>
                     </div>
