@@ -8,7 +8,7 @@ export default function HeroBanner({ pageName, hero_img }) {
             <div className="content_hero_banner grid_12col_container grid_3row">
                 {pageName == 'home' &&
                     <>
-                        <div className="head row1"><span>Phát Triển Thương Hiệu Thời Trang</span></div>
+                        <div className="head row1"><h1>Phát Triển Thương Hiệu Thời Trang</h1></div>
                         <div className="des row2"><p>We are where production takes place. Each country has its specialties. Our offices know them inside and out. Our teams are connected to customers and production partners through our digital platform.</p></div>
                         <div className="icon row3">
                             <span >20 Studio</span>

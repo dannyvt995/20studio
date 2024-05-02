@@ -1,5 +1,6 @@
 .aboutus_intro_section {
-    height:170vh;
+    height:fit-content;
+    padding-bottom: 10vw;
 }
 .aboutus_intro_section .tag {
     grid-column-start: 1;

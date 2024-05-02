@@ -1,6 +1,6 @@
 @font-face {
-    font-family: JosefinSans;
-    src: url('/public/JosefinSans/JosefinSans-Light.ttf');
+    font-family: BeautiqueDisplay;
+    src: url('/public/fonts/BeautiqueDisplay/BeautiqueDisplay-Bold.ttf');
     weight: 400
   }
 div,p,a,span {
@@ -126,7 +126,7 @@ div,p,a,span {
 
 
 html {
-    font-size: 16px;
+    font-size: calc(15px + 0.34234vw);
     overflow-x: hidden;
 }
 body {
@@ -136,7 +136,9 @@ body {
 * {
     box-sizing: border-box;
 }
-
+h1,h2,h3,h4,h5 {
+    font-family:JosefinSans;
+}
 h1,
 h2,
 h3,
@@ -183,4 +185,9 @@ ul,ol {
 .dark_background a,
 .dark_background span {
     color: var(--white);
+}
+
+/* add */
+.mutil_line {
+    
 }

@@ -20,12 +20,11 @@
     grid-column-start: 1;
     grid-column-end: 13;
 }
-.hero_banner .content_hero_banner .head span {
+.hero_banner .content_hero_banner .head h1 {
     font-size: 12vw;
- 
     letter-spacing: -2px;
     font-weight: 600;
-    line-height:  90%;
+    line-height: 115%;
     text-transform: uppercase;
 
 

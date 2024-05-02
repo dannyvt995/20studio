@@ -460,24 +460,24 @@ export default function Providers() {
                     menuAnimRuning.current = false
                     gsap.set("#menu", { zIndex: 0, opacity: 0 })
                 }
-            }).to(elChild, {
+            }).set('body',{background:'white'}).to(elChild, {
                 rotate: 0,
                 scale: 1,
                 y: 0,
                 '-webkit-filter': 'grayscale(0%) ',
                 filter: 'grayscale(0%)',
-                duration: duration,
-                ease: "power4.out",
+                duration: duration/1.2,
+                ease: "power2.out",
             }).to(elParent, {
                 clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-                duration: duration,
-                ease: "power4.out",
+                duration: duration/1.2,
+                ease: "power2.out",
             }, '<').to("#menuscroll", {
-                rotate: -7,
-                scale: 1.5,
-                y: -400,
-                duration: duration,
-                ease: "power4.out",
+                rotate: -4,
+                scale: 1.7,
+                y: -600,
+                duration: duration/1.2,
+                ease: "power2.out",
             }, "<")
         } else {
             gsap.timeline({
@@ -485,10 +485,10 @@ export default function Providers() {
                     menuActive.current = true
                     menuAnimRuning.current = false
                 }
-            }).set("#menu", { zIndex: 0, opacity: 1 }).set("#menuscroll", {
-                rotate: -7,
-                scale: 1.5,
-                y: -400,
+            }).set('body',{background:'black'}).set("#menu", { zIndex: 0, opacity: 1 }).set("#menuscroll", {
+                rotate: -4,
+                scale: 1.7,
+                y: -600,
             }).set(elChild,{opacity:1}).to(elChild, {
                 rotate: 7,
                 scale: 1.3,
@@ -498,7 +498,7 @@ export default function Providers() {
                 duration: duration,
                 ease: "power4.out",
             }).to(elParent, {
-                clipPath: "polygon(0% 110%, 100% 100%, 100% 100%, 0% 100%)",
+                clipPath: "polygon(0% 100%, 100% 110%, 100% 100%, 0% 100%)",
                 duration: duration,
                 ease: "power4.out",
             }, '<').to("#menuscroll", {
