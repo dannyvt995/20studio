@@ -1,4 +1,25 @@
 
+#AboutContentLarge_section1 {
+    height:100vh;
+}
+#AboutContentLarge_section2 {
+    height:100vh;
+}
+#AboutContentLarge_section3 {
+    height:fit-content;
+}
+#AboutContentLarge_section3 .row1 {
+    height:100vh;
+}
+#AboutContentLarge_section3 .row2 {
+    height:100vh;
+}
+#AboutContentLarge_section3 .row3 {
+    height:100vh;
+}
+#AboutContentLarge_section3 .row4 {
+    height:200vh;
+}
 #AboutContentLarge_section1,#AboutContentLarge_section2,#AboutContentLarge_section3 {
  
     height:fit-content;
