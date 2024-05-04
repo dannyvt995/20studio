@@ -32,6 +32,7 @@ const ContactPage = () => {
                                 height={0}
                                 sizes='100vw'
                                 style={{width:'auto',height:'100%'}} />
+
                         </div>
                     </div>
                     <div className='col3'>

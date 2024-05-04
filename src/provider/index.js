@@ -17,6 +17,11 @@ import ContactPage from '@/modules/ContactPage';
 import ProjectsSection from '@/components/ProjectsSection';
 import NavbarOpenFull from '@/components/NavbarOpenFull';
 
+// LOAD ASSET TRƯỚC ( TẠM THỜI)
+import bannerHomeImg from '../../public/home/hero_banner_bgsection.png';
+import bannerAboutusImg from '../../public/page1/hero_about_us.png';
+
+
 function removeSplash(target) {
     let value
     value = target.replace(/\//g, "");
@@ -566,7 +571,7 @@ export default function Providers() {
                     <div className="page" id="home" >
                         <div className='fix' >
                             <div className='content' id="homescroll">
-                                <HomePage />
+                                <HomePage heroImg={bannerHomeImg}/>
                             </div>
                         </div>
                     </div>
@@ -584,7 +589,7 @@ export default function Providers() {
                     <div className="page" id="page2">
                         <div className='fix' >
                             <div className='content' id="page2scroll">
-                                <AboutUs />
+                                <AboutUs heroImg={bannerAboutusImg}/>
                             </div>
                         </div>
                     </div>

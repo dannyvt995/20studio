@@ -7,13 +7,13 @@ import WorkSection from '@/components/WorkSection';
 import Aboutusintro from '@/components/AboutusIntro';
 import FooterSection from '@/components/FooterSection';
 
-const HomePage = () => {
+const HomePage = ({heroImg}) => {
     console.log('HomePage RENDER')
 
    
     return (
         <>
-            <HeroBanner   pageName="home"  hero_img={data["homepage"]["hero_image"]} />
+            <HeroBanner   pageName="home"  hero_img={heroImg} />
             <WorkSection />
             <FooterSection idWrapperScroll="#homescroll" backgroundClass={'dark_background'}/>
         </>

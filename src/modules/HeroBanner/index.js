@@ -1,13 +1,21 @@
 "use client"
-
+import Image from "next/image"
 import "./style.css"
 export default function HeroBanner({ pageName, hero_img }) {
     return (
 
-        <section id="hero_banner_section" className="hero_banner dark_background" style={{ background: `url(${hero_img})`, backgroundSize: "cover" }}>
+        <section id="hero_banner_section" className="hero_banner dark_background" /* style={{ background: `url(${hero_img})`, backgroundSize: "cover" }} */>
+         
             <div className="content_hero_banner grid_12col_container grid_3row">
+            
                 {pageName == 'home' &&
                     <>
+                        <div className="backgroundBanner">
+                    <Image
+                        src={hero_img}
+                     
+                        />
+                </div>
                         <div className="head row1"><h1>Phát Triển Thương Hiệu Thời Trang</h1></div>
                         <div className="des row2"><p>We are where production takes place. Each country has its specialties. Our offices know them inside and out. Our teams are connected to customers and production partners through our digital platform.</p></div>
                         <div className="icon row3">
@@ -32,6 +40,12 @@ export default function HeroBanner({ pageName, hero_img }) {
 
                 {pageName == 'aboutus' &&
                     <>
+                        <div className="backgroundBanner">
+                    <Image
+                        src={hero_img}
+                 
+                        />
+                </div>
                         <div className="head row1"><span>Sáng Tạo Chất Lượng Tối Ưu</span></div>
                         <div className="des row2"><p>Ba ưu tiên hàng đầu của chúng tôi đối với dịch vụ và sản phẩm cung cấp cho khách hàng.</p></div>
 

@@ -92,6 +92,7 @@ const AboutContentLarge = ({ backgroundClass1, backgroundClass2, backgroundClass
                                 sizes="100vw"
                                 style={{ width: "100%", height: "auto" }}
                                 alt="services1"
+                                
                             />
                             <div>
                                 <Image
@@ -101,6 +102,7 @@ const AboutContentLarge = ({ backgroundClass1, backgroundClass2, backgroundClass
                                     sizes="100vw"
                                     style={{ width: "100%", height: "auto" }}
                                     alt="services1"
+                                    
                                 />
                             </div>
                         </div>

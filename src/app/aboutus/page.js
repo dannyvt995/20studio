@@ -6,11 +6,11 @@ import AboutContentLarge from '@/components/AboutContentLarge';
 import AboutusDetail from '@/components/AboutusDetail/page';
 import FooterSection from '@/components/FooterSection';
 
-const AboutUs = () => {
+const AboutUs = ({heroImg}) => {
   
     return (
         <>
-            <HeroBanner pageName="aboutus" hero_img={data["page1"]["hero_image"]}/>
+            <HeroBanner pageName="aboutus" hero_img={heroImg}/>
             <Aboutusintro backgroundClass={'light_background'}/>
             <AboutusDetail />
             <AboutContentLarge 
