@@ -38,14 +38,14 @@ const Aboutusintro = ({backgroundClass}) => {
                     <div className='grid_12col_container' id="list_img" ref={listImgRef}>
                         <div className='item row1' ref={domAnim1}>
                             <Image src="/home/ser3.png" 
-                            alt="" width={0} height={0} sizes="100vw" 
+                            alt="asd" width={0} height={0} sizes="100vw" 
                             style={{width:"auto",height:"100%"}} />
                         </div>
                         <div className='item row1'>
-                            <Image src="/home/ser2.png" alt="" width={0} height={0} sizes="100vw" style={{width:"100%",height:"auto"}} />
+                            <Image src="/home/ser2.png" alt="asd" width={0} height={0} sizes="100vw" style={{width:"100%",height:"auto"}} />
                         </div>
                         <div className='item row1'  ref={domAnim2}>
-                            <Image src="/home/ser1.png" alt="" width={0} 
+                            <Image src="/home/ser1.png" alt="asd" width={0} 
                             height={0} sizes="100vw" 
                             style={{width:"auto",height:"100%"}} />
                         </div>

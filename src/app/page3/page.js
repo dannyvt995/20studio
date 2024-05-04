@@ -2,7 +2,6 @@
 import React from 'react'
 
 const Page3 = () => {
-    console.log('Page3 RENDER')
     return (
         < >
  

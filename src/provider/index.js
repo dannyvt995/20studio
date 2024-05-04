@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import gsap from 'gsap';
-
+import useSWR from 'swr'
 import HomePage from '@/app/home';
 import Page2 from '@/app/page2/page';
 
@@ -17,7 +17,7 @@ import ContactPage from '@/modules/ContactPage';
 import ProjectsSection from '@/components/ProjectsSection';
 import NavbarOpenFull from '@/components/NavbarOpenFull';
 
-// LOAD ASSET TRƯỚC ( TẠM THỜI)
+// LOAD ASSET TRƯỚC ( TẠM THỜI )
 import bannerHomeImg from '../../public/home/hero_banner_bgsection.png';
 import bannerAboutusImg from '../../public/page1/hero_about_us.png';
 
@@ -29,9 +29,13 @@ function removeSplash(target) {
     return value
 }
 export default function Providers() {
+    console.log("Provider Load on client")
     gsap.registerPlugin(ScrollTrigger)
     const router = useRouter();
     const pathName = usePathname();
+
+
+    /* state for compo eff */
     const [showMenu, setShowMenu] = useState(false);
     const [showHome, setShowHome] = useState(false);
     const [showPage1, setShowPage1] = useState(false);
@@ -39,8 +43,11 @@ export default function Providers() {
     const [showPage3, setShowPage3] = useState(false);
     const [showPage4, setShowPage4] = useState(false);
 
+
+
     const isRunning = useRef(false)
     const pathNameFormat = removeSplash(pathName)
+    console.log('pathNameFormat :::::::::::::',pathNameFormat)
     const linkTarget = useRef(null)
     const activeState = useRef(false)
     const menuActive = useRef(false)
@@ -53,6 +60,7 @@ export default function Providers() {
 
     // 3 index
 
+    
     const indexCurrent = 5
 
     const lenisRef = useRef()
@@ -64,7 +72,7 @@ export default function Providers() {
     useEffect(() => {
         console.log('This runs when entering the page just once.');
         activeState.current = true;
-
+        navbarFullOpenRef.current = document.getElementById("menu")
         switch (pathName) {
             case "/page1":
                 setShowPage1(true);
@@ -108,10 +116,10 @@ export default function Providers() {
     // INIT LENIS, STILL WAIT 1 SECOND TO USE
     const navbarListTabRef = useRef(null)
     const navbarIconTabRef = useRef(null)
+
     useEffect(() => {
         console.log('init lenis')
-        
-
+   
         setTimeout(() => {
           
             scrollContainerRef.current = document.getElementById(`${pathNameFormat}scroll`)
@@ -131,19 +139,19 @@ export default function Providers() {
             /* UPDATE THIS PROXY */
             lenisRef.current.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
               // console.log({ scroll, limit, velocity, direction, progress })
-               if(navbarListTabRef.current && navbarIconTabRef.current) {
-                    if(scroll > 500) {
-                        navbarListTabRef.current.style.display = 'none'
-                        navbarIconTabRef.current.style.display = 'block'
-                    }else{
-                        navbarListTabRef.current.style.display = 'block'
-                        navbarIconTabRef.current.style.display = 'none'
-                    }
-               }
+            //    if(navbarListTabRef.current && navbarIconTabRef.current) {
+            //         if(scroll > 500) {
+            //             navbarListTabRef.current.style.display = 'none'
+            //             navbarIconTabRef.current.style.display = 'block'
+            //         }else{
+            //             navbarListTabRef.current.style.display = 'block'
+            //             navbarIconTabRef.current.style.display = 'none'
+            //         }
+            //    }
                 ScrollTrigger.update()
             })
        //     ScrollTrigger.scrollerProxy(`#${pathNameFormat}scroll`, { pinType: "fixed" });
-            ScrollTrigger.defaults({ scroller: `#${pathNameFormat}scroll` });
+            ScrollTrigger.defaults({ scroller: scrollContainerRef.current });
 
             // ScrollTrigger.scrollerProxy(`#${pathNameFormat}scroll`, {
             //     scrollTop(value) {
@@ -184,29 +192,30 @@ export default function Providers() {
     }, [pathName])
 
     // CONTROLS STATE EACH PAGE
-
+    function removeCurrentPage() {
+        if (pathName === "/page1") {
+            setShowPage1(false);
+        } else if (pathName === "/page2") {
+            setShowPage2(false);
+        } else if (pathName === "/page3") {
+            setShowPage3(false);
+        } else if (pathName === "/page4") {
+            setShowPage4(false);
+        } else if (pathName === "/") {
+            setShowHome(false);
+        }
+    }
     const animateTransitionPage = (targetDomWrapper, targetDomScroll, nextPage) => {
+        const currentDomWrapper = document.getElementById(`${pathNameFormat}`)
+        const currentDomScroll = document.getElementById(`${pathNameFormat}scroll`)
         gsap.timeline({
             onComplete: () => {
-    
-
-                if (pathName === "/page1") {
-                    setShowPage1(false);
-                } else if (pathName === "/page2") {
-                    setShowPage2(false);
-                } else if (pathName === "/page3") {
-                    setShowPage3(false);
-                } else if (pathName === "/page4") {
-                    setShowPage4(false);
-                } else if (pathName === "/") {
-                    setShowHome(false);
-                }
-
-                router.push(nextPage);
+                removeCurrentPage()
+                router.push(nextPage)
             },
             }).set(targetDomWrapper, {
                 clipPath: "polygon(0% 100%, 100% 123%, 100% 100%, 0% 100%)"
-            }).set(`#${pathNameFormat}`, {
+            }).set(currentDomWrapper, {
                 clipPath: 'polygon(0% 0%, 100% 0%, 100% 123%, 0% 100%)',
             })
             .set(targetDomScroll, {
@@ -231,18 +240,18 @@ export default function Providers() {
                 duration: totalTime,
                 ease: "power4.out",
             }, '<')
-            .to(`#${pathNameFormat}`, {
+            .to(currentDomWrapper, {
                 clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
                 duration: totalTime,
                 ease: "power4.out",
-            }, '<').to(`#${pathNameFormat}scroll`, {
+            }, '<').to(currentDomScroll, {
                 rotate: -7,
                 scale: 1.3,
                 y: -600,
                 x:-300,
                 duration: totalTime,
                 ease: "power4.out",
-            }, '<').to(`#${pathNameFormat}scroll`, {
+            }, '<').to(currentDomScroll, {
                 '-webkit-filter': 'grayscale(100%) ',
                 filter: 'grayscale(100%)'
             }, '<')
@@ -274,17 +283,7 @@ export default function Providers() {
     }
 
     const animateTransitionPageOutside = (targetDomWrapper, targetDomScroll, nextPage) => {
-        if (pathName === "/page1") {
-            setShowPage1(false);
-        } else if (pathName === "/page2") {
-            setShowPage2(false);
-        } else if (pathName === "/page3") {
-            setShowPage3(false);
-        } else if (pathName === "/page4") {
-            setShowPage4(false);
-        } else if (pathName === "/") {
-            setShowHome(false);
-        }
+        removeCurrentPage()
         gsap.timeline({
             onComplete: () => {
                 gsap.set(`#menu`, {
@@ -344,6 +343,7 @@ export default function Providers() {
     };
 
     useEffect(() => {
+        console.log('usestate Listen showPage1')
         const targetDomWrapper = document.getElementById("page1")
         const targetDomScroll = document.getElementById("page1scroll")
         if (showPage1 && activeState.current) {
@@ -358,7 +358,9 @@ export default function Providers() {
             animateTransitionPageOutside(targetDomWrapper, targetDomScroll, linkTarget.current);
         }
     }, [showPage1])
+
     useEffect(() => {
+        console.log('usestate Listen showPage2')
         const targetDomWrapper = document.getElementById("page2")
         const targetDomScroll = document.getElementById("page2scroll")
         if (showPage2 && activeState.current) {
@@ -366,13 +368,16 @@ export default function Providers() {
             firstLoadAnimation(targetDomWrapper, targetDomScroll)
         }
         if (showPage2 && linkTarget.current == '/page2' && saveTypeLink.current == 'onsite') {
+            console.log('2222')
             animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current);
         }
         if (showPage2 && linkTarget.current == '/page2' && saveTypeLink.current == 'outsite') {
             animateTransitionPageOutside(targetDomWrapper, targetDomScroll, linkTarget.current);
         }
     }, [showPage2])
+
     useEffect(() => {
+        console.log('usestate Listen showPage3')
         const targetDomWrapper = document.getElementById("page3")
         const targetDomScroll = document.getElementById("page3scroll")
         if (showPage3 && activeState.current) {
@@ -387,7 +392,9 @@ export default function Providers() {
             animateTransitionPageOutside(targetDomWrapper, targetDomScroll, linkTarget.current);
         }
     }, [showPage3])
+
     useEffect(() => {
+        console.log('usestate Listen showPage4')
         const targetDomWrapper = document.getElementById("page4")
         const targetDomScroll = document.getElementById("page4scroll")
         if (showPage4 && activeState.current) {
@@ -403,6 +410,7 @@ export default function Providers() {
     }, [showPage4])
 
     useEffect(() => {
+        console.log('usestate Listen showHome')
         const targetDomWrapper = document.getElementById("home")
         const targetDomScroll = document.getElementById("homescroll")
         if (showHome && activeState.current) {
@@ -410,6 +418,7 @@ export default function Providers() {
             firstLoadAnimation(targetDomWrapper, targetDomScroll)
         }
         if (showHome && linkTarget.current == '/') {
+            console.log('0000')
             animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current);
         }
 
@@ -417,9 +426,8 @@ export default function Providers() {
 
     const saveTypeLink = useRef(null)
     const navbarFullOpenRef =  useRef(null)
-    useEffect(() => {
-        navbarFullOpenRef.current = document.getElementById("menu")
-    },[navbarFullOpenRef])
+
+   
     // HANDLE REDIRECT
     const handleRedirect = (e) => {
         e.preventDefault()
@@ -518,16 +526,13 @@ export default function Providers() {
     }
 
     const handleOpenMenu = () => {
-        const dd = removeSplash(pathName)
-        const idPage = `${dd}`
-        const targetDomWrapper = document.getElementById(idPage)
-        const targetDomScroll = document.getElementById(`${idPage}scroll`)
+
+        const targetDomWrapper = document.getElementById(pathNameFormat)
+        const targetDomScroll = document.getElementById(`${pathNameFormat}scroll`)
         if (!menuAnimRuning.current) {
             console.log("Menu is opening...")
             openMenu(targetDomWrapper, targetDomScroll)
         }
-
-
     }
 
 
@@ -541,7 +546,7 @@ export default function Providers() {
                         <div className="logo row1">
                             <span><a onClick={handleRedirect} data-link="/" data-type="onsite">20 studio</a></span>
                         </div>
-                        <div className="menu_list row1" ref={navbarListTabRef}>
+                        <div className="menu_list row1" ref={navbarListTabRef} style={{display:'block'}}>
                             <ul>
                                 <li><a onClick={handleRedirect} data-link="/page1"  data-type="onsite">Dự án</a></li>
                                 <li><a onClick={handleRedirect} data-link="/page2"  data-type="onsite">Về chúng tôi</a></li>
@@ -549,7 +554,7 @@ export default function Providers() {
                                 <li><a onClick={handleRedirect} data-link="/page4"  data-type="onsite">Liên hệ</a></li>
                             </ul>
                         </div>
-                        <div className='menu_icon row1' ref={navbarIconTabRef}>
+                        <div className='menu_icon row1' ref={navbarIconTabRef}style={{display:'none'}}>
                             <button onClick={handleOpenMenu}>Menu</button>
                         </div>
                     </div>
@@ -557,7 +562,6 @@ export default function Providers() {
                 </div>
             </nav>
             <div className="View_Switch_Compo">
-
                 {!showMenu &&
                     <div className="page" id="menu" >
                         <div className='fix' >

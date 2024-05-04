@@ -1,4 +1,4 @@
-
+"use client"
 
 import Image from 'next/image';
 import './style.css'
@@ -31,6 +31,7 @@ const ContactPage = () => {
                                 width={0}
                                 height={0}
                                 sizes='100vw'
+                                alt="alt"
                                 style={{width:'auto',height:'100%'}} />
 
                         </div>

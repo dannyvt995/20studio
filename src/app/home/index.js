@@ -19,4 +19,4 @@ const HomePage = ({heroImg}) => {
         </>
     )
 }
-export default React.memo(HomePage);
+export default HomePage;

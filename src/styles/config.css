@@ -1,6 +1,6 @@
 @font-face {
     font-family: BeautiqueDisplay;
-    src: url('/public/fonts/BeautiqueDisplay/BeautiqueDisplay-Bold.ttf');
+    src: url('/fonts/BeautiqueDisplay/BeautiqueDisplay-Bold.otf');
     weight: 400
   }
 div,p,a,span {

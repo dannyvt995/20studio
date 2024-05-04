@@ -10,7 +10,11 @@ const AboutUs = ({heroImg}) => {
   
     return (
         <>
+            {/* HOW CACHE IT? */}
             <HeroBanner pageName="aboutus" hero_img={heroImg}/>
+
+
+            {/* NEED  RENDER LAZY */}
             <Aboutusintro backgroundClass={'light_background'}/>
             <AboutusDetail />
             <AboutContentLarge 
@@ -24,5 +28,5 @@ const AboutUs = ({heroImg}) => {
      
     );
 }
-export default React.memo(AboutUs);
+export default AboutUs
 

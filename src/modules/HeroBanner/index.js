@@ -13,7 +13,12 @@ export default function HeroBanner({ pageName, hero_img }) {
                         <div className="backgroundBanner">
                     <Image
                         src={hero_img}
-                     
+                        alt="Hero Image Banner"
+                        sizes="100vw"
+                        width={0}
+                        height={0}
+                        style={{width:'auto',height:'100%'}}
+                        priority
                         />
                 </div>
                         <div className="head row1"><h1>Phát Triển Thương Hiệu Thời Trang</h1></div>
@@ -43,7 +48,12 @@ export default function HeroBanner({ pageName, hero_img }) {
                         <div className="backgroundBanner">
                     <Image
                         src={hero_img}
-                 
+                        sizes="100vw"
+                        width={0}
+                        height={0}
+                        style={{width:'100%',height:'auto'}}
+                        alt="Aboutus Image Banner"
+                        priority
                         />
                 </div>
                         <div className="head row1"><span>Sáng Tạo Chất Lượng Tối Ưu</span></div>
