@@ -71,7 +71,7 @@ export default function Providers() {
 
     // RUN ON FIRST TIME , JUST ONCE
     useEffect(() => {
-       // console.log('This runs when entering the page just once.');
+       console.log('This runs when entering the page just once.');
         activeState.current = true;
         navbarFullOpenRef.current = document.getElementById("menu")
         switch (pathName) {
@@ -183,6 +183,7 @@ export default function Providers() {
 
     // CONTROLS STATE EACH PAGE
     function removeCurrentPage() {
+        console.log('HOME RENDER 2 TIME')
         if (pathName === "/page1") {
             setShowPage1(false);
         } else if (pathName === "/page2") {
@@ -404,7 +405,7 @@ export default function Providers() {
     }, [showPage4])
 
     useEffect(() => {
-       // console.log('usestate Listen showHome')
+      console.log('usestate Listen showHome')
         const targetDomWrapper = document.getElementById("home")
         const targetDomScroll = document.getElementById("homescroll")
         if (showHome && activeState.current) {
@@ -448,7 +449,7 @@ export default function Providers() {
                 setShowPage4(true);
 
             } else if (linkTarget.current == '/') {
-
+                console.log('HOME RENDER 1 TIME')
                 setShowHome(true);
 
             }

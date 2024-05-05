@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useRef } from 'react'
-import $ from 'jquery'
+
 import gsap from 'gsap'
 import { Observer } from "gsap/dist/Observer";
 
@@ -12,61 +12,82 @@ export default function ProjectsSection() {
   const durationAnim = 1
   const delayAnim = .05
   const stopNow = useRef(false)
-  const small_imgRef = useRef(null)
+  const valueRef = useRef(0)
 
 
-  function runSlider(what) {
-    what.addClass("active").siblings("li").removeClass("active");
+
+  const listDomThumb = useRef(null)
+  const listDomBackground = useRef(null)
+  const big_backgroundDom = document.getElementById('big_background')
+  const small_backgroundDom = document.getElementById('small_background')
+  useEffect(() => {
+    if (big_backgroundDom, small_backgroundDom) {
+      listDomBackground.current = big_backgroundDom
+      listDomThumb.current = small_backgroundDom
+    }
+
+  }, [big_backgroundDom, small_backgroundDom])
+
+  function runSlider(prevNum, nextNum) {
+    listDomBackground.current.children[prevNum].classList.remove('active');
+    listDomBackground.current.children[nextNum].classList.add('active');
+    listDomThumb.current.children[prevNum].classList.remove('active');
+    listDomThumb.current.children[nextNum].classList.add('active');
+    valueRef.current = nextNum
   }
   //slider gsap
-  function gsapSlider(whose, targetClipPath, targetBgPosY, targetZoom) {
-
+  function gsapSlider(prevNum, nextNum, targetClipPath, targetBgPosY, targetZoom) {
+    let domTargetBackground = listDomBackground.current.children[nextNum]
+    let domTargetThumb = listDomThumb.current.children[nextNum]
     i_of_slider++;
-    if (whose.hasClass("active")) {
-      gsap.timeline({
-        onComplete: () => stopNow.current = false
-      })
-        .set("ul#big_background li.active", { scale: 1 })
-        .set("ul#big_background li.active", { zIndex: i_of_slider, clipPath: targetClipPath, backgroundPositionY: targetBgPosY, backgroundSize: 100 })
-        .set("ul#small_background li.active", { zIndex: i_of_slider, clipPath: targetClipPath, backgroundPositionY: targetBgPosY, backgroundSize: 100 })
-        .to(
-          "ul#big_background li.active",
-          {
-            clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-            backgroundPositionY: 0,
-            scale: 1.2,
-            delay: .5,
-            duration: durationAnim,
-            ease: "power4.out"
-          },
-        )
-        .to("ul#small_background li.active", {
+    gsap.timeline({
+      onComplete: () => stopNow.current = false
+    })
+      .set(domTargetBackground, { scale: 1, zIndex: i_of_slider, clipPath: targetClipPath, backgroundPositionY: targetBgPosY, backgroundSize: 100 })
+      .set(domTargetThumb, { zIndex: i_of_slider, clipPath: targetClipPath, backgroundPositionY: targetBgPosY, backgroundSize: 100 })
+      .to(
+        domTargetBackground,
+        {
           clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
           backgroundPositionY: 0,
-          delay: delayAnim,
+          scale: 1.2,
           duration: durationAnim,
           ease: "power4.out"
-        }, "<")
-    }
+        },
+      )
+      .to(domTargetThumb, {
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+        backgroundPositionY: 0,
+        delay: delayAnim,
+        duration: durationAnim,
+        ease: "power4.out"
+      }, "<")
   }
+
+
+
+
+
+
+
+
+
+
+
   function handleClickPrev() {
 
-    var slide = $("ul#big_background li.active,ul#small_background li.active").is(
-      ":first-of-type"
-    )
-      ? $("ul#big_background li:last,ul#small_background li:last")
-      : $("ul#big_background li.active,ul#small_background li.active").prev("li");
-    runSlider(slide);
-    gsapSlider(slide, "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)", "-10%", 1.2);
+    let nextvalueRef = (parseInt(valueRef.current) - 1 + 5) % 5; // Loop from 4 to 0
+
+    runSlider(valueRef.current, nextvalueRef);
+    gsapSlider(valueRef.current, nextvalueRef, "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)", "-10%", 1.2);
   }
   function handleClickNext() {
-    var slide = $("ul#big_background li.active,ul#small_background li.active").is(
-      ":last-of-type"
-    )
-      ? $("ul#big_background li:first,ul#small_background li:first")
-      : $("ul#big_background li.active,ul#small_background li.active").next("li");
-    runSlider(slide);
-    gsapSlider(slide, "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)", "10%", 1.2);
+
+    let nextvalueRef = (parseInt(valueRef.current) + 1) % 5; // Loop from 0 to 4
+
+    runSlider(valueRef.current, nextvalueRef);
+    gsapSlider(valueRef.current, nextvalueRef, "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)", "10%", 1.2);
+
   }
   function handleMouseDown() {
     //  console.log('handleMouseDown')
@@ -88,10 +109,10 @@ export default function ProjectsSection() {
     observeRefPageWheel.current = Observer.create({
       type: "wheel,touch,pointer",
       wheelSpeed: -1,
-      onDown: () => handleMouseDown(),
-      onUp: () => handleMouseUp(),
+      // onDown: () => handleMouseDown(),
+      // onUp: () => handleMouseUp(),
 
-      preventDefault: true
+      //preventDefault: false
     });
     observeRefPageWheel.current.enable()
 
@@ -102,10 +123,10 @@ export default function ProjectsSection() {
 
   const BACKGROUND_PROJECTS = useRef(null)
 
- 
+
   const openListActive = useRef(false)
   const handleOpenList = (e) => {
-    
+
 
   }
 
@@ -117,7 +138,7 @@ export default function ProjectsSection() {
 
         <div className="background" ref={BACKGROUND_PROJECTS}>
 
-          <ul id="big_background">
+          <ul id="big_background" ref={listDomBackground}>
             <li className='active' data_ser="0"></li>
             <li data_ser="1"></li>
             <li data_ser="2" ></li>
@@ -127,9 +148,10 @@ export default function ProjectsSection() {
         </div>
 
         <div className="content" >
+
           <button onClick={handleClickPrev}>Prev</button>
           <button onClick={handleClickNext}>Next</button>
-          <ul id="small_background" ref={small_imgRef}>
+          <ul id="small_background" ref={listDomThumb}>
             <li className='active'><a onClick={handleRedirectToDetailWork} data_link="project1"></a></li>
             <li><a onClick={handleRedirectToDetailWork} data_link="project2"></a></li>
             <li><a onClick={handleRedirectToDetailWork} data_link="project3"></a></li>
@@ -137,7 +159,7 @@ export default function ProjectsSection() {
             <li><a onClick={handleRedirectToDetailWork} data_link="project5"></a></li>
           </ul>
         </div>
-     {/*    <div className='btn_open_list'>
+        {/*    <div className='btn_open_list'>
           <button onClick={handleOpenList}>handleOpenList</button>
         </div> */}
       </div>
