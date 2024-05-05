@@ -6,7 +6,7 @@ import AboutContentLarge from '@/components/AboutContentLarge';
 import AboutusDetail from '@/components/AboutusDetail/page';
 import FooterSection from '@/components/FooterSection';
 
-const AboutUs = ({heroImg}) => {
+const AboutUs = ({heroImg , handleRedirect}) => {
   
     return (
         <>
@@ -22,7 +22,7 @@ const AboutUs = ({heroImg}) => {
             backgroundClass2={'dark_background'}
             backgroundClass3={'light_background'}
             />
-            <FooterSection idWrapperScroll="#page2scroll" backgroundClass={'dark_background'} />
+            <FooterSection handleRedirect={handleRedirect} idWrapperScroll="#page2scroll" backgroundClass={'dark_background'} />
         </>
           
      

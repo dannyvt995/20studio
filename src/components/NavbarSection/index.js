@@ -10,7 +10,7 @@ export default function NavbarSection() {
                     <span>20 studio</span>
                 </div>
                 <div className="menu_list">
-                    <ul>
+                    <ul className="format">
                         <li><Link href="/work">Dự án</Link></li>
                         <li><Link href="/20studio">Về chúng tôi</Link></li>
                         <li><Link href="/news">????</Link></li>

@@ -6,29 +6,35 @@
     grid-column-start: 1;
     grid-column-end: 3;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     height: fit-content;
-    align-self: end;
+    align-self: flex-end;
+    align-items: center;
 }
 .aboutus_intro_section .tag * {
     height: fit-content;
 }
 .aboutus_intro_section .tag  span {
-    margin-right:1rem;
+    margin-right:20px;
     width: 20px;
+    height:20px;
+}
+.aboutus_intro_section .tag p {
+    font-size: 1vw;
 }
 .aboutus_intro_section .detail {
     grid-column-start: 3;
-    grid-column-end: 10;
+    grid-column-end: 9;
 }
 .aboutus_intro_section .detail p {
-    font-size: 3.5em;
+    font-size: 3vw;
+    line-height: 120%;
     font-weight: 600;
 }
 .aboutus_intro_section .more {
-    margin-top:3.6805555556vw;
+    margin-top: 1.5vw;
     grid-column-start: 3;
-    grid-column-end: 5;
+    grid-column-end: 6;
 }
 .aboutus_intro_section .more p {
     color: var(--gray);

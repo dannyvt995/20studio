@@ -10,16 +10,16 @@ const AboutContentLarge = ({ backgroundClass1, backgroundClass2, backgroundClass
 
     return (
         <>
-            <div className='bangron'>
+         {/*    <div className='bangron'>
                 <div className='w_content'>
                 <h3>CREATIVE PRODUCTION COMPANY</h3>
                 </div>
-            </div>
+            </div> */}
             <section id='AboutContentLarge_section1' className={` ${backgroundClass1}`}>
 
                 <div className='content grid_2row'>
                     <div className='row1 grid_12col_container '>
-                        <span className='tag'>Tổ Chức</span>
+                        <span className='tag'> <Star /><p>Tổ Chức</p></span>
                         <h2>Agency” trong ngành thời trang</h2>
                     </div>
                     <div className='row2 grid_12col_container '>
@@ -35,7 +35,8 @@ const AboutContentLarge = ({ backgroundClass1, backgroundClass2, backgroundClass
             <section id='AboutContentLarge_section2' className={` ${backgroundClass2}`}>
                 <div className='content  grid_2row'>
                     <div className='row1 grid_12col_container'>
-                        <span className='tag'>Câu chuyện</span>
+                    <span className='tag'> <Star /><p>Câu chuyện</p></span>
+           
                         <h2>Tìm kiếm cơ hội trong thử thách</h2>
                     </div>
                     <div className='row2 grid_12col_container'>
@@ -128,8 +129,8 @@ const AboutContentLarge = ({ backgroundClass1, backgroundClass2, backgroundClass
                     <div className='row4 grid_12col_container'>
                         <div className='detail'>
                             <h2>Giá Trị Cốt Lõi</h2>
-                            <p>Với từng dịch vụ sẽ có các quy trình thiết kế riêng cho theo nhu cầu của khách hàng</p>
-                            <ul>
+                            <p style={{width:'72%'}}>Với từng dịch vụ sẽ có các quy trình thiết kế riêng cho theo nhu cầu của khách hàng</p>
+                            <ul style={{listStyleType:'circle !important'}}>
                                 <li>Phát Triển Mẫu</li>
                                 <li>Sản Xuất</li>
                                 <li>May Đo/ Thiết Kế</li>

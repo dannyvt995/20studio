@@ -33,9 +33,9 @@ const Aboutusintro = ({backgroundClass}) => {
     return (
 
         <section className={`sametime aboutus_intro_section ${backgroundClass}`}>
-            <div className='grid_12col_container_nomargin grid_3row'>
+            <div className='grid_12col_container grid_3row'>
                 <div className='img row1'>
-                    <div className='grid_12col_container' id="list_img" ref={listImgRef}>
+                    <div className='grid_12col_container_nomargin' id="list_img" ref={listImgRef}>
                         <div className='item row1' ref={domAnim1}>
                             <Image src="/home/ser3.png" 
                             alt="asd" width={0} height={0} sizes="100vw" 

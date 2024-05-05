@@ -7,15 +7,15 @@ import WorkSection from '@/components/WorkSection';
 import Aboutusintro from '@/components/AboutusIntro';
 import FooterSection from '@/components/FooterSection';
 
-const HomePage = ({heroImg}) => {
+const HomePage = ({heroImg , handleRedirect}) => {
     console.log('HomePage RENDER')
 
    
     return (
         <>
-            <HeroBanner   pageName="home"  hero_img={heroImg} />
+            <HeroBanner handleRedirect={handleRedirect}  pageName="home"  hero_img={heroImg} />
             <WorkSection />
-            <FooterSection idWrapperScroll="#homescroll" backgroundClass={'dark_background'}/>
+            <FooterSection handleRedirect={handleRedirect} idWrapperScroll="#homescroll" backgroundClass={'dark_background'}/>
         </>
     )
 }

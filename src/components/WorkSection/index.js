@@ -81,7 +81,7 @@ export default function WorkSection() {
                                 alt="services1"
                             />
                         </div>
-                        <p>Phát Triển Mẫu</p>
+                        <p>Sản xuất</p>
                     </a>
                     <a>
                         <div>
@@ -94,7 +94,7 @@ export default function WorkSection() {
                                 alt="services1"
                             />
                         </div>
-                        <p>Phát Triển Mẫu</p>
+                        <p>Thiết kế</p>
                     </a>
                     <a>
                         <div>
@@ -107,7 +107,7 @@ export default function WorkSection() {
                                 alt="services1"
                             />
                         </div>
-                        <p>Phát Triển Mẫu</p>
+                        <p>Quản lý</p>
                     </a>
                 </div>
             </div>

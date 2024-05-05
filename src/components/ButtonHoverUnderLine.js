@@ -3,7 +3,7 @@
 import React from "react"
 import gsap from 'gsap'
 
-export default function ButtonHoverUnderLine({ eventPass,datalink,children, color , bold }) {
+export default function ButtonHoverUnderLine({ eventPass,data_link,data_type,children, color , bold }) {
     const aRef = React.useRef(null)
     const aUnderlineRef = React.useRef(null)
     const handleClick = (e) => {
@@ -72,8 +72,17 @@ export default function ButtonHoverUnderLine({ eventPass,datalink,children, colo
 
 
     return (
-        <a datalink={
-            (datalink !== null || datalink !== undefined ? datalink : 'empty')
-        } onClick={eventPass ? handleClick : null} ref={aRef}>{children}<span ref={aUnderlineRef} className="underline-effect-styles"></span></a>
+        <a 
+            data_link={
+                (data_link !== null || data_link !== undefined ? data_link : 'empty')
+            } 
+            data_type={
+                (data_type !== null || data_type !== undefined ? data_type : 'empty')
+            } 
+            onClick={eventPass ? handleClick : null} 
+            ref={aRef} >
+                {children}
+                <span ref={aUnderlineRef} className="underline-effect-styles"></span>
+        </a>
     )
 }

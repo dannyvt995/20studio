@@ -20,7 +20,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  console.log("RootLayout Load On server?")
+ // console.log("RootLayout Load On server?")
   return (
     <html lang="en">
       <body >

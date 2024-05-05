@@ -55,7 +55,7 @@ const SliderProducts = () => {
     function handleClickIcon(e,targetId) {
         var start = $(".SLIDER_PRODUCTS ul li.active").index();
         var slide = $(".SLIDER_PRODUCTS ul li").eq($(e.target).index());
-        console.log($(e.target).index())
+      //  console.log($(e.target).index())
         runSlider(slide);
         var end = $(".SLIDER_PRODUCTS ul li.active").index();
         if (start > end) {

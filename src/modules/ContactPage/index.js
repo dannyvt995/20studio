@@ -6,7 +6,7 @@ import './style.css'
 import React from 'react';
 import FooterSection from '@/components/FooterSection';
 
-const ContactPage = () => {
+const ContactPage = ({handleRedirect}) => {
     return (
         <>
         <section className='contact_page_section light_background'>
@@ -47,7 +47,7 @@ const ContactPage = () => {
                 </div>
             </div>
         </section>
-        <FooterSection idWrapperScroll="#page4scroll" backgroundClass={'dark_background'}/>
+        <FooterSection handleRedirect={handleRedirect} idWrapperScroll="#page4scroll" backgroundClass={'dark_background'}/>
         </>
     );
 }

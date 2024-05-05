@@ -7,7 +7,9 @@
     align-items: center;
     
 }
-
+.navbar_open_full_section > div {
+    height:72vh;
+}
 .navbar_open_full_section .img {
     grid-column-start: 3;
     grid-column-end: 7;
@@ -15,9 +17,10 @@
 }
 .navbar_open_full_section .menu_item_list {
     grid-column-start: 8;
-    grid-column-end: 11;
-
-    height:60vh;
+    grid-column-end: 13;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 .navbar_open_full_section .menu_item_list a {
     font-size:5rem;

@@ -18,7 +18,7 @@ function LenisScrolling({ children }) {
       duration: 2.5,
       lerp:0.045
     })
-    console.log(lenisRef.current)
+  //  console.log(lenisRef.current)
     function update(time) {
     
       lenisRef.current.raf(time * 1000);

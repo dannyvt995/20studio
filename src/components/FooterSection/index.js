@@ -1,9 +1,12 @@
 "use client"
 import { useEffect, useRef } from "react"
 import gsap from "gsap"
+
 import "./style.css"
 import { usePathname } from "next/navigation"
-export default function FooterSection({ idWrapperScroll, backgroundClass }) {
+import Image from "next/image"
+import ButtonHoverUnderLine from "../ButtonHoverUnderLine"
+export default function FooterSection({ idWrapperScroll, backgroundClass ,handleRedirect }) {
     const wRef = useRef(null)
     const footerContainer = useRef(null)
     const w_moveRef = useRef(null)
@@ -18,7 +21,7 @@ export default function FooterSection({ idWrapperScroll, backgroundClass }) {
         || idWrapperScroll == "#page3scroll" && path == '/page3'
         || idWrapperScroll == "#page4scroll" && path == '/page4')
         {
-            console.log('render===',path,idWrapperScroll)
+          //  console.log('render===',path,idWrapperScroll)
        
          
             gsap.timeline({
@@ -50,7 +53,13 @@ export default function FooterSection({ idWrapperScroll, backgroundClass }) {
                             <p>20STUDIO mong muốn đồng hành cùng bạn và tạo ra những sản phẩm chất lượng nhất với giá thành cạnh tranh theo đúng thời hạn cam kết.</p>
                         </div>
                         <div className='image'>
-
+                            <Image src="/home/ser1.png"
+                                alt="serfoot"
+                                sizes="100vw"
+                                width={0}
+                                height={0}
+                                style={{width:'auto',height:'100%'}} 
+                                />
                         </div>
                     </div>
                     <div className='second_footer'>
@@ -60,36 +69,37 @@ export default function FooterSection({ idWrapperScroll, backgroundClass }) {
                                 <p>support@20studio.vn</p>
                             </div>
                             <div className='menu_footer'>
-                                <ul>
+                                <ul className="format">
                                     <li>
-                                        <a>Dự án</a>
+                                        <ButtonHoverUnderLine  eventPass={handleRedirect} data_link="/page1" data_type="onsite">Dự án</ButtonHoverUnderLine>
                                     </li>
                                     <li>
-                                        <a>Dịch vụ</a>
+                                        <ButtonHoverUnderLine  eventPass={handleRedirect} data_link="/page2" data_type="onsite">Dịch vụ</ButtonHoverUnderLine>
                                     </li>
                                     <li>
-                                        <a>Liên hệ</a>
+                                        <ButtonHoverUnderLine  eventPass={handleRedirect} data_link="/page4" data_type="onsite">Liên hệ</ButtonHoverUnderLine>
                                     </li>
                                 </ul>
                             </div>
                             <div className='socal_footer'>
-                                <ul>
+                                <ul className="format">
                                     <li>
-                                        <a>Instagram</a>
+                                        <ButtonHoverUnderLine>Instagram</ButtonHoverUnderLine>
                                     </li>
                                     <li>
-                                        <a>Twitter</a>
+                                        <ButtonHoverUnderLine>Twitter</ButtonHoverUnderLine>
                                     </li>
                                     <li>
-                                        <a>Facebook</a>
+                                        <ButtonHoverUnderLine>Facebook</ButtonHoverUnderLine>
                                     </li>
                                     <li>
-                                        <a>Tiktok</a>
+                                        <ButtonHoverUnderLine>Tiktok</ButtonHoverUnderLine>
                                     </li>
                                 </ul>
                             </div>
                             <div className='btn_more'>
-                                <a>Về chúng tôi</a>
+                                <ButtonHoverUnderLine  eventPass={handleRedirect} data_link="/page2" data_type="onsite">Về chúng tôi</ButtonHoverUnderLine>
+                       
                             </div>
                         </div>
                     </div>

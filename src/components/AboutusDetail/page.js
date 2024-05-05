@@ -9,7 +9,7 @@ export default function AboutusDetail() {
                             <Star/>
                             <p>Quy trình của 20Studio</p>
                         </div>
-                        <h3>Để đảm bảo chất lượng và thời gian cho khách hàng, 20studio cung cấp quy trình làm việc đầy đủ và nhanh chóng nhất</h3>
+                        <p>Để đảm bảo chất lượng và thời gian cho khách hàng, 20studio cung cấp quy trình làm việc đầy đủ và nhanh chóng nhất</p>
                     </div>
                     <div className="advan_1 row2">
                        <div>

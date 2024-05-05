@@ -18,7 +18,7 @@ section{
     clip-path: polygon(0% 0%, 100% 0%, 100% 123%, 0% 100%),
 } */
 #homescroll,#page1scroll,#page2scroll,#page3scroll,#page4scroll {
-    transform: translate(-300px,600px) scale(1.3) rotate(7deg);
+    transform: translateY(600px) scale(1.3) rotate(7deg);
     will-change:tranform,opacity;
     opacity: 0;
 }
@@ -170,6 +170,18 @@ main {
 
 
 
+
+
+/* another eff */
+.underline-effect-styles {
+  position: absolute;
+  bottom:-0.2px;
+  left:0;
+  width: 0;
+  height: 1px;
+  background-color:var(--white);
+  will-change: transform;
+}
 
 
 

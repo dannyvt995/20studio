@@ -121,14 +121,14 @@ export default function Providers() {
    
         const indexPage = calcIndexPage(pathName)
         console.log(indexPage)
-        const datalink = e.target.getAttribute("data-link")
+        const datalink = e.target.getAttribute("data_link")
         router.push(datalink)
         if (datalink == pathName) return
 
         if (!isRunning.current) {
             isRunning.current = true
             activeState.current = false
-            linkTarget.current = e.target.getAttribute("data-link");
+            linkTarget.current = e.target.getAttribute("data_link");
      
             // if (linkTarget.current == '/page1') {
             //     setShowPage1(true);
@@ -154,14 +154,14 @@ export default function Providers() {
             <div className="navbar_section">
                 <div className="grid_12col_container">
                 <div className="logo">
-                    <span><a onClick={handleRedirect} data-link="/">20 studio</a></span>
+                    <span><a onClick={handleRedirect} data_link="/">20 studio</a></span>
                 </div>
                 <div className="menu_list">
-                    <ul>
-                        <li><a onClick={handleRedirect} data-link="/page1">Work</a></li>
-                        <li><a onClick={handleRedirect} data-link="/">Studio</a></li>
-                        <li><a onClick={handleRedirect} data-link="/page2">News</a></li>
-                        <li><a onClick={handleRedirect} data-link="/page1">Contact</a></li>
+                    <ul className='format'>
+                        <li><a onClick={handleRedirect} data_link="/page1">Work</a></li>
+                        <li><a onClick={handleRedirect} data_link="/">Studio</a></li>
+                        <li><a onClick={handleRedirect} data_link="/page2">News</a></li>
+                        <li><a onClick={handleRedirect} data_link="/page1">Contact</a></li>
                     </ul>
                 </div>
                 </div>
