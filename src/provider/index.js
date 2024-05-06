@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import gsap from 'gsap';
-import useSWR from 'swr'
+
 import HomePage from '@/app/home';
 import Page2 from '@/app/page2/page';
 
@@ -69,6 +69,25 @@ export default function Providers() {
 
     const totalTime = 1.5
 
+
+
+   
+    const [statusPopState, setStatusPopState] = useState(false);
+    const statusPopStateRef = useRef(false)
+    const statusPopStateRefFromDom = useRef(null)
+    useEffect(() => {
+        const handleBackButton = () => {
+            statusPopStateRef.current = true
+        };
+   
+          window.addEventListener('popstate', handleBackButton);
+        
+          return () => {
+            window.removeEventListener('popstate', handleBackButton);
+          };
+      }, [router]);
+    
+
     // RUN ON FIRST TIME , JUST ONCE
     useEffect(() => {
        console.log('This runs when entering the page just once.');
@@ -118,9 +137,99 @@ export default function Providers() {
     const navbarListTabRef = useRef(null)
     const navbarIconTabRef = useRef(null)
 
+    const animateTransitionPageBYPOPSTATE = (targetDomWrapper,targetDomScroll) => {
+      gsap.timeline({
+                onComplete: () => {
+                    statusPopStateRef.current = false
+                },
+            })
+            .set(targetDomWrapper, {
+                zIndex: 7,
+                clipPath: "polygon(0% 100%, 100% 123%, 100% 100%, 0% 100%)"
+            })
+            .set(targetDomScroll, {
+                opacity:1
+            })
+            .set(targetDomScroll, {
+                zIndex: 7,
+                rotate: 7,
+                scale: 1.3,
+                y: 600,
+          //      x: -300,
+            })
+            .to(targetDomScroll, {
+                rotate: 0,
+                scale: 1,
+                y: 0,
+             //   x:0,
+                duration: totalTime,
+                ease: "power2.out",
+            })
+            .to(targetDomWrapper, {
+                clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+                duration: totalTime,
+                ease: "power2.out",
+            }, '<')
+    }
+    useEffect(() => {
+        if(statusPopStateRef.current && pathName){
+            console.log('pathName===========',pathName,localStorage.getItem('link_current'))
+
+            let a = removeSplash(localStorage.getItem('link_current'))
+            let cur = removeSplash(pathName)
+            console.log(cur,"curcurcurcurcurcurcurcur")
+      
+            if (pathName == '/page1') {
+                setShowPage1(true);
+                animateTransitionPageBYPOPSTATE(cur)
+            } else if (pathName == '/page2') {
+                setShowPage2(true);
+              
+               animateTransitionPageBYPOPSTATE(cur)
+            } else if (pathName == '/page3') {
+                setShowPage3(true);
+            
+                animateTransitionPageBYPOPSTATE(cur)
+            } else if (pathName == '/page4') {
+                setShowPage4(true);
+             
+               animateTransitionPageBYPOPSTATE(cur)
+            } else if (pathName == '/') {
+                
+                setShowHome(true);
+               setTimeout(() => {
+                const targetDomWrapper = document.getElementById(`${cur}`)
+                const targetDomScroll = document.getElementById(`${cur}scroll`)
+                console.log('THis LIN==================================================')
+                console.log(targetDomWrapper,targetDomScroll)
+    
+                animateTransitionPageBYPOPSTATE(targetDomWrapper,targetDomScroll)
+               }, 1000);
+            }
+            // switch (pathName) {
+            //     case "/page1":
+            //         setShowPage1(true);
+            //         break;
+            //     case "/page2":
+                
+            //         setShowPage2(true);
+            //         break;
+            //     case "/page3":
+            //         setShowPage3(true);
+            //         break;
+            //     case "/page4":
+            //         setShowPage4(true);
+            //         break;
+            //     default:
+            //         setShowHome(true);
+            //         break;
+            // }
+      
+        }
+    },[pathName])
     useEffect(() => {
        // console.log('init lenis')
-   
+        if(statusPopStateRef.current) return
         setTimeout(() => {
           
             scrollContainerRef.current = document.getElementById(`${pathNameFormat}scroll`)
@@ -131,10 +240,10 @@ export default function Providers() {
             lenisRef.current = new Lenis({
                 syncTouch:true,
                 wrapper: scrollContainerRef.current,
-
+               // lerp:0.07,
                 duration: 1.2,
-                easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)), // https://easings.net
-
+               // easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)), // https://easings.net
+                easing:(t) => 1 - Math.pow(1 - t, 3.5)
             })
           
             /* UPDATE THIS PROXY */
@@ -170,7 +279,7 @@ export default function Providers() {
         }, 300);
       
         function update(time) {
-            lenisRef.current?.raf(time * 1000);
+            lenisRef.current?.raf(time * 1300);
         }
 
         return () => {
@@ -181,6 +290,9 @@ export default function Providers() {
         }
     }, [pathName])
 
+    function savePathFinal(pathname) {
+        localStorage.setItem('link_current',pathname)
+    }
     // CONTROLS STATE EACH PAGE
     function removeCurrentPage() {
         console.log('HOME RENDER 2 TIME')
@@ -196,17 +308,57 @@ export default function Providers() {
             setShowHome(false);
         }
     }
-    const animateTransitionPage = (targetDomWrapper, targetDomScroll, nextPage) => {
+    const animateTransitionPage = (targetDomWrapper, targetDomScroll, nextPage,conditionPopState) => {
         const currentDomWrapper = document.getElementById(`${pathNameFormat}`)
         const currentDomScroll = document.getElementById(`${pathNameFormat}scroll`)
-        gsap.timeline({
-            onComplete: () => {
-                removeCurrentPage()
-                router.push(nextPage)
-            },
-            }).set(targetDomWrapper, {
+        if(conditionPopState) {
+            gsap.timeline({
+                onComplete: () => {
+                    removeCurrentPage()
+                    statusPopStateRef.current = false
+                },
+            })
+            .set(targetDomWrapper, {
                 clipPath: "polygon(0% 100%, 100% 123%, 100% 100%, 0% 100%)"
-            }).set(currentDomWrapper, {
+            })
+            .set(targetDomScroll, {
+                opacity:1
+            })
+            .set(targetDomScroll, {
+                zIndex: 2,
+                rotate: 7,
+                scale: 1.3,
+                y: 600,
+          //      x: -300,
+            })
+            .to(targetDomScroll, {
+                rotate: 0,
+                scale: 1,
+                y: 0,
+             //   x:0,
+                duration: totalTime,
+                ease: "power2.out",
+            })
+            .to(targetDomWrapper, {
+                clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+                duration: totalTime,
+                ease: "power2.out",
+            }, '<')
+            
+        }else{
+            gsap.timeline({
+                onComplete: () => {
+                
+                    removeCurrentPage()
+                    router.push(nextPage);
+                    savePathFinal(nextPage)
+
+                },
+            })
+            .set(targetDomWrapper, {
+                clipPath: "polygon(0% 100%, 100% 123%, 100% 100%, 0% 100%)"
+            })
+            .set(currentDomWrapper, {
                 clipPath: 'polygon(0% 0%, 100% 0%, 100% 123%, 0% 100%)',
             })
             .set(targetDomScroll, {
@@ -226,7 +378,8 @@ export default function Providers() {
              //   x:0,
                 duration: totalTime,
                 ease: "power2.out",
-            }).to(targetDomWrapper, {
+            })
+            .to(targetDomWrapper, {
                 clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
                 duration: totalTime,
                 ease: "power2.out",
@@ -235,19 +388,24 @@ export default function Providers() {
                 clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
                 duration: totalTime,
                 ease: "power2.out",
-            }, '<').to(currentDomScroll, {
+            }, '<')
+            .to(currentDomScroll, {
                 rotate: -7,
                 scale: 1.3,
                 y: -600,
                // x:-300,
                 duration: totalTime,
                 ease: "power2.out",
-            }, '<').to(currentDomScroll, {
+            }, '<')
+            .to(currentDomScroll, {
                 '-webkit-filter': 'grayscale(100%) ',
                 filter: 'grayscale(100%)',
                 duration: totalTime,
                 ease: "power2.out",
             }, '<')
+        }
+      
+      
     };
 
     const firstLoadAnimation = (elParent, elChild) => {
@@ -338,16 +496,17 @@ export default function Providers() {
     };
 
     useEffect(() => {
+        if(statusPopStateRef.current) return
        // console.log('usestate Listen showPage1')
         const targetDomWrapper = document.getElementById("page1")
         const targetDomScroll = document.getElementById("page1scroll")
         if (showPage1 && activeState.current) {
-           // console.log('FIRE ANIM ENTER PAGE')
+           console.log('FIRE ANIM ENTER PAGE')
 
             firstLoadAnimation(targetDomWrapper, targetDomScroll)
         }
         if (showPage1 && linkTarget.current == '/page1' && saveTypeLink.current == 'onsite') {
-            animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current);
+            animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current,false);
         }
         if (showPage1 && linkTarget.current == '/page1' && saveTypeLink.current == 'outsite') {
             animateTransitionPageOutside(targetDomWrapper, targetDomScroll, linkTarget.current);
@@ -355,16 +514,17 @@ export default function Providers() {
     }, [showPage1])
 
     useEffect(() => {
+        if(statusPopStateRef.current) return
        // console.log('usestate Listen showPage2')
         const targetDomWrapper = document.getElementById("page2")
         const targetDomScroll = document.getElementById("page2scroll")
         if (showPage2 && activeState.current) {
-           // console.log('FIRE ANIM ENTER PAGE')
+           console.log('FIRE ANIM ENTER PAGE')
             firstLoadAnimation(targetDomWrapper, targetDomScroll)
         }
         if (showPage2 && linkTarget.current == '/page2' && saveTypeLink.current == 'onsite') {
            // console.log('2222')
-            animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current);
+            animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current,false);
         }
         if (showPage2 && linkTarget.current == '/page2' && saveTypeLink.current == 'outsite') {
             animateTransitionPageOutside(targetDomWrapper, targetDomScroll, linkTarget.current);
@@ -372,16 +532,17 @@ export default function Providers() {
     }, [showPage2])
 
     useEffect(() => {
+        if(statusPopStateRef.current) return
         //console.log('usestate Listen showPage3')
         const targetDomWrapper = document.getElementById("page3")
         const targetDomScroll = document.getElementById("page3scroll")
         if (showPage3 && activeState.current) {
-            //console.log('FIRE ANIM ENTER PAGE')
+            console.log('FIRE ANIM ENTER PAGE')
 
             firstLoadAnimation(targetDomWrapper, targetDomScroll)
         }
         if (showPage3 && linkTarget.current == '/page3' && saveTypeLink.current == 'onsite') {
-            animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current);
+            animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current,false);
         }
         if (showPage3 && linkTarget.current == '/page3' && saveTypeLink.current == 'outsite') {
             animateTransitionPageOutside(targetDomWrapper, targetDomScroll, linkTarget.current);
@@ -389,15 +550,16 @@ export default function Providers() {
     }, [showPage3])
 
     useEffect(() => {
+        if(statusPopStateRef.current) return
         //console.log('usestate Listen showPage4')
         const targetDomWrapper = document.getElementById("page4")
         const targetDomScroll = document.getElementById("page4scroll")
         if (showPage4 && activeState.current) {
-            //console.log('FIRE ANIM ENTER PAGE')
+            console.log('FIRE ANIM ENTER PAGE')
             firstLoadAnimation(targetDomWrapper, targetDomScroll)
         }
         if (showPage4 && linkTarget.current == '/page4' && saveTypeLink.current == 'onsite') {
-            animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current);
+            animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current,false);
         }
         if (showPage4 && linkTarget.current == '/page4' && saveTypeLink.current == 'outsite') {
             animateTransitionPageOutside(targetDomWrapper, targetDomScroll, linkTarget.current);
@@ -405,18 +567,26 @@ export default function Providers() {
     }, [showPage4])
 
     useEffect(() => {
+        if(statusPopStateRef.current) return
       console.log('usestate Listen showHome')
         const targetDomWrapper = document.getElementById("home")
         const targetDomScroll = document.getElementById("homescroll")
         if (showHome && activeState.current) {
-           // console.log('FIRE ANIM ENTER PAGE')
+           console.log('FIRE ANIM ENTER PAGE')
             firstLoadAnimation(targetDomWrapper, targetDomScroll)
         }
         if (showHome && linkTarget.current == '/') {
            // console.log('0000')
-            animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current);
+            animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current,false);
         }
-
+        // if(showHome && statusPopStateRef.current) {
+        //     console.log('   FIRE')
+            
+        //     let a = removeSplash(localStorage.getItem('link_current'))
+        //     const targetDomWrapper = document.getElementById(`${a}`)
+        //     const targetDomScroll = document.getElementById(`${a}scroll`)
+        //     animateTransitionPage(targetDomWrapper, targetDomScroll, linkTarget.current,statusPopStateRef.current);
+        // }
     }, [showHome])
 
     const saveTypeLink = useRef(null)
@@ -449,7 +619,6 @@ export default function Providers() {
                 setShowPage4(true);
 
             } else if (linkTarget.current == '/') {
-                console.log('HOME RENDER 1 TIME')
                 setShowHome(true);
 
             }
