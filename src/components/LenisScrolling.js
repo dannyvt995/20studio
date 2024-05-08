@@ -18,25 +18,7 @@ function LenisScrolling({ children }) {
       duration: 2.5,
       lerp:0.045
     })
-  //  console.log(lenisRef.current)
-    function update(time) {
-    
-      lenisRef.current.raf(time * 1000);
-      
-    }
-  
-    window.lenis = lenisRef.current
-    gsap.ticker.add(update)
-
-    setTimeout(() => {
-      window.lenis = lenisRef.current
-      
-     }, 2000);
-    return  () => {
-      gsap.ticker.remove(update)
-      //  lenisRef.current.Lenis.destroy()
-     
-    }
+ 
   },[lenisRef])
 
   return (

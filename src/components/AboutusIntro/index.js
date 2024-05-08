@@ -4,24 +4,25 @@ import Star from '../icons/Star';
 import './style.css'
 import Image from 'next/image';
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
-const Aboutusintro = ({backgroundClass}) => {
+const Aboutusintro = ({backgroundClass,scroller}) => {
     const listImgRef = useRef(null)
     const domAnim1 = useRef(null)
     const domAnim2 = useRef(null)
 
     useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger)
+   
         const ctx = gsap.context(() => {
             
             gsap.timeline({
                 scrollTrigger: {
-                    scroller:"#page2scroll",
+                    scroller:scroller,
                     trigger: listImgRef.current,
                     start:"top bottom",
                     end: "bottom top",
-                    scrub:true
+                    scrub:true,
+
+                   markers:true
                 }
             }).to(domAnim1.current,{y:-200}).to(domAnim2.current,{y:150},"<")
         })

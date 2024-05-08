@@ -6,7 +6,7 @@ import "./style.css"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
 import ButtonHoverUnderLine from "../ButtonHoverUnderLine"
-export default function FooterSection({ idWrapperScroll, backgroundClass ,handleRedirect }) {
+export default function FooterSection({backgroundClass ,handleRedirect,scroller }) {
     const wRef = useRef(null)
     const footerContainer = useRef(null)
     const w_moveRef = useRef(null)
@@ -15,32 +15,30 @@ export default function FooterSection({ idWrapperScroll, backgroundClass ,handle
 
     // NOTE , Chưa xử lý vấn đề re-render , cách tốt nhất đề control đc re-render
     useEffect(() => {
-        if(idWrapperScroll == "#homescroll" && path == '/'
-        || idWrapperScroll == "#page1scroll" && path == '/page1'
-        || idWrapperScroll == "#page2scroll" && path == '/page2'
-        || idWrapperScroll == "#page3scroll" && path == '/page3'
-        || idWrapperScroll == "#page4scroll" && path == '/page4')
+        if(scroller == "#homepage" && path == '/home' 
+        || scroller == "#aboutpage" && path == '/about'
+        || scroller == "#contactpage" && path == '/contact')
         {
-          //  console.log('render===',path,idWrapperScroll)
-       
-         
-            gsap.timeline({
-                scrollTrigger: {
-                    scroller: idWrapperScroll,
-                    trigger: wRef.current,
-                    start: "top top",
-                    end: "bottom top",
-                    pin:true,
-                    pinSpacing:false,
-                    scrub: true,
-                }
-            }).to(w_moveRef.current,{
-                y:0
-            })
-        }
-        
 
-    }, [path]);
+        
+         
+        }
+       
+        gsap.timeline({
+            scrollTrigger: {
+                scroller: scroller,
+                trigger: wRef.current,
+                start: "top top",
+                end: "bottom top",
+                pin:true,
+                pinSpacing:false,
+                scrub: true,
+               // markers:true,
+            }
+        }).to(w_moveRef.current,{
+            y:0
+        })
+    }, []);
    
     return (
         <section className={`footer_section ${backgroundClass}`} ref={footerContainer}>
@@ -71,13 +69,13 @@ export default function FooterSection({ idWrapperScroll, backgroundClass ,handle
                             <div className='menu_footer'>
                                 <ul className="format">
                                     <li>
-                                        <ButtonHoverUnderLine  eventPass={handleRedirect} data_link="/page1" data_type="onsite">Dự án</ButtonHoverUnderLine>
+                                        <ButtonHoverUnderLine  eventPass={handleRedirect} data_link="/work" data_type="onsite">Dự án</ButtonHoverUnderLine>
                                     </li>
                                     <li>
-                                        <ButtonHoverUnderLine  eventPass={handleRedirect} data_link="/page2" data_type="onsite">Dịch vụ</ButtonHoverUnderLine>
+                                        <ButtonHoverUnderLine  eventPass={handleRedirect} data_link="/about" data_type="onsite">Dịch vụ</ButtonHoverUnderLine>
                                     </li>
                                     <li>
-                                        <ButtonHoverUnderLine  eventPass={handleRedirect} data_link="/page4" data_type="onsite">Liên hệ</ButtonHoverUnderLine>
+                                        <ButtonHoverUnderLine  eventPass={handleRedirect} data_link="/contact" data_type="onsite">Liên hệ</ButtonHoverUnderLine>
                                     </li>
                                 </ul>
                             </div>
@@ -98,7 +96,7 @@ export default function FooterSection({ idWrapperScroll, backgroundClass ,handle
                                 </ul>
                             </div>
                             <div className='btn_more'>
-                                <ButtonHoverUnderLine  eventPass={handleRedirect} data_link="/page2" data_type="onsite">Về chúng tôi</ButtonHoverUnderLine>
+                                <ButtonHoverUnderLine  eventPass={handleRedirect} data_link="/about" data_type="onsite">Về chúng tôi</ButtonHoverUnderLine>
                        
                             </div>
                         </div>

@@ -2,13 +2,18 @@
 
 import React from "react"
 import gsap from 'gsap'
+import { useHistory } from "react-router-dom"
 
 export default function ButtonHoverUnderLine({ eventPass,data_link,data_type,children, color , bold }) {
     const aRef = React.useRef(null)
     const aUnderlineRef = React.useRef(null)
+    const history = useHistory()
     const handleClick = (e) => {
         if (eventPass) {
             eventPass(e);
+            history.push(data_link)
+  
+        
         }
     };
     

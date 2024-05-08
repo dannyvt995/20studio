@@ -1,13 +1,8 @@
-"use client"
 
-import HomePage from "./home";
-
-export default function page() {
-
-
+export default function Home() {
   return (
     <main>
-      {/* <HomePage/> */}
+    
     </main>
   );
 }

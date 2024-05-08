@@ -1,14 +1,14 @@
 "use client"
 import Image from "next/image"
 import Star from "../icons/Star"
-import { useInView } from 'react-intersection-observer';
+
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import SplitType from 'split-type'
 import "./style.css"
 import { useEffect, useRef } from "react"
-export default function WorkSection() {
-
+export default function WorkSection({scroller}) {
+    
     const work_sectionRef = useRef(null)
     const titRef = useRef(null)
     const splitHead = useRef(null)
@@ -17,12 +17,13 @@ export default function WorkSection() {
     useEffect(() => {
 
         splitHead.current = new SplitType(titRef.current.children[0], { types: ' chars' })
+       
         const ctx = gsap.context(() => {
             gsap.from(splitHead.current.chars, {
                 y: 200,
                 stagger: .1,
                 scrollTrigger: {
-                    scroller: "#homescroll",
+                    scroller: scroller,
                     trigger: titRef.current,
                     start: "top 80%",
                     end: "bottom 60%",
