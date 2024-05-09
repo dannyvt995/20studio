@@ -1,9 +1,8 @@
+import Work from '@/modules/work';
 import React from 'react'
 
 const Index = () => (
-    <div>
-      <p>Hello Next.js</p>
-    </div>
+    <Work/>
   );
   
   export default Index;

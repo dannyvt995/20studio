@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
       <body >
      
       <RouterControls>
-   
+      { children }
       </RouterControls>
         
       </body>

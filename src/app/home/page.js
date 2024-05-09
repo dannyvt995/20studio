@@ -1,9 +1,8 @@
+import Home from '@/modules/home';
 import React from 'react'
 
 const Index = () => (
-    <div>
-      <p>Hello Next.js</p>
-    </div>
+   <Home/>
   );
   
   export default Index;

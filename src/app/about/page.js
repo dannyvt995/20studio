@@ -1,9 +1,8 @@
+import About from '@/modules/about';
 import React from 'react'
 
 const Index = () => (
-    <div>
-      <p>Hello Next.js</p>
-    </div>
+    <About/>
   );
   
   export default Index;

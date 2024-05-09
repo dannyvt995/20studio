@@ -1,9 +1,8 @@
+import Contact from '@/modules/contact';
 import React from 'react'
 
 const Index = () => (
-    <div>
-      <p>Hello Next.js</p>
-    </div>
+    <Contact/>
   );
   
   export default Index;

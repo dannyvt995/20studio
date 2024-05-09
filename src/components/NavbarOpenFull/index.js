@@ -13,7 +13,7 @@ export default function NavbarOpenFull({ handleRedirect }) {
                     </div>
                     <div className='menu_item_list row1'>
                         <ul className='format'>
-                        <li><ButtonHoverUnderLine eventPass={handleRedirect} data_link="/home" data_type="outsite">20 Studio</ButtonHoverUnderLine></li>
+                            <li><ButtonHoverUnderLine eventPass={handleRedirect} data_link="/home" data_type="outsite">20 Studio</ButtonHoverUnderLine></li>
                             <li><ButtonHoverUnderLine eventPass={handleRedirect} data_link="/work" data_type="outsite">Dự án</ButtonHoverUnderLine></li>
                             <li><ButtonHoverUnderLine eventPass={handleRedirect} data_link="/about" data_type="outsite">Về chúng tôi</ButtonHoverUnderLine></li>
                             {/*  <li><a onClick={handleRedirect} data_link="/page3"  data_type="onsite">????</a></li> */}

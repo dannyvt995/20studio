@@ -1,14 +1,18 @@
 "use client"
 
-import { Suspense } from 'react'
-import { NavigationEvents } from './NavigationEvents.js'
+
+
+import { Switch, Route, Redirect, Routes, StaticRouter, BrowserRouter as Router, Link } from "react-router-dom";
 
 import { PageTransition } from '@/lib/TransitionPage';
-import Link from "next/link";
-import { usePathname,useRouter } from "next/navigation";
-import styled from 'styled-components';
 
-import { useRef, useEffect , useState } from "react";
+import { usePathname } from "next/navigation";
+import styled from 'styled-components';
+import Home from "@/modules/home/index.js";
+import About from "@/modules/about/index.js";
+import Contact from "@/modules/contact/index.js";
+import Work from "@/modules/work/index.js";
+import { useRef, useEffect } from "react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import gsap from "gsap";
 import Lenis from "@studio-freight/lenis";
@@ -19,7 +23,7 @@ const NavbarSECTION = styled.div`
   position:fixed;
   top:0;
   left:0;
-  z-index:999;
+  z-index:99;
   width: 100vw;
   height: 100px;
   display: flex;
@@ -32,6 +36,8 @@ const NavbarSECTION = styled.div`
   }
   
 `;
+
+
 
 export const pages = [
     {
@@ -56,6 +62,7 @@ export const pages = [
     }
 ];
 
+
 function removeSplash(target) {
     let value
     value = target.replace(/\//g, "");
@@ -64,14 +71,13 @@ function removeSplash(target) {
 }
 
 
+import { createMemoryHistory } from 'history';
+
+const history = createMemoryHistory();
 export default function RouterControls({ children }) {
-    console.log("RouterControls render")
     const pathName = usePathname()
-    const router = useRouter()
     const pathNameFormat = removeSplash(pathName)
     const lenisRef = useRef(null)
-
-
     useEffect(() => {
         setTimeout(() => {
             console.log("lenis fc", pathName)
@@ -171,7 +177,7 @@ export default function RouterControls({ children }) {
 
                 }
             })
-                .set(elMenuWrapper, { zIndex: 500, opacity: 1, clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)' })
+                .set(elMenuWrapper, { zIndex: 100, opacity: 1, clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)' })
                 .set(elMenu, {
                     rotate: -4,
                     scale: 1.7,
@@ -213,13 +219,14 @@ export default function RouterControls({ children }) {
 
 
     }
+
+
     function handleRedirectBaseHistory(e) {
         e.preventDefault()
         let elMenu = document.getElementById("navbarModal")
         let elMenuWrapper = document.getElementById("w_navbarModal")
         let elContent = document.getElementById(`${pathNameFormat}page`)
-       
-        router.push(e.target.getAttribute('data_link'))
+
         let duration = 1.
         gsap.timeline({
             onComplete: () => {
@@ -253,32 +260,63 @@ export default function RouterControls({ children }) {
             }, "<")
 
     }
-    return (
-        <>
-
-            <Suspense fallback={null}>
-                <NavigationEvents />
-            </Suspense>
-            <NavbarSECTION>
-                <Link href='/home'>20 Studio</Link>
-                <Link href='/about'>Về chúng tôi</Link>
-                <Link href='/work'>Dự án</Link>
-                <Link href='/contact'>Liên hệ</Link>
-
-            </NavbarSECTION>
-            <div style={{ position: 'fixed', zIndex: 999 }}>
-                <button onClick={handleCickMenu}>Menu</button>
-            </div>
-            <NavbarOpenFull handleRedirect={handleRedirectBaseHistory} />
-            <PageTransition
-                preset={'roomToTop'}
-                transitionKey={pathName}
-            >
-                {children}
-            </PageTransition>
-
-        </>
-
-    )
-
+    if (typeof window === 'undefined') {
+        return null;
+    }else{
+        return (
+            <Router history={history}>
+                <NavbarSECTION>
+                    <Link to='/home'>20 Studio</Link>
+                    <Link to='/about'>Về chúng tôi</Link>
+                    <Link to='/work'>Dự án</Link>
+                    <Link to='/contact'>Liên hệ</Link>
+    
+                </NavbarSECTION>
+                <div style={{ position: 'fixed', zIndex: 999 }}>
+                    <button onClick={handleCickMenu}>Menu</button>
+                </div>
+                <NavbarOpenFull handleRedirect={handleRedirectBaseHistory} />
+              {/*   { children } */}
+                <Route
+                    render={({ location }) => (
+                        <PageTransition
+                            preset={'roomToTop'}
+                            transitionKey={location.pathname}
+                        >
+                            <Switch location={location}>
+                                {pages.map((page, index) => {
+                                    return (
+                                        <Route
+                                            key={index}
+                                            exact
+                                            path={page.path}
+                                            render={() => {
+                                                switch (index) {
+                                                    case 0:
+                                                        return <Home handleRedirect={handleRedirectBaseHistory} />;
+                                                    case 1:
+                                                        return <About handleRedirect={handleRedirectBaseHistory} />;
+                                                    case 2:
+                                                        return <Contact handleRedirect={handleRedirectBaseHistory} />;
+                                                    case 3:
+                                                        return <Work handleRedirect={handleRedirectBaseHistory} />;
+                                                    default:
+    
+                                                        return null;
+                                                } // Or any default component you want to render
+                                            }}
+                                        />
+                                    );
+                                })}
+                                <Route exact path="/" render={() => <Redirect to="/home" />} />
+                            </Switch>
+    
+                        </PageTransition>
+                    )}
+                />
+            </Router>
+    
+        )
+    }
+   
 }
