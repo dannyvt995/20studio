@@ -25,7 +25,7 @@ function PageTransition({
   ...rest
 }) {
   const pathName = usePathname()
-  console.log('PageTransition RUNNING')
+  //console.log('PageTransition RUNNING')
   // const selectEnterAnimation = () => {
   //   if (enterAnimationOverride) {
   //     if (typeof enterAnimationOverride === 'string') {
