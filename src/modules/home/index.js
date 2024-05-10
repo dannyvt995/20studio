@@ -24,7 +24,7 @@ export default function Home({handleRedirect}) {
   return (
     <>
       <HomePageStyled id="homepage" style={{filter: 'brightness(100%)'}}>
-        <HeroBanner pageName="homepage" hero_img={bannerHomeImg} />
+        <HeroBanner  scroller={"#homepage"} pageName="homepage" hero_img={bannerHomeImg} />
         <WorkSection  scroller={"#homepage"}/>
         <FAQSection backgroundClass={'light_background'} />
         <OurPartners backgroundClass={'light_background'} />

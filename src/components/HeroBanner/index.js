@@ -2,7 +2,30 @@
 import Image from "next/image"
 import "./style.css"
 import ButtonHoverUnderLine from "@/components/ButtonHoverUnderLine"
-export default function HeroBanner({ pageName, hero_img, handleRedirect }) {
+import gsap from 'gsap'
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
+import { useEffect, useRef } from "react"
+export default function HeroBanner({ scroller,pageName, hero_img, handleRedirect }) {
+    const backgroundBanner = useRef(null)
+   
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger)
+        if(backgroundBanner.current) {
+            gsap.to(backgroundBanner.current,{
+                y: 420,
+                scrollTrigger: {
+                    scroller: scroller,
+                    trigger: "#hero_banner_section",
+                    start: "top top",
+                    end: "bottom top",
+                    
+                    scrub:.9,
+                    //markers: true,
+                    // invalidateOnRefresh: true,
+                }
+            })
+        }
+    },[])
     return (
 
         <section id="hero_banner_section" className="hero_banner dark_background" /* style={{ background: `url(${hero_img})`, backgroundSize: "cover" }} */>
@@ -11,7 +34,7 @@ export default function HeroBanner({ pageName, hero_img, handleRedirect }) {
 
                 {pageName == 'homepage' &&
                     <>
-                        <div className="backgroundBanner">
+                        <div className="backgroundBanner" ref={backgroundBanner}>
                             <Image
                                 src={hero_img}
                                 alt="Hero Image Banner"
@@ -46,7 +69,7 @@ export default function HeroBanner({ pageName, hero_img, handleRedirect }) {
 
                 {pageName == 'aboutpage' &&
                     <>
-                        <div className="backgroundBanner">
+                        <div className="backgroundBanner"  ref={backgroundBanner}>
                             <Image
                                 src={hero_img}
                                 sizes="100vw"

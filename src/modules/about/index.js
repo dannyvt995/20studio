@@ -26,7 +26,7 @@ export default function About({handleRedirect}) {
     <>
       <AboutPageStyled id="aboutpage" style={{filter: 'brightness(100%)'}}>
 
-        <HeroBanner pageName="aboutpage" hero_img={bannerAboutusImg} />
+        <HeroBanner scroller={"#aboutpage"} pageName="aboutpage" hero_img={bannerAboutusImg} />
         <Aboutusintro scroller={'#aboutpage'} backgroundClass={'light_background'}/>
            <AboutusDetail />
         <AboutContentLarge
