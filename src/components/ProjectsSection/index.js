@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react'
 
 import gsap from 'gsap'
 import { Observer } from "gsap/dist/Observer";
-
+import Link from 'next/link';
 import './style.css'
 
 export default function ProjectsSection() {
@@ -18,20 +18,22 @@ export default function ProjectsSection() {
   const projects_section_ref = useRef(null)
   const listDomThumb = useRef(null)
   const listDomBackground = useRef(null)
-
+  const listContentBackground = useRef(null)
   const chuasapxepPTarget = 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)'
   const chuasapxepP2ForBg =  'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)'
   const chuasapxepP3ForBg =  'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)'
 
 
   useEffect(() => {
+    localStorage.setItem('activeItemOnWorkPage',0)
     const big_backgroundDom = document.getElementById('big_background')
     const small_backgroundDom = document.getElementById('small_background')
-  
+    const content_brand = document.getElementById('info_brand')
   
     if (big_backgroundDom, small_backgroundDom) {
       listDomBackground.current = big_backgroundDom
       listDomThumb.current = small_backgroundDom
+      listContentBackground.current = content_brand
     }
 
   }, [])
@@ -41,7 +43,8 @@ export default function ProjectsSection() {
     listDomBackground.current.children[nextNum].classList.add('active');
     listDomThumb.current.children[prevNum].classList.remove('active');
     listDomThumb.current.children[nextNum].classList.add('active');
-   
+    listContentBackground.current.children[prevNum].classList.remove('active');
+    listContentBackground.current.children[nextNum].classList.add('active');
   }
 
 
@@ -90,24 +93,29 @@ export default function ProjectsSection() {
 
 
 
-
+  function setValStore(val, nameVal) {
+    localStorage.setItem(nameVal, val.toString())
+  }
 
 
 
 
 
   function handleClickPrev() {
-    let nextvalueRef = (parseInt(valueRef.current) - 1 + 5) % 5; // Loop from 4 to 0
+    let nextvalueRef = (parseInt(valueRef.current) - 1 + 4) % 4; // Loop from 4 to 0
     runSlider(valueRef.current, nextvalueRef);
     gsapSlider(valueRef.current, nextvalueRef, chuasapxepP3ForBg,chuasapxepP2ForBg, "0%", -1);
     valueRef.current = nextvalueRef
+    // save for use on transition page on work page to detail work page
+    setValStore(valueRef.current.toString(),'activeItemOnWorkPage')
   }
   function handleClickNext() {
-    let nextvalueRef = (parseInt(valueRef.current) + 1) % 5; // Loop from 0 to 4
+    let nextvalueRef = (parseInt(valueRef.current) + 1) % 4; // Loop from 0 to 4
     runSlider(valueRef.current, nextvalueRef);
     gsapSlider(valueRef.current, nextvalueRef, chuasapxepP2ForBg,chuasapxepP3ForBg, "0%", 1);
     valueRef.current = nextvalueRef
-
+      // save for use on transition page on work page to detail work page
+    setValStore(valueRef.current.toString(),'activeItemOnWorkPage')
   }
   function handleMouseDown() {
      console.log('handleMouseDown')
@@ -137,15 +145,6 @@ export default function ProjectsSection() {
     });
     observeRefPageWheel.current.enable()
   }, [])
-  const handleRedirectToDetailWork = (e) => {
-    console.log('handleRedirectToDetailWork')
-  }
-
-
-  const handleOpenList = (e) => {
-
-
-  }
 
 
 
@@ -160,20 +159,66 @@ export default function ProjectsSection() {
             <li data_ser="1"></li>
             <li data_ser="2" ></li>
             <li data_ser="3"></li>
-            <li data_ser="4"></li>
           </ul>
         </div>
-
-        <div className="content" >
-          <button onClick={handleClickPrev}>Prev</button>
-          <button onClick={handleClickNext}>Next</button>
-          <ul id="small_background" ref={listDomThumb}>
-            <li className='active'><a onClick={handleRedirectToDetailWork} data_link="project1"></a></li>
-            <li><a onClick={handleRedirectToDetailWork} data_link="project2"></a></li>
-            <li><a onClick={handleRedirectToDetailWork} data_link="project3"></a></li>
-            <li><a onClick={handleRedirectToDetailWork} data_link="project4"></a></li>
-            <li><a onClick={handleRedirectToDetailWork} data_link="project5"></a></li>
+        <div className='content_text'>
+          <ul id='info_brand'>
+            <li  className='active'>
+              <div>
+                    <span>TRAO</span>
+                    <span>STUDIO</span>
+              </div>
+              <div>
+                  <span>Some text about this</span>
+                  <span>brand and more</span>
+                  <span>info</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                    <span>MODIEN</span>
+                    <span>STUDIO</span>
+              </div>
+              <div>
+                  <span>Some text about this</span>
+                  <span>brand and more</span>
+                  <span>info</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                    <span>NET</span>
+                    <span>STUDIO</span>
+              </div>
+              <div>
+                  <span>Some text about this</span>
+                  <span>brand and more</span>
+                  <span>info</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                    <span>SIREN</span>
+                    <span>STUDIO</span>
+              </div>
+              <div>
+                  <span>Some text about this</span>
+                  <span>brand and more</span>
+                  <span>info</span>
+              </div>
+            </li>
           </ul>
+        </div>
+        <div className="content_image" >
+
+          <ul id="small_background" ref={listDomThumb}>
+            <li className='active'><Link href="/work/work1">Enter Job1</Link></li>
+            <li><Link href="/work/work2">Enter Job2</Link></li>
+            <li><Link href="/work/work3">Enter Job3</Link></li>
+            <li><Link href="/work/work4">Enter Job4</Link></li>
+          </ul>
+   {/*        <button onClick={handleClickPrev}>Prev</button>
+          <button onClick={handleClickNext}>Next</button> */}
         </div>
         {/*    <div className='btn_open_list'>
           <button onClick={handleOpenList}>handleOpenList</button>

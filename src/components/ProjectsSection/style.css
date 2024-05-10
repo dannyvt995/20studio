@@ -17,8 +17,27 @@
     padding: 100px;
     z-index: 99;
 }
-
-.projects_section > .content {
+.projects_section > .content_text {
+    position:absolute;
+    top:50%;
+    left:20%;
+    width:200px;
+    height: 64vh;
+    transform:translate(-50%,-50%);
+    z-index:11;
+    overflow:hidden;
+}
+#info_brand li > div {
+    display: flex;
+    flex-direction: column;
+}
+#info_brand li {
+    opacity: 0;
+}
+#info_brand .active {
+    opacity: 1 !important;
+}
+.projects_section > .content_image {
     position:absolute;
     top:50%;
     left:50%;
@@ -75,22 +94,22 @@ ul#big_background li:nth-child(1) {
 }
 ul#small_background li:nth-child(1),
 ul#big_background li:nth-child(1){
-    background:url('/home/ser1.png');
+    background: url(/work/TRAO.webp);
     background-size:cover;
 }
 ul#small_background li:nth-child(2),
 ul#big_background li:nth-child(2){
-    background:url('/home/ser2.png');
+    background: url(/work/NET.webp);
     background-size:cover;
 }
 ul#small_background li:nth-child(3),
 ul#big_background li:nth-child(3){
-    background:url('/home/ser3.png');
+    background: url(/work/SIREN.webp);
     background-size:cover;
 }
 ul#small_background li:nth-child(4),
 ul#big_background li:nth-child(4){
-    background:url('/home/ser4.png');
+    background: url(/work/MOIDIEN.webp);
     background-size:cover;
 }
 
@@ -103,19 +122,19 @@ ul#big_background li:nth-child(5){
 
 
 #SLIDER_WORK_LIST button:nth-child(1) .img {
-    background:url('/home/ser1.png');
+    background: url(/work/TRAO.webp);
     background-size:cover;
 }
 #SLIDER_WORK_LIST button:nth-child(2) .img {
-    background:url('/home/ser2.png');
+    background: url(/work/TRAO.webp);
     background-size:cover;
 }
 #SLIDER_WORK_LIST button:nth-child(3) .img {
-    background:url('/home/ser3.png');
+    background: url(/work/SIREN.webp);
     background-size:cover;
 }
 #SLIDER_WORK_LIST button:nth-child(4) .img {
-    background:url('/home/ser4.png');
+    background: url(/work/MOIDIEN.webp);
     background-size:cover;
 }
 #SLIDER_WORK_LIST button:nth-child(5) .img {

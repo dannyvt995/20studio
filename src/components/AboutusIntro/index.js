@@ -38,15 +38,15 @@ const Aboutusintro = ({backgroundClass,scroller}) => {
                 <div className='img row1'>
                     <div className='grid_12col_container_nomargin' id="list_img" ref={listImgRef}>
                         <div className='item row1' ref={domAnim1}>
-                            <Image src="/home/ser3.png" 
+                            <Image src="/home/ser3.webp" 
                             alt="asd" width={0} height={0} sizes="100vw" 
                             style={{width:"auto",height:"100%"}} />
                         </div>
                         <div className='item row1'>
-                            <Image src="/home/ser2.png" alt="asd" width={0} height={0} sizes="100vw" style={{width:"100%",height:"auto"}} />
+                            <Image src="/home/ser2.webp" alt="asd" width={0} height={0} sizes="100vw" style={{width:"100%",height:"auto"}} />
                         </div>
                         <div className='item row1'  ref={domAnim2}>
-                            <Image src="/home/ser1.png" alt="asd" width={0} 
+                            <Image src="/home/ser1.webp" alt="asd" width={0} 
                             height={0} sizes="100vw" 
                             style={{width:"auto",height:"100%"}} />
                         </div>

@@ -51,7 +51,7 @@ export default function FooterSection({backgroundClass ,handleRedirect,scroller 
                             <p>20STUDIO mong muốn đồng hành cùng bạn và tạo ra những sản phẩm chất lượng nhất với giá thành cạnh tranh theo đúng thời hạn cam kết.</p>
                         </div>
                         <div className='image'>
-                            <Image src="/home/ser1.png"
+                            <Image src="/home/ser1.webp"
                                 alt="serfoot"
                                 sizes="100vw"
                                 width={0}

@@ -32,7 +32,33 @@ const NavbarSECTION = styled.div`
   }
   
 `;
-
+const listPathAndIdDom = {
+    pages: [
+      '/',
+      '/home',
+      '/work',
+      '/contact',
+      '/about'
+    ],
+    pagesWork: [
+      '/work/work1',
+      '/work/work2',
+      '/work/work3',
+      '/work/work4'
+    ],
+    idpages: [
+      '#homepage',
+      '#aboutpage',
+      '#workpage',
+      '#contactpage'
+    ],
+    idpagesWork: [
+      '#work1page',
+      '#work2page',
+      '#work3page',
+      '#work4page'
+    ]
+  }
 export const pages = [
     {
         path: "/home",
@@ -58,8 +84,14 @@ export const pages = [
 
 function removeSplash(target) {
     let value
-    value = target.replace(/\//g, "");
-    if (value == '') value = "home"
+    if(listPathAndIdDom.pagesWork.includes(target)) {
+        value = target.replace(/\/work\//g, "");
+
+    }else{
+        value = target.replace(/\//g, "");
+        if (value == '') value = "home"
+    }
+   
     return value
 }
 
@@ -76,6 +108,7 @@ export default function RouterControls({ children }) {
         setTimeout(() => {
             console.log("lenis fc", pathName)
             gsap.registerPlugin(ScrollTrigger)
+            console.log(pathNameFormat)
             const iddom = document.getElementById(`${pathNameFormat}page`)
             //console.log(`w_${pathNameFormat}page`, iddom)
 

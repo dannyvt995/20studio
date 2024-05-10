@@ -61,7 +61,7 @@ export default function WorkSection({scroller}) {
                     <a>
                         <div>
                             <Image
-                                src="/home/ser1.png"
+                                src="/home/ser1.webp"
                                 width={0}
                                 height={0}
                                 sizes="100vw"
@@ -74,7 +74,7 @@ export default function WorkSection({scroller}) {
                     <a>
                         <div>
                             <Image
-                                src="/home/ser2.png"
+                                src="/home/ser2.webp"
                                 width={0}
                                 height={0}
                                 sizes="100vw"
@@ -87,7 +87,7 @@ export default function WorkSection({scroller}) {
                     <a>
                         <div>
                             <Image
-                                src="/home/ser3.png"
+                                src="/home/ser3.webp"
                                 width={0}
                                 height={0}
                                 sizes="100vw"
@@ -100,7 +100,7 @@ export default function WorkSection({scroller}) {
                     <a>
                         <div>
                             <Image
-                                src="/home/ser4.png"
+                                src="/home/ser4.webp"
                                 width={0}
                                 height={0}
                                 sizes="100vw"

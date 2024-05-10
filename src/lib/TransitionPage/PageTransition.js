@@ -15,6 +15,10 @@ import Work from "@/modules/work/index.js";
 import { connect } from 'react-redux';
 import { updateValue } from '@/redux/action';
 import { usePathname } from 'next/navigation';
+import Work1 from '@/modules/work1';
+import Work2 from '@/modules/work2';
+import Work3 from '@/modules/work3';
+import Work4 from '@/modules/work4';
 
 function PageTransition({
   children,
@@ -25,7 +29,7 @@ function PageTransition({
   ...rest
 }) {
   const pathName = usePathname()
-  //console.log('PageTransition RUNNING')
+  console.log('PageTransition RUNNING')
   // const selectEnterAnimation = () => {
   //   if (enterAnimationOverride) {
   //     if (typeof enterAnimationOverride === 'string') {
@@ -72,13 +76,41 @@ function PageTransition({
   // const exitAnimation = selectExitAnimation();
   //const timeout = Math.max(enterAnimation.duration, exitAnimation.duration);
 
+
+  const listPathAndIdDom = {
+    pages: [
+      '/',
+      '/home',
+      '/work',
+      '/contact',
+      '/about'
+    ],
+    pagesWork: [
+      '/work/work1',
+      '/work/work2',
+      '/work/work3',
+      '/work/work4'
+    ],
+    idpages: [
+      '#homepage',
+      '#aboutpage',
+      '#workpage',
+      '#contactpage'
+    ],
+    idpagesWork: [
+      '#work1page',
+      '#work2page',
+      '#work3page',
+      '#work4page'
+    ]
+  }
+  console.log(listPathAndIdDom)
   const timeoutgsap = 1
 
 
   const tl = gsap.timeline({ overwrite: true })
   const indexRef = useRef(100)
-  const enterAnim = (dom, path) => {
-   // console.log(dom.children[0])
+  const enterAnim = (dom) => {
     tl
       .fromTo(dom, {
         zIndex: indexRef.current++,
@@ -103,8 +135,7 @@ function PageTransition({
       }, '<')
   }
 
-  const exitAnim = (dom, path) => {
-   // console.log("onExit", dom, path)
+  const exitAnim = (dom) => {
     tl
       .fromTo(dom.children[0], {
         rotate: 0,
@@ -120,8 +151,33 @@ function PageTransition({
 
   }
 
-  function setValStore(val,nameVal) {
-    localStorage.setItem(nameVal,val.toString())
+  const enterAnimForWorkPageDetail = (dom) => {
+    // do nothing
+  }
+  const exitAnimForWorkPage = (dom, itemactive) => {
+    // always is #work page
+    console.log(itemactive, itemactive, itemactive)
+    let bgLargeDom_workpage = dom.children[0].children[0].children[0].children[0].children[Number(itemactive)]
+    let bgContent_workpage = dom.children[0].children[0].children[1]
+    let bgThumbDom_workpage = dom.children[0].children[0].children[2]
+    tl
+      .set(bgThumbDom_workpage, {
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)'
+      }).to(
+        bgLargeDom_workpage, {
+        scale: 1.5,
+        duration: timeoutgsap
+      }
+      ).to(
+        bgThumbDom_workpage, {
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+        duration: timeoutgsap
+      }
+        , "<")
+
+  }
+  function setValStore(val, nameVal) {
+    localStorage.setItem(nameVal, val.toString())
   }
   return (
     <PageTransitionGroup {...rest}>
@@ -131,18 +187,45 @@ function PageTransition({
           key={transitionKey}
           timeout={timeoutgsap * 1000}
           onEnter={node => {
-            enterAnim(node, transitionKey)
-            setValStore(false,"truyentam")
+            let targetPath = transitionKey
+            setValStore(false, "truyentam")
+            setValStore(targetPath, "currentPath") // save it to cahnge anim type when on work page
+
+
+            if (listPathAndIdDom.pagesWork.includes(transitionKey)) {
+
+              enterAnimForWorkPageDetail(node)
+            } else {
+              // df anim
+              enterAnim(node)
+            }
+
+
           }}
           onEntered={node => {
-            setValStore(true,"truyentam")
-            console.log("transitionKey === onEntered", transitionKey)
+            // this need to use to toggle lenis when page entered with smoething like redux/zustand
+            setValStore(true, "truyentam")
+            // console.log("transitionKey === onEntered FOR LLENIS SET", transitionKey)
           }}
-          onExit={node => exitAnim(node, transitionKey)}
+          onExit={node => {
+            let target__from_work = localStorage.getItem('currentPath')
+
+            if (listPathAndIdDom.pagesWork.includes(target__from_work)) {
+              let activeItemOnWorkPage = localStorage.getItem('activeItemOnWorkPage')
+              exitAnimForWorkPage(node, activeItemOnWorkPage)
+            } else {
+              // df anim
+              exitAnim(node)
+            }
+
+          }}
         >
           {state => {
             let content;
             switch (pathName) {
+              case '/':
+                content = <Home />;
+                break;
               case '/home':
                 content = <Home />;
                 break;
@@ -155,6 +238,21 @@ function PageTransition({
               case '/work':
                 content = <Work />;
                 break;
+              case '/work/work1':
+                content = <Work1 />;
+                break;
+              case '/work/work2':
+                content = <Work2 />;
+                break;
+              case '/work/work3':
+                content = <Work3 />;
+                break;
+              case '/work/work4':
+                content = <Work4 />;
+                break;
+              default:
+
+                return null;
             }
 
             return (

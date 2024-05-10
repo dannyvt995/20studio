@@ -26,7 +26,7 @@ const ContactSection = ({handleRedirect}) => {
                     <div className='col2'>
                         <div className='img'>
                             <Image 
-                                src="/home/ser1.png"
+                                src="/home/ser1.webp"
                                 width={0}
                                 height={0}
                                 sizes='100vw'

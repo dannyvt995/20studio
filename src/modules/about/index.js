@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import styled from 'styled-components';
-import bannerAboutusImg from '../../../public/hero_about_us.png';
+import bannerAboutusImg from '../../../public/about/banner.webp';
 import HeroBanner from '@/components/HeroBanner';
 import AboutContentLarge from '@/components/AboutContentLarge';
 import FooterSection from '@/components/FooterSection';

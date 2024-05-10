@@ -9,7 +9,7 @@ export default function NavbarOpenFull({ handleRedirect }) {
             <div className='navbar_open_full_section dark_background' id="navbarModal">
                 <div className='grid_12col_container'>
                     <div className='img row1'>
-                        <Image src="/home/ser1.png" alt="navbarimg" width={0} height={0} sizes="100vw" style={{ width: "auto", height: "100%" }} />
+                        <Image src="/home/ser1.webp" alt="navbarimg" width={0} height={0} sizes="100vw" style={{ width: "auto", height: "100%" }} />
                     </div>
                     <div className='menu_item_list row1'>
                         <ul className='format'>
