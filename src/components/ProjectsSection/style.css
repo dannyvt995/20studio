@@ -20,23 +20,68 @@
 .projects_section > .content_text {
     position:absolute;
     top:50%;
-    left:20%;
-    width:200px;
+    left:25%;
+    width:30vw;
     height: 64vh;
     transform:translate(-50%,-50%);
     z-index:11;
     overflow:hidden;
 }
+#info_brand {
+    height: 64vh;
+}
 #info_brand li > div {
     display: flex;
     flex-direction: column;
+    overflow:hidden;
+
 }
 #info_brand li {
-    opacity: 0;
+    /* opacity: 0; */
+
+    position:absolute;
+    top:50%;
+    left:0;
+    transform: translateY(-50%);
+    width:100%;
+    height:fit-content;
 }
-#info_brand .active {
-    opacity: 1 !important;
+#info_brand .active .tit span{
+
+    /* opacity: 1 !important; */
 }
+#info_brand .tit span {
+    font-size:5vw;
+    font-weight:bold;
+
+    will-change: tranform, opacity;
+
+    transform:translateY(-150px);
+}
+#info_brand .inf span {
+
+    will-change: tranform, opacity;
+    transform:translateY(-150px);
+}
+#info_brand .tit > div {
+    position:relative;
+    overflow:hidden;
+    height:7vw;
+}
+#info_brand .inf > div  {
+    position:relative;
+    overflow:hidden;
+    height:30px;
+}
+#info_brand .tit > div >span,
+#info_brand .inf > div >span {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+
 .projects_section > .content_image {
     position:absolute;
     top:50%;

@@ -9,11 +9,11 @@ import './style.css'
 export default function ProjectsSection() {
   gsap.registerPlugin(Observer);
   let i_of_slider = 999
-  const durationAnim = 1.5
+  const durationAnim = 1
   const delayAnim = .05
   const stopNow = useRef(false)
   const valueRef = useRef(0)
-
+  const first_load_ref = useRef(null)
 
   const projects_section_ref = useRef(null)
   const listDomThumb = useRef(null)
@@ -29,11 +29,17 @@ export default function ProjectsSection() {
     const big_backgroundDom = document.getElementById('big_background')
     const small_backgroundDom = document.getElementById('small_background')
     const content_brand = document.getElementById('info_brand')
-  
+   
     if (big_backgroundDom, small_backgroundDom) {
       listDomBackground.current = big_backgroundDom
       listDomThumb.current = small_backgroundDom
       listContentBackground.current = content_brand
+
+   
+      gsap.to(first_load_ref.current,{
+
+      })
+
     }
 
   }, [])
@@ -50,32 +56,64 @@ export default function ProjectsSection() {
 
   //slider gsap
   function gsapSlider(prevNum, nextNum, targetClipPathForBg,targetClipPathForChild, targetBgPosY, dir) {
+    i_of_slider++;  
     let domTargetBackground = listDomBackground.current.children[nextNum]
     let domTargetThumb = listDomThumb.current.children[nextNum]
-
     let domTargetBackgroundCurrent = listDomBackground.current.children[prevNum]
-    i_of_slider++;
+
+  
+
+    //tam thoi
+    let ListTittleChild__Next = Array.prototype.slice.call( listContentBackground.current.children[nextNum].children[0].children )
+    let ListInfoChild__Next = Array.prototype.slice.call( listContentBackground.current.children[nextNum].children[1].children )
+    let pre_ListTittleChild__Next = Array.from(ListTittleChild__Next, child => child.children[0]);
+    let pre_ListInfoChild__Next = Array.from(ListInfoChild__Next, child => child.children[0]);
+
+    let ListTittleChild__Prev = Array.prototype.slice.call( listContentBackground.current.children[prevNum].children[0].children )
+    let ListInfoChild__Prev = Array.prototype.slice.call( listContentBackground.current.children[prevNum].children[1].children )
+    let pre_ListTittleChild__Prev = Array.from(ListTittleChild__Prev, child => child.children[0]);
+    let pre_ListInfoChild__Prev = Array.from(ListInfoChild__Prev, child => child.children[0]);
+
+    
     gsap.timeline({
       onComplete: () => stopNow.current = false
     })
-  
-      .set(domTargetBackground, { rotate:0, scale: 1.1, zIndex: i_of_slider, clipPath: targetClipPathForBg, backgroundPositionY: targetBgPosY, backgroundSize: 100 })
+    .set(pre_ListTittleChild__Next,{
+      y:150*dir,
+      rotateX:20*dir,
+      rotateY:-20*dir,
+      rotateZ:5*dir,
+      scale:1,
+    })
+    .set(pre_ListInfoChild__Next,{
+      y:150*dir,
+    
+      scale:1,
+    })
+      .set(domTargetBackground, { 
+        '-webkit-filter': 'brightness(100%) blur(2px) ',
+        filter: 'brightness(100%) blur(2px)',
+        rotate:0, scale: 1.1, zIndex: i_of_slider, clipPath: targetClipPathForBg, backgroundPositionY: targetBgPosY, backgroundSize: 100 })
       .set(domTargetThumb, { zIndex: i_of_slider, clipPath: targetClipPathForChild, backgroundPositionY: targetBgPosY, backgroundSize: 100 })
       .to(
         domTargetBackground,
         {
           clipPath: chuasapxepPTarget,
           backgroundPositionY: 0,
-          scale: 1.2,
-         
+          scale: 1.4,
+          transformOrigin:'50% 0%',
           duration: durationAnim,
-          ease: "power3.out"
+          ease: "power2.out"
         },
       )
       .to(domTargetBackgroundCurrent, {
         rotate:-12*dir,
-        scale: 1.1,
+        scale: 1.2,
         y:600*dir,
+
+        '-webkit-filter': 'brightness(30%)  blur(2px)',
+        filter: 'brightness(30%)  blur(2px)',
+        
         duration: durationAnim,
         ease: "power3.out",
         clearProps: true,
@@ -87,6 +125,43 @@ export default function ProjectsSection() {
         duration: durationAnim,
         ease: "power3.out"
       }, "<")
+      
+      .to(pre_ListTittleChild__Next, {
+            stagger: 0.1,
+            y: 0,
+            rotateX:-10,
+            rotateY:0,
+            rotateZ:0,
+            scale:1.3,
+            transformOrigin: '0% 50%',
+            duration: durationAnim,
+            ease: "power3.out"
+      }, "<")
+      .to(pre_ListInfoChild__Next, {
+        stagger: 0.1,
+        y: 0,
+      
+        duration: durationAnim,
+        ease: "power3.out"
+  }, "<")
+
+      
+    .to(pre_ListInfoChild__Prev, {
+    stagger: 0.1,
+    y: -150*dir,
+    duration: durationAnim,
+    ease: "power3.out"
+    }, "<")
+
+    .to(pre_ListTittleChild__Prev, {
+      stagger: 0.1,
+      y: -150*dir,
+      duration: 0.5,
+      scale:0.8,
+      ease: "power3.out"
+  }, "<")
+   
+
   }
 
 
@@ -118,17 +193,17 @@ export default function ProjectsSection() {
     setValStore(valueRef.current.toString(),'activeItemOnWorkPage')
   }
   function handleMouseDown() {
-     console.log('handleMouseDown')
-    if (stopNow.current === false) {
-      stopNow.current = true
-      handleClickPrev()
-    }
-  }
-  function handleMouseUp() {
-    console.log('handleMouseUp')
     if (stopNow.current === false) {
       stopNow.current = true
       handleClickNext()
+    }
+  }
+  function handleMouseUp() {
+    if (stopNow.current === false) {
+      stopNow.current = true
+   
+
+      handleClickPrev()
     }
   }
 
@@ -163,48 +238,50 @@ export default function ProjectsSection() {
         </div>
         <div className='content_text'>
           <ul id='info_brand'>
-            <li  className='active'>
-              <div>
-                    <span>TRAO</span>
-                    <span>STUDIO</span>
+            <li  className='active' >
+              <div className='tit'>
+                    <div><span>TRAO</span></div>
+                    <div><span>STUDIO</span></div>
               </div>
-              <div>
-                  <span>Some text about this</span>
-                  <span>brand and more</span>
-                  <span>info</span>
-              </div>
-            </li>
-            <li>
-              <div>
-                    <span>MODIEN</span>
-                    <span>STUDIO</span>
-              </div>
-              <div>
-                  <span>Some text about this</span>
-                  <span>brand and more</span>
-                  <span>info</span>
+              <div className='inf'>
+                  <div><span>Some text about this</span></div>
+                  <div><span>brand and more</span></div>
+                  <div><span>info</span></div>
+               
               </div>
             </li>
             <li>
-              <div>
-                    <span>NET</span>
-                    <span>STUDIO</span>
+            <div className='tit'>
+            <div><span>MODIEN</span></div>
+                    <div><span>STUDIO</span></div>
+              
               </div>
-              <div>
-                  <span>Some text about this</span>
-                  <span>brand and more</span>
-                  <span>info</span>
+              <div className='inf'>
+              <div><span>Some text about this</span></div>
+                  <div><span>brand and more</span></div>
+                  <div><span>info</span></div>
               </div>
             </li>
             <li>
-              <div>
-                    <span>SIREN</span>
-                    <span>STUDIO</span>
+            <div className='tit'>
+            <div><span>NET</span></div>
+                    <div><span>STUDIO</span></div>
               </div>
-              <div>
-                  <span>Some text about this</span>
-                  <span>brand and more</span>
-                  <span>info</span>
+              <div className='inf'>
+              <div><span>Some text about this</span></div>
+                  <div><span>brand and more</span></div>
+                  <div><span>info</span></div>
+              </div>
+            </li>
+            <li>
+            <div className='tit'>
+            <div><span>SIREN</span></div>
+                    <div><span>STUDIO</span></div>
+              </div>
+              <div className='inf'>
+              <div><span>Some text about this</span></div>
+                  <div><span>brand and more</span></div>
+                  <div><span>info</span></div>
               </div>
             </li>
           </ul>

@@ -173,6 +173,7 @@ export default function RouterControls({ children }) {
                     gsap.set(elMenuWrapper, { zIndex: -1 })
                 }
             })
+    
                 .to(elMenuWrapper, {
                     clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
 
@@ -183,7 +184,8 @@ export default function RouterControls({ children }) {
                     rotate: -4,
                     scale: 1.7,
                     y: -600,
-
+                    '-webkit-filter': 'brightness(42%)',
+                    filter: 'brightness(42%)',
                     duration: duration,
                     ease: "power2.out",
                 }, '<')
@@ -203,6 +205,10 @@ export default function RouterControls({ children }) {
                     menuAnimRuning.current = false
 
                 }
+            })
+            .set(elContent,{
+                '-webkit-filter': 'brightness(100%)',
+                filter: 'brightness(100%)',
             })
                 .set(elMenuWrapper, { zIndex: 500, opacity: 1, clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)' })
                 .set(elMenu, {
@@ -228,6 +234,8 @@ export default function RouterControls({ children }) {
                     rotate: 0,
                     scale: 1,
                     y: 0,
+                    '-webkit-filter': 'brightness(100%)',
+                    filter: 'brightness(100%)',
                     duration: duration,
                     ease: "power4.out",
                 }, '<')
@@ -271,7 +279,8 @@ export default function RouterControls({ children }) {
                 rotate: -4,
                 scale: 1.7,
                 y: -600,
-
+                '-webkit-filter': 'brightness(42%)',
+                filter: 'brightness(42%)',
                 duration: duration,
                 ease: "power2.out",
             }, '<')

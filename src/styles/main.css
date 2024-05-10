@@ -224,8 +224,8 @@ main {
 #work3page>.part1,
 #work4page>.part1 {
     width: 100%;
-    height: 100vh;
-    transform: scale(1.5);
+    height: 200vh;
+    transform: scale(1);
     display: flex;
     align-items: center;
     justify-content: center;

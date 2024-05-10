@@ -1,8 +1,7 @@
 "use client"
 import React, { memo, useRef } from 'react';
 import { Transition, TransitionGroup } from 'react-transition-group';
-import { animations } from './animations';
-import { presets } from './presets';
+
 import { PageTransitionGroup } from './PageTransitionGroup';
 import { PageTransitionWrapper } from './PageTransitionWrapper';
 import { gsap } from "gsap/all";
@@ -12,9 +11,9 @@ import About from "@/modules/about/index.js";
 import Contact from "@/modules/contact/index.js";
 import Work from "@/modules/work/index.js";
 
-import { connect } from 'react-redux';
-import { updateValue } from '@/redux/action';
+
 import { usePathname } from 'next/navigation';
+
 import Work1 from '@/modules/work1';
 import Work2 from '@/modules/work2';
 import Work3 from '@/modules/work3';
@@ -105,7 +104,7 @@ function PageTransition({
     ]
   }
   console.log(listPathAndIdDom)
-  const timeoutgsap = 1
+  const timeoutgsap = 1.2
 
 
   const tl = gsap.timeline({ overwrite: true })
@@ -120,7 +119,8 @@ function PageTransition({
 
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
         clearProps: "clip-path",
-        duration: timeoutgsap
+        duration: timeoutgsap,
+        ease:"power2.out"
       })
       .fromTo(dom.children[0], {
         rotate: 7,
@@ -131,12 +131,17 @@ function PageTransition({
         y: 0,
         scale: 1,
         clearProps: "clip-path",
-        duration: timeoutgsap
+        duration: timeoutgsap,
+        ease:"power2.out"
       }, '<')
   }
 
   const exitAnim = (dom) => {
     tl
+      .set(dom.children[0],{
+        '-webkit-filter': 'brightness(100%)',
+        filter: 'brightness(100%)',
+      })
       .fromTo(dom.children[0], {
         rotate: 0,
         y: 0,
@@ -145,7 +150,8 @@ function PageTransition({
         rotate: -7,
         y: -window.innerHeight / 2,
         scale: 1.2,
-
+        '-webkit-filter': 'brightness(36%)',
+        filter: 'brightness(36%)',
         duration: timeoutgsap
       })
 
@@ -160,16 +166,25 @@ function PageTransition({
     let bgLargeDom_workpage = dom.children[0].children[0].children[0].children[0].children[Number(itemactive)]
     let bgContent_workpage = dom.children[0].children[0].children[1]
     let bgThumbDom_workpage = dom.children[0].children[0].children[2]
+
     tl
       .set(bgThumbDom_workpage, {
-        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)'
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+      
+      })
+      .set(bgLargeDom_workpage,{
+        '-webkit-filter': 'blur(2px)',
+        filter: 'blur(2px)',
       }).to(
         bgLargeDom_workpage, {
-        scale: 1.5,
+          '-webkit-filter': 'blur(0px)',
+          filter: 'blur(0px)',
+        scale: 1,
         duration: timeoutgsap
       }
       ).to(
         bgThumbDom_workpage, {
+         
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
         duration: timeoutgsap
       }
