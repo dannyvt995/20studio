@@ -2,7 +2,7 @@
 
 import { Suspense } from 'react'
 import { NavigationEvents } from './NavigationEvents.js'
-
+import { ReactLenis } from "@studio-freight/react-lenis";
 import { PageTransition } from '@/lib/TransitionPage';
 import Link from "next/link";
 import { usePathname,useRouter } from "next/navigation";
@@ -112,7 +112,7 @@ export default function RouterControls({ children }) {
             const iddom = document.getElementById(`${pathNameFormat}page`)
             //console.log(`w_${pathNameFormat}page`, iddom)
 
-            lenisRef.current = new Lenis({
+            const lenis = new Lenis({
                 syncTouch: true,
                 wrapper: iddom,
                 // lerp:0.07,
@@ -120,7 +120,8 @@ export default function RouterControls({ children }) {
                 // easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)), // https://easings.net
                 easing: (t) => 1 - Math.pow(1 - t, 3.5)
             })
-
+            lenisRef.current = lenis;
+            window.lenis = lenis;
             lenisRef.current.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
                 ScrollTrigger.update()
 
@@ -143,7 +144,7 @@ export default function RouterControls({ children }) {
             // });
 
             gsap.ticker.add(update)
-            ScrollTrigger.refresh()
+            
 
         }, 1500);
         function update(time) {
@@ -261,7 +262,7 @@ export default function RouterControls({ children }) {
         let elContent = document.getElementById(`${pathNameFormat}page`)
        
         router.push(e.target.getAttribute('data_link'))
-        let duration = 1.
+        let duration = 1
         gsap.timeline({
             onComplete: () => {
                 menuActive.current = false
@@ -312,12 +313,15 @@ export default function RouterControls({ children }) {
                 <button onClick={handleCickMenu}>Menu</button>
             </div>
             <NavbarOpenFull handleRedirect={handleRedirectBaseHistory} />
+            <ReactLenis root ref={lenisRef} autoRaf={false}>
             <PageTransition
                 preset={'roomToTop'}
                 transitionKey={pathName}
             >
                 {children}
             </PageTransition>
+            </ReactLenis>
+           
 
         </>
 

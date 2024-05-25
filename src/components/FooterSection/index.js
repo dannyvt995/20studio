@@ -14,37 +14,37 @@ export default function FooterSection({backgroundClass ,handleRedirect,scroller 
    
 
     // NOTE , Chưa xử lý vấn đề re-render , cách tốt nhất đề control đc re-render
-    useEffect(() => {
-        if(scroller == "#homepage" && path == '/home' 
-        || scroller == "#aboutpage" && path == '/about'
-        || scroller == "#contactpage" && path == '/contact')
-        {
+    // useEffect(() => {
+    //     if(scroller == "#homepage" && path == '/home' 
+    //     || scroller == "#aboutpage" && path == '/about'
+    //     || scroller == "#contactpage" && path == '/contact')
+    //     {
 
         
          
-        }
+    //     }
        
-        gsap.timeline({
-            scrollTrigger: {
-                scroller: scroller,
-                trigger: wRef.current,
-                start: "top top",
-                end: "bottom top",
-                pin:true,
-                pinSpacing:false,
-                scrub: true,
-               // markers:true,
-            }
-        }).to(w_moveRef.current,{
-            y:0
-        })
-    }, []);
+    //     gsap.timeline({
+    //         scrollTrigger: {
+    //             scroller: scroller,
+    //             trigger: wRef.current,
+    //             start: "top top",
+    //             end: "bottom top",
+    //             pin:true,
+    //             pinSpacing:false,
+    //             scrub: .87,
+    //            // markers:true,
+    //         }
+    //     }).to(w_moveRef.current,{
+    //         y:0
+    //     })
+    // }, []);
    
     return (
         <section className={`footer_section ${backgroundClass}`} ref={footerContainer}>
            
-            <div className="content_footer_section" ref={wRef} style={{transform:"translateY(-100%)"}}>
-                <div className="wrapper_content_footer_section" ref={w_moveRef} style={{transform:"translateY(30%)"}}>
+            <div className="content_footer_section" ref={wRef} /* style={{transform:"translateY(-100%)"}} */>
+                <div className="wrapper_content_footer_section" ref={w_moveRef} /* style={{transform:"translateY(30%)"}} */>
                     <div className='first_footer'  >
                         <div className='text'>
                             <h3>Hành Trình của 20Studio</h3>

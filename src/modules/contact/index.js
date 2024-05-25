@@ -17,7 +17,7 @@ const ContactPageStyled = styled.div`
 
 
 export default function Contact({handleRedirect}) {
-    console.log('============== CONTACT PAGE')
+  
   return (
     <>
     <ContactPageStyled id="contactpage" style={{filter: 'brightness(100%)'}}>

@@ -28,8 +28,8 @@ export default function WorkSection({scroller}) {
                     start: "top 80%",
                     end: "bottom 60%",
                     //   pin:true, // this nees set proxy fix , still not exaly get target
-                    scrub: .8,
-                   // markers: true,
+                    scrub:1,
+                 //  markers: true,
                     // invalidateOnRefresh: true,
                 }
             });

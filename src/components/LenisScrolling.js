@@ -9,17 +9,28 @@ const easing = (x) => {
   return 1 - Math.pow(1 - x, 4);
 };
 
-function LenisScrolling({ children }) {
- 
-  const lenisRef = React.useRef()
+export default function LenisScrolling({ children }) {
+  const lenisRef = React.useRef(null);
 
   React.useEffect(() => {
-    lenisRef.current = new Lenis({
-      duration: 2.5,
-      lerp:0.045
-    })
- 
-  },[lenisRef])
+    const lenis = new Lenis({
+      duration: 1,
+      easing: easing,
+    });
+    lenisRef.current = lenis;
+    window.lenis = lenis;
+
+    const raf = (time) => {
+      lenis.raf(time * 1000);
+    };
+
+    gsap.ticker.add(raf);
+
+    return () => {
+      gsap.ticker.remove(raf);
+      lenis.destroy();  // Clean up Lenis instance
+    };
+  }, []);
 
   return (
     <ReactLenis root ref={lenisRef} autoRaf={false}>
@@ -27,5 +38,3 @@ function LenisScrolling({ children }) {
     </ReactLenis>
   );
 }
-
-export default LenisScrolling;
