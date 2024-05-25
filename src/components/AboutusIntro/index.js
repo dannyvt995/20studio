@@ -22,7 +22,7 @@ const Aboutusintro = ({backgroundClass,scroller}) => {
                     end: "bottom top",
                     scrub:true,
 
-                   markers:true
+                //   markers:true
                 }
             }).to(domAnim1.current,{y:-200}).to(domAnim2.current,{y:150},"<")
         })

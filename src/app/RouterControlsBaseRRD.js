@@ -80,7 +80,7 @@ export default function RouterControls({ children }) {
     const lenisRef = useRef(null)
     useEffect(() => {
         setTimeout(() => {
-            console.log("lenis fc", pathName)
+           // console.log("lenis fc", pathName)
             gsap.registerPlugin(ScrollTrigger)
             const iddom = document.getElementById(`${pathNameFormat}page`)
             //console.log(`w_${pathNameFormat}page`, iddom)

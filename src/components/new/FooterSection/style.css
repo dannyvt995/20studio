@@ -1,0 +1,111 @@
+.footer_section {
+    background: #070707;
+    background: var(--color-story);
+    color: #e0ccbb;
+    color: var(--color-sand);
+    overflow: hidden;
+    
+}
+#footer_section .container {
+    display: grid;
+
+ 
+    position: relative;
+    z-index: 2;
+}
+#footer_section .title > div {
+    font-family: Lausanne-300;
+    font-family: var(--font-f-lausanne-300);
+    font-size: 16vw;
+    font-size: var(--font-s-h1);
+    letter-spacing: -.4vw;
+    letter-spacing: var(--font-ls-h1);
+    line-height: 16vw;
+    line-height: var(--font-lh-h1);
+}
+#footer_section .body  {
+    color: hsla(28, 37%, 81%, .8);
+    color: var(--color-sand-08);
+    font-family: Lausanne-300;
+    font-family: var(--font-f-lausanne-300);
+    font-size: 4.8vw;
+    font-size: var(--font-s-h4);
+    letter-spacing: 0;
+    letter-spacing: var(--font-ls-h4);
+    line-height: 6.4vw;
+    line-height: var(--font-lh-h4);
+}
+#footer_section  .divider {
+    background: hsla(28, 37%, 81%, .6);
+    background: var(--color-sand-06);
+    height: 1px;
+}
+@media (min-width: 601px) {
+    .footer_section {
+        padding: 2.8888888889vw 0 5.5555555556vw !important;
+    }
+    #footer_section .container{
+        grid-column-gap: 2.2222222222vw;
+        grid-template-columns: repeat(12, 1fr);
+      
+    }
+    #footer_section .title {
+        grid-column: 1 / 6;
+        margin-bottom: 1.8055555556vw;
+        text-indent: -.3472222222vw;
+    }
+    #footer_section .body {
+        grid-column: 1 / 6;
+    }
+    #footer_section  .divider {
+        grid-column: 1 / 13;
+        margin: 4.1666666667vw 0;
+    }
+    #footer_section .address {
+        grid-column: 1 / 4;
+    }
+    #footer_section .nav_footer {
+        grid-column: 4 / 6;
+    }
+    #footer_section .social {
+        grid-column: 6 / 9;
+    }
+    #footer_section .item a{
+        line-height: 2.0833333333vw !important;
+    }
+
+    #footer_section .link {
+        grid-column: 12 / 13;
+        margin-top: auto;
+    }
+}
+#footer_section .item a{
+    color: hsla(28, 37%, 81%, .8);
+    color: var(--color-sand-08);
+    font-family: Lausanne-300;
+    font-family: var(--font-f-lausanne-300);
+    font-size: 3.7333333333vw;
+    font-size: var(--font-s-p);
+    letter-spacing: .0266666667vw;
+    letter-spacing: var(--font-ls-p);
+    line-height: 5.6vw;
+    line-height: var(--font-lh-p);
+    line-height: 8vw;
+}
+#footer_section .link {
+    display: inline-flex;
+   
+    justify-self: flex-start;
+  
+    position: relative;
+}
+#footer_section .link .circle {
+    font-family: Lausanne-300;
+    font-family: var(--font-f-lausanne-300);
+    font-size: 4.2666666667vw;
+    font-size: var(--font-s-cta);
+    letter-spacing: 0;
+    letter-spacing: var(--font-ls-cta);
+    line-height: 4.2666666667vw;
+    line-height: var(--font-lh-cta);
+}

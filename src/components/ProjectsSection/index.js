@@ -36,9 +36,9 @@ export default function ProjectsSection() {
       listContentBackground.current = content_brand
 
    
-      gsap.to(first_load_ref.current,{
+     /*  gsap.to(first_load_ref.current,{
 
-      })
+      }) */
 
     }
 

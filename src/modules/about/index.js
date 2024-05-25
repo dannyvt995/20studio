@@ -24,10 +24,10 @@ export default function About({handleRedirect}) {
   console.log('============== ABOUT PAGE')
   return (
     <>
-      <AboutPageStyled id="aboutpage" style={{filter: 'brightness(100%)'}}>
+      <AboutPageStyled id="aboutpage">
 
         <HeroBanner scroller={"#aboutpage"} pageName="aboutpage" hero_img={bannerAboutusImg} />
-        <Aboutusintro scroller={'#aboutpage'} backgroundClass={'light_background'}/>
+        <Aboutusintro scroller={'#aboutpage'} backgroundclassName={'light_background'}/>
            <AboutusDetail />
         <AboutContentLarge
           backgroundClass1={'light_background'}
@@ -37,7 +37,7 @@ export default function About({handleRedirect}) {
    
             
         */}
-            <FooterSection handleRedirect={handleRedirect} scroller={'#aboutpage'} backgroundClass={'dark_background'} /> 
+            <FooterSection handleRedirect={handleRedirect} scroller={'#aboutpage'} backgroundclassName={'dark_background'} /> 
       </AboutPageStyled>
 
     </>

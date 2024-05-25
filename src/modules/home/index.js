@@ -1,13 +1,16 @@
 "use client"
 import AboutContentLarge from '@/components/AboutContentLarge';
-import React from 'react'
+import React, { Suspense } from 'react'
 import styled from 'styled-components';
 import bannerHomeImg from '../../../public/home/banner.webp';
 import HeroBanner from '@/components/HeroBanner';
 import WorkSection from '@/components/WorkSection';
-import FooterSection from '@/components/FooterSection';
 import FAQSection from '@/components/FAQSection';
-import OurPartners from '@/components/OurPartners';
+import OurPartners from '@/components/new/OurPartners';
+import FooterSection from '@/components/new/FooterSection'
+import HeroSection from '@/components/new/HeroSection';
+import ServicesSection from '@/components/new/ServicesSection';
+import NavbarSectionDeskop from '@/components/new/NavbarSectionDeskop';
 const HomePageStyled = styled.div`
   width: 100vw;
   height: 100vh;
@@ -23,13 +26,16 @@ export default function Home({handleRedirect}) {
 
   return (
     <>
-      <HomePageStyled id="homepage" style={{filter: 'brightness(100%)'}}>
-        <HeroBanner  scroller={"#homepage"} pageName="homepage" hero_img={bannerHomeImg} />
-        <WorkSection  scroller={"#homepage"}/>
-        <FAQSection backgroundClass={'light_background'} />
-        <OurPartners backgroundClass={'light_background'} />
-        <FooterSection handleRedirect={handleRedirect} scroller={"#homepage"} backgroundClass={'dark_background'} />
+      <HomePageStyled id="homepage" >
+     
+        <HeroSection/> 
+         <div style={{height:"350vh"}}> {/* lazy load and get exacly height dom for lenis */}
+         <ServicesSection/>
+         </div>
+   
+        <FooterSection />
       </HomePageStyled>
+   
     </>
 
   )

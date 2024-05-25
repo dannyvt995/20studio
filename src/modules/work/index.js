@@ -2,6 +2,8 @@
 import React from 'react'
 import styled from 'styled-components';
 import ProjectsSection from '@/components/ProjectsSection';
+import WorkPage from '@/components/new/modules/WorkPage';
+import NavbarSectionDeskop from '@/components/new/NavbarSectionDeskop';
 
 const WorkPageStyled = styled.div`
 width: 100vw;
@@ -18,8 +20,10 @@ export default function Work({handleRedirect}) {
   console.log('============== WORK PAGE')
   return (
     <>
-    <WorkPageStyled id="workpage" style={{filter: 'brightness(100%)'}}>
-      <ProjectsSection />
+    <WorkPageStyled id="workpage" >
+   {/*    <ProjectsSection /> */}
+  
+      <WorkPage/>
     </WorkPageStyled>
     </>
 

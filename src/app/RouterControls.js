@@ -13,6 +13,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import gsap from "gsap";
 import Lenis from "@studio-freight/lenis";
 import NavbarOpenFull from "@/components/NavbarOpenFull";
+import NavbarModalSection from '@/components/new/NavbarModalSection/index.js';
+import NavbarSectionDeskop from '@/components/new/NavbarSectionDeskop/index.js';
 
 
 const NavbarSECTION = styled.div`
@@ -97,7 +99,7 @@ function removeSplash(target) {
 
 
 export default function RouterControls({ children }) {
-   // console.log("RouterControls render")
+ // console.log("RouterControls render )))))))))))))))))")
     const pathName = usePathname()
     const router = useRouter()
     const pathNameFormat = removeSplash(pathName)
@@ -152,7 +154,7 @@ export default function RouterControls({ children }) {
         }
         return () => {
             //console.log('enter page == base patchName')
-            lenisRef.current?.destroy()
+            if(lenisRef.current) lenisRef.current.destroy()
             gsap.ticker.remove(update)
         }
 
@@ -171,7 +173,7 @@ export default function RouterControls({ children }) {
                 onComplete: () => {
                     menuActive.current = false
                     menuAnimRuning.current = false
-                    gsap.set(elMenuWrapper, { zIndex: -1 })
+                    gsap.set([elMenuWrapper,elMenuWrapper.parentNode], { zIndex: -1 })
                 }
             })
     
@@ -200,18 +202,19 @@ export default function RouterControls({ children }) {
                     ease: "power2.out",
                 }, "<")
         } else {
+           // console.log("???",elMenuWrapper.parentNode)
             gsap.timeline({
                 onComplete: () => {
                     menuActive.current = true
                     menuAnimRuning.current = false
-
                 }
             })
             .set(elContent,{
                 '-webkit-filter': 'brightness(100%)',
                 filter: 'brightness(100%)',
             })
-                .set(elMenuWrapper, { zIndex: 500, opacity: 1, clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)' })
+                .set(elMenuWrapper.parentNode,{zIndex: 500})
+                .set(elMenuWrapper, {  opacity: 1, clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)' })
                 .set(elMenu, {
                     rotate: -4,
                     scale: 1.7,
@@ -267,7 +270,7 @@ export default function RouterControls({ children }) {
             onComplete: () => {
                 menuActive.current = false
                 menuAnimRuning.current = false
-                gsap.set(elMenuWrapper, { zIndex: -1 })
+                gsap.set([elMenuWrapper,elMenuWrapper.parentNode], { zIndex: -1 })
             }
         })
             .to(elMenuWrapper, {
@@ -302,24 +305,27 @@ export default function RouterControls({ children }) {
             <Suspense fallback={null}>
                 <NavigationEvents />
             </Suspense>
-            <NavbarSECTION>
+          {/*   <NavbarSECTION>
                 <Link href='/home'>20 Studio</Link>
                 <Link href='/about'>Về chúng tôi</Link>
                 <Link href='/work'>Dự án</Link>
                 <Link href='/contact'>Liên hệ</Link>
 
-            </NavbarSECTION>
+            </NavbarSECTION> */}
             <div style={{ position: 'fixed', zIndex: 999 }}>
                 <button onClick={handleCickMenu}>Menu</button>
             </div>
-            <NavbarOpenFull handleRedirect={handleRedirectBaseHistory} />
+            <NavbarSectionDeskop handleRedirect={handleRedirectBaseHistory} />
+            <NavbarModalSection handleRedirect={handleRedirectBaseHistory} />
+        {/*     <NavbarOpenFull handleRedirect={handleRedirectBaseHistory} /> */}
             <ReactLenis root ref={lenisRef} autoRaf={false}>
-            <PageTransition
-                preset={'roomToTop'}
-                transitionKey={pathName}
-            >
-                {children}
-            </PageTransition>
+                
+                <PageTransition
+                    preset={'roomToTop'}
+                    transitionKey={pathName}
+                >
+                    {children}
+                </PageTransition>
             </ReactLenis>
            
 

@@ -128,7 +128,7 @@ export default function ProjectsSection() {
         const slow = gsap.to(timeLineSLiderInfinity.current, { timeScale: 0, duration: 0.5 });
         timeLineSLiderInfinity.current.toIndex(-2, {duration: .1, ease: "power1.inOut" })
         timeLineSLiderInfinity.current.timeScale(0);
-        console.log(timeLineSLiderInfinity.current)
+       // console.log(timeLineSLiderInfinity.current)
      //   list.forEach((box, i) => box.addEventListener("click", () => timeLineSLiderInfinity.current.toIndex(i - 2, { duration: 0.8, ease: "power1.inOut" })));
         // now use an Observer to listen to pointer/touch/wheel events and set the timeScale of the infinite looping timeline accordingly. 
         ObserverInfi = Observer.create({

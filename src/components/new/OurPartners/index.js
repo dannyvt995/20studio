@@ -1,5 +1,5 @@
 import React from 'react';
-import Star from '../icons/Star';
+import Star from '../../icons/Star';
 import './style.css'
 const OurPartners = ({ backgroundClass }) => {
     return (

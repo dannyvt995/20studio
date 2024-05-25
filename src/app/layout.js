@@ -10,7 +10,10 @@ import "@/styles/lenis.css";
 import "@/styles/footer.css";
 import "@/styles/navbar.css";
 import "@/styles/reponsive.css";
+import "@/styles/clone.css";
+import "@/styles/config_clone.css";
 import RouterControls from "./RouterControls";
+import LenisScrolling from "@/components/LenisScrolling";
 
 
 export default function RootLayout({ children }) {
@@ -18,7 +21,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="vi">
       <body >
-     
+     {/*  <LenisScrolling>
+      { children }
+      </LenisScrolling> */}
       <RouterControls>
       { children }
       </RouterControls>

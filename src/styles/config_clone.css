@@ -1,0 +1,13 @@
+.dark_bg * {
+    color:var(--white);
+}
+img, svg {
+    display: block;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+#button_menu {
+    color: #e4e0db!important;
+    color: var(--color-light-grey) !important;
+}

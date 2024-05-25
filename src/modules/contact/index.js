@@ -1,6 +1,7 @@
 "use client"
 import ContactSection from '@/components/ContactSection';
-import FooterSection from '@/components/FooterSection';
+import FooterSection from '@/components/new/FooterSection'
+import LetContact from '@/components/new/LetContact';
 import React from 'react'
 import styled from 'styled-components';
 
@@ -20,10 +21,10 @@ export default function Contact({handleRedirect}) {
   
   return (
     <>
-    <ContactPageStyled id="contactpage" style={{filter: 'brightness(100%)'}}>
+    <ContactPageStyled id="contactpage" >
       <ContactSection />
-
-      <FooterSection handleRedirect={handleRedirect}  scroller={"#contactpage"} backgroundClass={'dark_background'}/>
+      <LetContact/>
+      <FooterSection/>
     </ContactPageStyled>
     </>
    

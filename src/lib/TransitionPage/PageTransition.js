@@ -28,7 +28,7 @@ function PageTransition({
   ...rest
 }) {
   const pathName = usePathname()
-  console.log('PageTransition RUNNING')
+ // console.log('PageTransition RUNNING')
   // const selectEnterAnimation = () => {
   //   if (enterAnimationOverride) {
   //     if (typeof enterAnimationOverride === 'string') {
@@ -103,7 +103,7 @@ function PageTransition({
       '#work4page'
     ]
   }
-  console.log(listPathAndIdDom)
+  //console.log(listPathAndIdDom)
   const timeoutgsap = 1.2
 
 
@@ -139,8 +139,8 @@ function PageTransition({
   const exitAnim = (dom) => {
     tl
       .set(dom.children[0],{
-        '-webkit-filter': 'brightness(100%)',
-        filter: 'brightness(100%)',
+       /*  '-webkit-filter': 'brightness(100%)',
+        filter: 'brightness(100%)', */
       })
       .fromTo(dom.children[0], {
         rotate: 0,
@@ -150,8 +150,8 @@ function PageTransition({
         rotate: -7,
         y: -window.innerHeight / 2,
         scale: 1.2,
-        '-webkit-filter': 'brightness(36%)',
-        filter: 'brightness(36%)',
+      /*   '-webkit-filter': 'brightness(36%)',
+        filter: 'brightness(36%)', */
         duration: timeoutgsap
       })
 
@@ -162,7 +162,7 @@ function PageTransition({
   }
   const exitAnimForWorkPage = (dom, itemactive) => {
     // always is #work page
-    console.log(itemactive, itemactive, itemactive)
+    //console.log(itemactive, itemactive, itemactive)
     let bgLargeDom_workpage = dom.children[0].children[0].children[0].children[0].children[Number(itemactive)]
     let bgContent_workpage = dom.children[0].children[0].children[1]
     let bgThumbDom_workpage = dom.children[0].children[0].children[2]

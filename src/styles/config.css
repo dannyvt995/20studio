@@ -1,13 +1,24 @@
 @font-face {
     font-family: BeautiqueDisplay;
     src: url('/fonts/BeautiqueDisplay/BeautiqueDisplay-Bold.otf');
-    weight: 400
+    font-weight: 400
+  }
+
+  @font-face {
+    font-family: "Lausanne-300";
+    src: url('/fonts/TWKLausanne.woff2');
+    font-weight: 300
   }
   a{
-    position: relative;
+    text-decoration: none;
   }
 div,p,a,span {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+ul {
+    list-style-type:none;
+  
+    padding:0;
 }
 :root {
 
@@ -19,7 +30,7 @@ div,p,a,span {
 
 
     --black: #0d0e13;
-    --white: #e4e0db;
+    --white: #fff;
     --gray: hsl(0, 0%, 49%);
 
     --fsdf : 1rem;
@@ -132,13 +143,28 @@ div,p,a,span {
 
 
 html {
-    font-size: calc(15px + 0.34234vw);
-    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -ms-overflow-style: none;
+    scrollbar-width: none
 }
+
 body {
-    margin:0;
-    padding:0;
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    margin: 0;
+    overscroll-behavior: none;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+   
 }
+
+body::-webkit-scrollbar {
+    height: 0;
+    width: 0
+}
+
 * {
     box-sizing: border-box;
 }
