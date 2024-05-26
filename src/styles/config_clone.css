@@ -19,3 +19,9 @@ img, svg {
 .navbar_item_colorblack  .icon-close{
     color:var(--black) !important;
 }
+.navbar_item_colorblack   .underline-effect-styles {
+    background-color:var(--black) !important;
+}
+a {
+    position:relative;
+}

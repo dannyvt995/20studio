@@ -30,15 +30,12 @@ export default function About({ handleRedirect }) {
   return (
     <>
       <AboutPageStyled id="aboutpage">
-        <Banner_DetailWorkPage />
+      <HeroSection backgroundImage={"/about/banner.webp"} backgroundSize={{ width: "130%", height: "auto" }}/> 
         <DetailWorkPage />
         <ContactPageIntro />
-
         <ProjectText />
         <WorkPage />
         <LetContact />
-
-
         <ServicesSection />
         <FooterSection />
 

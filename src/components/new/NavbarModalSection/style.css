@@ -41,6 +41,7 @@
     position: relative;
     transform-origin: top left;
     will-change: transform;
+    color:var(--white);
 }
 #navbar_modal_section .social {
     display: flex;

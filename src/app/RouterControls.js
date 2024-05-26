@@ -339,18 +339,13 @@ export default function RouterControls({ children }) {
             <Suspense fallback={null}>
                 <NavigationEvents />
             </Suspense>
-          {/*   <NavbarSECTION>
-                <Link href='/home'>20 Studio</Link>
-                <Link href='/about'>Về chúng tôi</Link>
-                <Link href='/work'>Dự án</Link>
-                <Link href='/contact'>Liên hệ</Link>
 
-            </NavbarSECTION> */}
 
             <ButtonMenu handleOpenMenu={handleCickMenu}/>
             <NavbarSectionDeskop handleRedirect={handleRedirectBaseHistory} />
             <NavbarModalSection handleRedirect={handleRedirectBaseHistory} />
-        {/*     <NavbarOpenFull handleRedirect={handleRedirectBaseHistory} /> */}
+            
+            
             <ReactLenis root ref={lenisRef} autoRaf={false}>
                 
                 <PageTransition

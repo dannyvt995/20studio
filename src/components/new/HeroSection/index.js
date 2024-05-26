@@ -3,75 +3,67 @@ import React from 'react'
 import './style.css'
 import Image from 'next/image'
 import NextIntersectionObserver from '@/components/HookComponent/NextIntersectionObserver'
-export default function HeroSection() {
+import Link from 'next/link'
+import ButtonHoverUnderLine from '@/components/ButtonHoverUnderLine'
+import ButtonHoverUnderLineNew from '../ButtonHoverUnderLineNew'
+
+export default function HeroSection({backgroundImage,backgroundSize}) {
     return (
         <section className='hero_section dark_bg' id="hero_section">
             <div className='container'>
-        
                 <div className='text-1'>
                     <p className='intro'>
-                        <span>Hanskafdaffdfzfdzdfzdfzdfzdf</span>
-                        <span>brands and businesses that create exceptional</span>
-                        <span>experiences where people live, work, and unwind. </span>
+                        <span>20studio là một công ty thời trang toàn cầu</span>
+                        <span>chuyên tạo ra sản phẩm độc đáo và phong cách</span>
+                        <span>mang lại trải nghiệm đặc biệt và tinh tế cho khách hàng của mình.</span>
                     </p>
                     <h1 className='title'>
-                        <span>Digital</span>
                         <span>Design</span>
+                        <span>Fashion</span>
                         <span>Experience</span>
                     </h1>
                 </div> 
                 <div className='text-2'>
                     <div className='body'>
-                        <p><span className="">We help experience-driven companies thrive by making their audience feel the refined intricacies of their brand and product in the digital space. Unforgettable journeys start with a click.</span></p>
+                        <p><span className="">Tận dụng sự kết hợp giữa sự sáng tạo và kỹ thuật chuyên môn, chúng tôi cam kết mang đến những sản phẩm chất lượng cao và độc đáo, từ ý tưởng ban đầu đến sản phẩm hoàn thiện. Hãy để 20studio trở thành đối tác đáng tin cậy của bạn trong việc thúc đẩy sự thành công của thương hiệu thời trang của bạn.</span></p>
                      
                     </div>
-                    <NextIntersectionObserver 
-                rootmargin="0px"
-                thresholdValue={1.0}
-                classes="my-element"
-                topIn="top-in"
-                topOut="top-out"
-                bottomIn="bottom-in"
-                bottomOut="bottom-out"
-            >
-                Content goes here
-            </NextIntersectionObserver>
-                    <a className='link'>The 20 Studio</a>
+                 
+                    <Link className='link' href="/about">Về 20 Studio</Link>
                     <ul className="list1">
                             <li className="list-item">
-                                <a href="/work" className="list-link">
-                                    Work
-                                </a>
+                                <ButtonHoverUnderLineNew noName="var(--font-lh-p)" autoLink="/work" classStyle="list-link">Dự án</ButtonHoverUnderLineNew>
                             </li>
-                            <li className="list-item"><a href="/studio" className="list-link">
-                                Studio
-                            </a>
+                            <li className="list-item">
+                            <ButtonHoverUnderLineNew noName="var(--font-lh-p)" autoLink="/about" classStyle="list-link">20 Studio</ButtonHoverUnderLineNew>
+                             
                             </li>
-                            <li className="list-item"><a href="/news" className="list-link">
-                                News
-                            </a>
+                            <li className="list-item">
+                            
+                            <ButtonHoverUnderLineNew  noName="var(--font-lh-p)" autoLink="/" classStyle="list-link">Tin tức</ButtonHoverUnderLineNew>
                             </li>
-                            <li className="list-item"><a href="/contact" className="list-link">
-                                Contact
-                            </a>
+                            <li className="list-item">
+                   
+                            <ButtonHoverUnderLineNew noName="var(--font-lh-p)" autoLink="/contact" classStyle="list-link">Liên hệ</ButtonHoverUnderLineNew>
                             </li>
                         </ul>
                         <ul className="list2">
                             <li className="list-item">
-                                <a href="/work" className="list-link">
+                                <a href="mailto:creatiflow.danny@gmail.com" className="list-link">
                                     20stuido@gmail.com
                                 </a>
                             </li>
-                            <li className="list-item"><a href="/studio" className="list-link">
-                                +012.34.6789
-                            </a>
+                            <li className="list-item">
+                                <a href="tel:+389984639" className="list-link">
+                                    +012.34.6789
+                                </a>
                             </li>
 
                         </ul>
                 </div>
             </div>
             <div className='background'>
-                <Image src="/clone/banner-home.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
+                <Image src={`${backgroundImage}`} width={0} height={0} sizes="100vw" style={backgroundSize} />
             </div>
         </section>
     )

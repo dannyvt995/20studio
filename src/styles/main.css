@@ -193,7 +193,7 @@ main {
 /* another eff */
 .underline-effect-styles {
     position: absolute;
-    bottom: -0.2px;
+    filter: blur(0.1px);
     left: 0;
     width: 0;
     height: 1px;

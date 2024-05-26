@@ -42,7 +42,7 @@
 }
 @media (min-width: 601px) {
     .footer_section {
-        padding: 2.8888888889vw 0 5.5555555556vw !important;
+        padding: 2.8888888889vw 0 2.8888888889vw !important;
     }
     #footer_section .container{
         grid-column-gap: 2.2222222222vw;
@@ -59,7 +59,7 @@
     }
     #footer_section  .divider {
         grid-column: 1 / 13;
-        margin: 4.1666666667vw 0;
+        margin: 3.1666666667vw 0;
     }
     #footer_section .address {
         grid-column: 1 / 4;
@@ -75,7 +75,7 @@
     }
 
     #footer_section .link {
-        grid-column: 12 / 13;
+        grid-column: 11 / 13;
         margin-top: auto;
     }
 }
@@ -93,12 +93,11 @@
     line-height: 8vw;
 }
 #footer_section .link {
-    display: inline-flex;
-   
-    justify-self: flex-start;
-  
+    display: flex;
     position: relative;
+    justify-content: flex-end;
 }
+
 #footer_section .link .circle {
     font-family: Lausanne-300;
     font-family: var(--font-f-lausanne-300);

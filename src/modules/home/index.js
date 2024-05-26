@@ -30,7 +30,7 @@ export default function Home({handleRedirect}) {
     <>
       <HomePageStyled id="homepage" >
      
-        <HeroSection/> 
+        <HeroSection backgroundImage={"/home/banner.png"} backgroundSize={{ width: "auto", height: "100%" }}/> 
          <div style={{height:"350vh"}}> {/* lazy load and get exacly height dom for lenis */}
          <ServicesSection/>
          </div>

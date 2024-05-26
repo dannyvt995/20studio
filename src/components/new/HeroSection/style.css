@@ -1,6 +1,7 @@
 .hero_section {
     
-    height: 136.6666666667vw;
+    /* height: 136.6666666667vw; */
+    height:150vw;
     overflow: hidden;
 }
 .hero_section > .background {

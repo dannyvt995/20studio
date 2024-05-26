@@ -55,7 +55,7 @@ export default function LetContact() {
           <div className='title-line'>the News</div>
         </h1>
         <div className='body'>
-        <p>Find out more about our work on these leading design and technology platforms.</p>
+        <p>Biến ý tưởng thú vị nhất thành hiện thực với nghiệp vụ và công nghệ.</p>
         </div>
         <a className='link is-dark'>
           <div className="wrap">

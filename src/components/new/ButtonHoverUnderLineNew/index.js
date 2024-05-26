@@ -2,8 +2,9 @@
 
 import React from "react"
 import gsap from 'gsap'
-
-export default function ButtonHoverUnderLine({ eventPass,data_link,data_type,children, color , bold,addCLass }) {
+import Link from "next/link"
+import './style.css' 
+export default function ButtonHoverUnderLineNew({ noName,autoLink,eventPass,data_link,data_type,children, color , classStyle,addCLass }) {
     const aRef = React.useRef(null)
     const aUnderlineRef = React.useRef(null)
     const handleClick = (e) => {
@@ -72,9 +73,9 @@ export default function ButtonHoverUnderLine({ eventPass,data_link,data_type,chi
 
 
     return (
-        <a 
+        <div 
         className={
-            (addCLass !== null || addCLass !== undefined ? `${addCLass}` : '')
+            (addCLass ? `${addCLass}` : `custom_noname `)
         } 
             data_link={
                 (data_link !== null || data_link !== undefined ? data_link : 'empty')
@@ -84,8 +85,9 @@ export default function ButtonHoverUnderLine({ eventPass,data_link,data_type,chi
             } 
             onClick={eventPass ? handleClick : null} 
             ref={aRef} >
-                {children}
-                <span ref={aUnderlineRef} className="underline-effect-styles"></span>
-        </a>
+             <Link className={`${classStyle}`} href={`${autoLink}`}>{children}</Link>
+                <span ref={aUnderlineRef}  style={{top:`${noName}`}}  className="underline-effect-styles"></span>
+        </div>
+    
     )
 }

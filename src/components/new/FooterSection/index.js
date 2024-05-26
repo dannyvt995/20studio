@@ -8,41 +8,42 @@ export default function FooterSection() {
                     <div>Our</div>
                     <div>Story</div>
                 </div>
-                <p className='body'>The story behind Exo Ape is one of exploration, creativity and curiosity.</p>
+                <p className='body'>20Studio mong muốn đồng hành cùng bạn và tạo ra những sản phẩm chất lượng nhất với giá thành cạnh tranh theo đúng thời hạn cam kết.</p>
                 <div className='divider'></div>
                 <ul className='address'>
                     <li className="item">
                         <a >
-                            Willem II Singel 8<br />
-                            6041 HS, Roermond<br />
-                            The Netherlands
+                            30 Lý Chính Thắng<br />
+                            P. Võ Thị Sáu<br />
+                            Quận 3, HCM.
+                            
                         </a>
                     </li>
                     <li className='item'>
                         <a>
-                            hello@exoape.com
+                            vphcm@20studio.com
                         </a>
                     </li>
                 </ul>
                 <ul className='nav_footer'>
                     <li className="item">
                         <a >
-                            Eork
+                            Dự án
                         </a>
                     </li>
                     <li className='item'>
                         <a>
-                            Studio
+                            20Studio
                         </a>
                     </li>
                     <li className='item'>
                         <a>
-                            News
+                            Dịch vụ
                         </a>
                     </li>
                     <li className='item'>
                         <a>
-                            Contact
+                            Liên hệ
                         </a>
                     </li>
                 </ul>
@@ -61,7 +62,7 @@ export default function FooterSection() {
                 <a className="link">
                     <div className="wrap">
                         <div className="circle" >
-                            Our Story
+                            Về chúng tôi
                          </div>
                     </div>
                 </a>
