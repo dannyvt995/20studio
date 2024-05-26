@@ -1,12 +1,13 @@
+"use client"
 import React from 'react'
 
 import './style.css'
 import Image from 'next/image'
-export default function IntroWorkPage() {
+export default function IntroWorkPage({backgroundImage}) {
     return (
         <section className='IntroWorkPage'>
             <div className="background">
-            <Image src="/clone/services1.webp"  width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }}  className="project-image"/>
+            <Image src={backgroundImage}  width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }}  className="project-image"/>
             </div>
             <div className='container'>
                 <div className='text-1'>

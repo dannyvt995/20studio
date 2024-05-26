@@ -15,8 +15,8 @@ import Lenis from "@studio-freight/lenis";
 import NavbarOpenFull from "@/components/old/NavbarOpenFull/index.js";
 import NavbarModalSection from '@/components/new/NavbarModalSection/index.js';
 import NavbarSectionDeskop from '@/components/new/NavbarSectionDeskop/index.js';
-
-
+import NextIntersectionObserver from '@/components/HookComponent/NextIntersectionObserver';
+import ButtonMenu from '@/components/new/ButtonMenu'
 const NavbarSECTION = styled.div`
   position:fixed;
   top:0;
@@ -105,13 +105,29 @@ export default function RouterControls({ children }) {
     const pathNameFormat = removeSplash(pathName)
     const lenisRef = useRef(null)
 
+    const button_menuRef = useRef(null)
+    const navbarRef = useRef(null)
+    const [isNavbarVisible, setIsNavbarVisible] = useState(true);
 
     useEffect(() => {
+        navbarRef.current = document.getElementById(`navbar`)
+        button_menuRef.current = document.getElementById(`button_menu`)
+        navbarRef.current.style.display = 'flex';
+        button_menuRef.current.style.display = 'none';
+        if(pathName === '/contact') {
+            navbarRef.current.classList.add('navbar_item_colorblack')
+            button_menuRef.current.classList.add('navbar_item_colorblack')
+        }else{
+            navbarRef.current.classList.remove('navbar_item_colorblack')
+            button_menuRef.current.classList.remove('navbar_item_colorblack')
+        }
         setTimeout(() => {
             console.log("lenis fc", pathName)
             gsap.registerPlugin(ScrollTrigger)
             console.log(pathNameFormat)
             const iddom = document.getElementById(`${pathNameFormat}page`)
+   
+            const target = window.innerHeight*1.5
             //console.log(`w_${pathNameFormat}page`, iddom)
 
             const lenis = new Lenis({
@@ -126,7 +142,15 @@ export default function RouterControls({ children }) {
             window.lenis = lenis;
             lenisRef.current.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
                 ScrollTrigger.update()
-
+                console.log(velocity)
+                if (scroll > target && scroll < target * 2) { // tổng 3 target là kill raf này
+                    navbarRef.current.style.display = 'none';
+                    button_menuRef.current.style.display = 'flex';
+                } else if (scroll < target){
+                    navbarRef.current.style.display = 'block';
+                    button_menuRef.current.style.display = 'none';
+                }
+            
             })
 
             ScrollTrigger.defaults({ scroller: iddom });
@@ -176,7 +200,11 @@ export default function RouterControls({ children }) {
                     gsap.set([elMenuWrapper,elMenuWrapper.parentNode], { zIndex: -1 })
                 }
             })
-    
+                .to(button_menuRef.current.children[1], {
+                    rotate: 45,
+                    duration: duration,
+                    ease: "power2.out",
+                }, '<')
                 .to(elMenuWrapper, {
                     clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
 
@@ -213,6 +241,7 @@ export default function RouterControls({ children }) {
                 '-webkit-filter': 'brightness(100%)',
                 filter: 'brightness(100%)',
             })
+      
                 .set(elMenuWrapper.parentNode,{zIndex: 500})
                 .set(elMenuWrapper, {  opacity: 1, clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)' })
                 .set(elMenu, {
@@ -242,6 +271,11 @@ export default function RouterControls({ children }) {
                     filter: 'brightness(100%)',
                     duration: duration,
                     ease: "power4.out",
+                }, '<')
+                .to(button_menuRef.current.children[1], {
+                    rotate: 0,
+                    duration: duration,
+                    ease: "power2.out",
                 }, '<')
         }
 
@@ -312,9 +346,8 @@ export default function RouterControls({ children }) {
                 <Link href='/contact'>Liên hệ</Link>
 
             </NavbarSECTION> */}
-            <div style={{ position: 'fixed', zIndex: 999 }}>
-                <button onClick={handleCickMenu}>Menu</button>
-            </div>
+
+            <ButtonMenu handleOpenMenu={handleCickMenu}/>
             <NavbarSectionDeskop handleRedirect={handleRedirectBaseHistory} />
             <NavbarModalSection handleRedirect={handleRedirectBaseHistory} />
         {/*     <NavbarOpenFull handleRedirect={handleRedirectBaseHistory} /> */}

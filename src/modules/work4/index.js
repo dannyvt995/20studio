@@ -1,6 +1,7 @@
 'use client'
 import {useEffect,useRef} from 'react';
 import gsap from 'gsap'
+import IntroWorkPage from '@/components/new/IntroWorkPage';
 
 const Work4 = () => {
     const title = useRef(null)
@@ -20,10 +21,7 @@ const Work4 = () => {
     },[])
     return (
         <div id='work4page'>
-            <section className='part1'>
-                    <h1 ref={title} style={{opacity:0}}>Work page 4</h1>
-            </section>
-            <section className='part2'></section>
+          <IntroWorkPage backgroundImage={'/clone/services4.webp'}/>
         </div>
     );
 }

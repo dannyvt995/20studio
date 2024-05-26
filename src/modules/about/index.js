@@ -25,22 +25,23 @@ left:0;
 `;
 
 
-export default function About({handleRedirect}) {
+export default function About({ handleRedirect }) {
   console.log('============== ABOUT PAGE')
   return (
     <>
       <AboutPageStyled id="aboutpage">
-      <DetailWorkPage/>
-            <ContactPageIntro/>
-            <Banner_DetailWorkPage/>
-            <ProjectText/>
-            <WorkPage/>
-            <LetContact/>
-           
-            <HeroSection/>
-            <ServicesSection/>
-            <FooterSection/>
-        
+        <Banner_DetailWorkPage />
+        <DetailWorkPage />
+        <ContactPageIntro />
+
+        <ProjectText />
+        <WorkPage />
+        <LetContact />
+
+
+        <ServicesSection />
+        <FooterSection />
+
       </AboutPageStyled>
 
     </>

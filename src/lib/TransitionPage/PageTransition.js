@@ -162,6 +162,7 @@ function PageTransition({
   }
   const exitAnimForWorkPage = (dom, itemactive) => {
     // always is #work page
+    console.log("TRY THIS HERH")
     //console.log(itemactive, itemactive, itemactive)
     let bgLargeDom_workpage = dom.children[0].children[0].children[0].children[0].children[Number(itemactive)]
     let bgContent_workpage = dom.children[0].children[0].children[1]

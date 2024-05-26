@@ -8,9 +8,14 @@ img, svg {
     user-select: none;
 }
 #button_menu {
-    color: #e4e0db!important;
-    color: var(--color-light-grey) !important;
+    color: #e4e0db;
+    color: var(--color-light-grey) ;
 }
 .has-padding-top-and-bottom {
     padding: 10.4166666667vw 0;
+}
+.navbar_item_colorblack  a,
+.navbar_item_colorblack  .lable,
+.navbar_item_colorblack  .icon-close{
+    color:var(--black) !important;
 }

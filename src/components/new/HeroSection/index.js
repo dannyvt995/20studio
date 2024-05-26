@@ -2,11 +2,12 @@ import React from 'react'
 
 import './style.css'
 import Image from 'next/image'
+import NextIntersectionObserver from '@/components/HookComponent/NextIntersectionObserver'
 export default function HeroSection() {
     return (
         <section className='hero_section dark_bg' id="hero_section">
             <div className='container'>
-
+        
                 <div className='text-1'>
                     <p className='intro'>
                         <span>Hanskafdaffdfzfdzdfzdfzdfzdf</span>
@@ -24,6 +25,17 @@ export default function HeroSection() {
                         <p><span className="">We help experience-driven companies thrive by making their audience feel the refined intricacies of their brand and product in the digital space. Unforgettable journeys start with a click.</span></p>
                      
                     </div>
+                    <NextIntersectionObserver 
+                rootmargin="0px"
+                thresholdValue={1.0}
+                classes="my-element"
+                topIn="top-in"
+                topOut="top-out"
+                bottomIn="bottom-in"
+                bottomOut="bottom-out"
+            >
+                Content goes here
+            </NextIntersectionObserver>
                     <a className='link'>The 20 Studio</a>
                     <ul className="list1">
                             <li className="list-item">
