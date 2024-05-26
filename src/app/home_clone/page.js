@@ -12,7 +12,6 @@ import DetailWorkPage from '@/components/new/modules/DetailWorkPage'
 import ProjectText from '@/components/new/ProjectText'
 import Banner_DetailWorkPage from '@/components/new/DetailWorkPage/components/Banner_DetailWorkPage'
 import ContactPageIntro from '@/components/new/ContactPageIntro'
-import IntroWorkPage from '@/components/new/IntroWorkPage'
 export default function page() {
     return (
         <>  

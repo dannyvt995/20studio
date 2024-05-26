@@ -9,7 +9,7 @@ export default function HeroSection() {
 
                 <div className='text-1'>
                     <p className='intro'>
-                        <span>Global digital design studio partnering with</span>
+                        <span>Hanskafdaffdfzfdzdfzdfzdfzdf</span>
                         <span>brands and businesses that create exceptional</span>
                         <span>experiences where people live, work, and unwind. </span>
                     </p>
