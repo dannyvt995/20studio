@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css'
-import Star from '../icons/Star';
+import Star from '../../icons/Star';
 const FAQSection = ({backgroundClass}) => {
     return (
         <section className={`faq_section ${backgroundClass}`}>

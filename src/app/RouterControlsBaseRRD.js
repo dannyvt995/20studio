@@ -16,7 +16,7 @@ import { useRef, useEffect } from "react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import gsap from "gsap";
 import Lenis from "@studio-freight/lenis";
-import NavbarOpenFull from "@/components/NavbarOpenFull";
+import NavbarOpenFull from "@/components/old/NavbarOpenFull";
 
 
 const NavbarSECTION = styled.div`

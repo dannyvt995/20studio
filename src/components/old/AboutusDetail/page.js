@@ -1,4 +1,4 @@
-import Star from "../icons/Star";
+import Star from "../../icons/Star";
 import './style.css'
 export default function AboutusDetail() {
     return(

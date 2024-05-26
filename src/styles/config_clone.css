@@ -11,3 +11,6 @@ img, svg {
     color: #e4e0db!important;
     color: var(--color-light-grey) !important;
 }
+.has-padding-top-and-bottom {
+    padding: 10.4166666667vw 0;
+}

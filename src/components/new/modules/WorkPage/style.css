@@ -34,8 +34,12 @@
     left: 16.1805555556vw;
     position: absolute;
     z-index: 5;
+
+    /* for slider */
+    width:100%;
 }
 #work_page .title span{
+    font-weight:300;
     font-family: "Lausanne-300";
     font-family: var(--font-f-lausanne-300);
     font-size: 7.7333333333vw;
@@ -113,4 +117,27 @@
     #work_page .current {
         will-change: transform;
     }
+}
+
+
+
+
+/* config for slider effect */
+#work_page  .title {
+    width:100%;
+    height: calc(var(--font-s-h2) * 4 );
+}
+#work_page  .title > div{
+    display: flex;
+    flex-direction: column;
+
+}
+#work_page  .title > div,
+#work_page  .subtitle > div {
+    position:absolute;
+    opacity:0;
+}
+#work_page  .title > div.active,
+#work_page  .subtitle > div.active {
+    opacity:1;
 }

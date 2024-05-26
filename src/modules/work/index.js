@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import styled from 'styled-components';
-import ProjectsSection from '@/components/ProjectsSection';
+import ProjectsSection from '@/components/old/ProjectsSection';
 import WorkPage from '@/components/new/modules/WorkPage';
 import NavbarSectionDeskop from '@/components/new/NavbarSectionDeskop';
 

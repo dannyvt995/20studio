@@ -2,7 +2,7 @@ import React from 'react'
 import './style.css'
 export default function ProjectText() {
   return (
-    <section className='project_text has-padding-bottom'>
+    <section className='project_text has-padding-top-and-bottom'>
         <div className='container'>
         <h2 className="title is-normal">
             <div className="title-line">Immersive</div>

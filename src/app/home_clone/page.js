@@ -8,12 +8,17 @@ import NavbarModalSection from '@/components/new/NavbarModalSection'
 import ButtonMenu from '@/components/new/ButtonMenu'
 import LetContact from '@/components/new/LetContact'
 import WorkPage from '@/components/new/modules/WorkPage'
+import DetailWorkPage from '@/components/new/modules/DetailWorkPage'
 import ProjectText from '@/components/new/ProjectText'
 import Banner_DetailWorkPage from '@/components/new/DetailWorkPage/components/Banner_DetailWorkPage'
+import ContactPageIntro from '@/components/new/ContactPageIntro'
+import IntroWorkPage from '@/components/new/IntroWorkPage'
 export default function page() {
     return (
         <>  
-        <Banner_DetailWorkPage/>
+            <DetailWorkPage/>
+            <ContactPageIntro/>
+            <Banner_DetailWorkPage/>
             <ProjectText/>
             <WorkPage/>
             <LetContact/>

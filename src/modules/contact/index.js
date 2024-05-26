@@ -1,5 +1,6 @@
 "use client"
-import ContactSection from '@/components/ContactSection';
+import ContactSection from '@/components/old/ContactSection';
+import ContactPageIntro from '@/components/new/ContactPageIntro';
 import FooterSection from '@/components/new/FooterSection'
 import LetContact from '@/components/new/LetContact';
 import React from 'react'
@@ -22,7 +23,7 @@ export default function Contact({handleRedirect}) {
   return (
     <>
     <ContactPageStyled id="contactpage" >
-      <ContactSection />
+      <ContactPageIntro/>
       <LetContact/>
       <FooterSection/>
     </ContactPageStyled>

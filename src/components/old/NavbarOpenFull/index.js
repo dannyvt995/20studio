@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import './style.css'
-import ButtonHoverUnderLine from '../ButtonHoverUnderLine'
+import ButtonHoverUnderLine from '../../ButtonHoverUnderLine'
 export default function NavbarOpenFull({ handleRedirect }) {
     return (
         <section className='wrapper__navbar_open_full_section' id="w_navbarModal">

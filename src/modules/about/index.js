@@ -2,11 +2,11 @@
 import React from 'react'
 import styled from 'styled-components';
 import bannerAboutusImg from '../../../public/about/banner.webp';
-import HeroBanner from '@/components/HeroBanner';
-import AboutContentLarge from '@/components/AboutContentLarge';
-import FooterSection from '@/components/FooterSection';
-import AboutusDetail from '@/components/AboutusDetail/page';
-import Aboutusintro from '@/components/AboutusIntro';
+import HeroBanner from '@/components/old/HeroBanner';
+import AboutContentLarge from '@/components/old/AboutContentLarge';
+import FooterSection from '@/components/old/FooterSection';
+import AboutusDetail from '@/components/old/AboutusDetail/page';
+import Aboutusintro from '@/components/old/AboutusIntro';
 
 
 const AboutPageStyled = styled.div`

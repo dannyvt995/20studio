@@ -12,7 +12,7 @@ import { useRef, useEffect , useState } from "react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import gsap from "gsap";
 import Lenis from "@studio-freight/lenis";
-import NavbarOpenFull from "@/components/NavbarOpenFull";
+import NavbarOpenFull from "@/components/old/NavbarOpenFull/index.js";
 import NavbarModalSection from '@/components/new/NavbarModalSection/index.js';
 import NavbarSectionDeskop from '@/components/new/NavbarSectionDeskop/index.js';
 

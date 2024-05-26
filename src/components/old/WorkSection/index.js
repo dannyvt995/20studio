@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image"
-import Star from "../icons/Star"
+import Star from "../../icons/Star"
 
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";

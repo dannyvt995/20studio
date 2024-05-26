@@ -1,6 +1,6 @@
 "use client"
 import {useEffect,useRef} from 'react';
-import Star from '../icons/Star';
+import Star from '../../icons/Star';
 import './style.css'
 import Image from 'next/image';
 import gsap from 'gsap'

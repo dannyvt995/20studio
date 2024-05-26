@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="vi">
       <body >
-     {/*  <LenisScrolling>
+ {/*      <LenisScrolling>
       { children }
       </LenisScrolling> */}
       <RouterControls>

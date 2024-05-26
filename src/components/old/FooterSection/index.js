@@ -5,7 +5,7 @@ import gsap from "gsap"
 import "./style.css"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
-import ButtonHoverUnderLine from "../ButtonHoverUnderLine"
+import ButtonHoverUnderLine from "../../ButtonHoverUnderLine"
 export default function FooterSection({backgroundClass ,handleRedirect,scroller }) {
     const wRef = useRef(null)
     const footerContainer = useRef(null)
