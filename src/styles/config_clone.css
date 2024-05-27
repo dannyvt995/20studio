@@ -7,9 +7,13 @@ img, svg {
     -moz-user-select: none;
     user-select: none;
 }
+body {
+    background: var(--white); /* for blend mode button adn more */
+}
 #button_menu {
     color: #e4e0db;
-    color: var(--color-light-grey) ;
+    color: var(--color-light-grey);
+    mix-blend-mode: difference;
 }
 .has-padding-top-and-bottom {
     padding: 10.4166666667vw 0;

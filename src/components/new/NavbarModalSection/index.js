@@ -20,17 +20,16 @@ export default function NavbarModalSection({handleRedirect}) {
                 </ul>
                 <ul className='main'>
                     <li className='main-link'>
-                  {/*   <ButtonHoverUnderLineNew noName={"var(--font-lh-h2)"} autoLink={"/work"} classStyle="main-line">Dự án(RD)</ButtonHoverUnderLineNew> */}
-                     <a  onClick={handleClick}  data_link="/work" className='main-line'>Dự án</a>
+                        <ButtonHoverUnderLineNew eventPass={handleClick} data_type="outsite" noName={"var(--font-lh-h2)"} data_link="/work" classStyle="main-line">Dự án</ButtonHoverUnderLineNew>
                     </li>
                     <li className='main-link'>
-                        <a  onClick={handleClick}  data_link="/about" className='main-line'>20Studo</a>
+                        <ButtonHoverUnderLineNew eventPass={handleClick} data_type="outsite" noName={"var(--font-lh-h2)"} data_link="/about" classStyle="main-line">20 Studio</ButtonHoverUnderLineNew>
                     </li>
                     <li  className='main-link'>
-                        <a onClick={handleClick}  data_link="/home" className='main-line'>Servicers</a>
+                    <ButtonHoverUnderLineNew eventPass={handleClick} data_type="outsite" noName={"var(--font-lh-h2)"} data_link="/home" classStyle="main-line">Dịch vụ</ButtonHoverUnderLineNew>
                     </li>
                     <li  className='main-link'>
-                        <a onClick={handleClick}  data_link="/contact" className='main-line'>Contact</a>
+                    <ButtonHoverUnderLineNew eventPass={handleClick} data_type="outsite" noName={"var(--font-lh-h2)"} data_link="/contact" classStyle="main-line">Liên hệ</ButtonHoverUnderLineNew>
                     </li>
                 </ul>
                 <ul className='social'>

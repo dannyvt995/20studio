@@ -114,13 +114,14 @@ export default function RouterControls({ children }) {
         button_menuRef.current = document.getElementById(`button_menu`)
         navbarRef.current.style.display = 'flex';
         button_menuRef.current.style.display = 'none';
+      /*   
         if(pathName === '/contact') {
-            navbarRef.current.classList.add('navbar_item_colorblack')
-            button_menuRef.current.classList.add('navbar_item_colorblack')
+           // navbarRef.current.classList.add('navbar_item_colorblack')
+            button_menuRef.current.classList.add('btn_menu_active')
         }else{
-            navbarRef.current.classList.remove('navbar_item_colorblack')
-            button_menuRef.current.classList.remove('navbar_item_colorblack')
-        }
+            //navbarRef.current.classList.remove('navbar_item_colorblack')
+            button_menuRef.current.classList.remove('btn_menu_active')
+        } */
         setTimeout(() => {
             console.log("lenis fc", pathName)
             gsap.registerPlugin(ScrollTrigger)
@@ -297,7 +298,7 @@ export default function RouterControls({ children }) {
         let elMenu = document.getElementById("navbarModal")
         let elMenuWrapper = document.getElementById("w_navbarModal")
         let elContent = document.getElementById(`${pathNameFormat}page`)
-       
+        console.log(e.target)
         router.push(e.target.getAttribute('data_link'))
         let duration = 1
         gsap.timeline({
