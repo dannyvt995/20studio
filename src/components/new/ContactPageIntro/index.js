@@ -6,7 +6,7 @@ export default function ContactPageIntro() {
     return (
         <section className='ContactPageIntro'>
             <div className='container'>
-                <Image className='image' src="/clone/contact-page.webp" width={0} height={0} sizes="100vw" />
+                <Image className='image' src="/clone/contact-page.webp" width={0} height={0} sizes="100vw" alt="e" />
                 <h1 className="h1">Contact</h1>
                 <h2 className="title">
                     <div className='marquee'>

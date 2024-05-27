@@ -1,11 +1,14 @@
 "use client"
-import React, { memo, useRef } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import { Transition, TransitionGroup } from 'react-transition-group';
 
 import { PageTransitionGroup } from './PageTransitionGroup';
 import { PageTransitionWrapper } from './PageTransitionWrapper';
-import { gsap } from "gsap/all";
 
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import gsap from "gsap";
+import Lenis from "@studio-freight/lenis";
+import { ReactLenis } from "@studio-freight/react-lenis";
 import Home from "@/modules/home/index.js";
 import About from "@/modules/about/index.js";
 import Contact from "@/modules/contact/index.js";
@@ -19,6 +22,49 @@ import Work2 from '@/modules/work2';
 import Work3 from '@/modules/work3';
 import Work4 from '@/modules/work4';
 
+const listPathAndIdDom = {
+  pages: [
+    '/',
+    '/home',
+    '/work',
+    '/contact',
+    '/about'
+  ],
+  pagesWork: [
+    '/work/work1',
+    '/work/work2',
+    '/work/work3',
+    '/work/work4'
+  ],
+  idpages: [
+    '#homepage',
+    '#aboutpage',
+    '#workpage',
+    '#contactpage'
+  ],
+  idpagesWork: [
+    '#work1page',
+    '#work2page',
+    '#work3page',
+    '#work4page'
+  ]
+}
+
+function removeSplash(target) {
+  let value
+  if (listPathAndIdDom.pagesWork.includes(target)) {
+    value = target.replace(/\/work\//g, "");
+
+  } else {
+    value = target.replace(/\//g, "");
+    if (value == '') value = "home"
+  }
+
+  return value
+}
+function setValStore(val, nameVal) {
+  localStorage.setItem(nameVal, val.toString())
+}
 function PageTransition({
   children,
   enterAnimation: enterAnimationOverride,
@@ -27,88 +73,17 @@ function PageTransition({
   transitionKey,
   ...rest
 }) {
-  const pathName = usePathname()
- // console.log('PageTransition RUNNING')
-  // const selectEnterAnimation = () => {
-  //   if (enterAnimationOverride) {
-  //     if (typeof enterAnimationOverride === 'string') {
-  //       return animations[enterAnimationOverride];
-  //     }
-  //     return {
-  //       ...animations[enterAnimationOverride.name],
-  //       delay: enterAnimationOverride.delay,
-  //       onTop: enterAnimationOverride.onTop
-  //     };
-  //   }
-  //   if (preset) {
-  //     return {
-  //       ...animations[presets[preset].enter.name],
-  //       delay: presets[preset].enter.delay,
-  //       onTop: presets[preset].enter.onTop
-  //     };
-  //   }
-  //   return 'rotateSlideIn';
-  // };
-
-  // const selectExitAnimation = () => {
-  //   if (exitAnimationOverride) {
-  //     if (typeof exitAnimationOverride === 'string') {
-  //       return animations[exitAnimationOverride];
-  //     }
-  //     return {
-  //       ...animations[exitAnimationOverride.name],
-  //       delay: exitAnimationOverride.delay,
-  //       onTop: exitAnimationOverride.onTop
-  //     };
-  //   }
-  //   if (preset) {
-  //     return {
-  //       ...animations[presets[preset].exit.name],
-  //       delay: presets[preset].exit.delay,
-  //       onTop: presets[preset].exit.onTop
-  //     };
-  //   }
-  //   return 'rotateSlideIn';
-  // };
-
-  // const enterAnimation = selectEnterAnimation();
-  // const exitAnimation = selectExitAnimation();
-  //const timeout = Math.max(enterAnimation.duration, exitAnimation.duration);
-
-
-  const listPathAndIdDom = {
-    pages: [
-      '/',
-      '/home',
-      '/work',
-      '/contact',
-      '/about'
-    ],
-    pagesWork: [
-      '/work/work1',
-      '/work/work2',
-      '/work/work3',
-      '/work/work4'
-    ],
-    idpages: [
-      '#homepage',
-      '#aboutpage',
-      '#workpage',
-      '#contactpage'
-    ],
-    idpagesWork: [
-      '#work1page',
-      '#work2page',
-      '#work3page',
-      '#work4page'
-    ]
-  }
-  //console.log(listPathAndIdDom)
+  console.log("PageTransition render............")
+  const pathName = usePathname(null)
+  const pathNameFormat = removeSplash(pathName)
+  const lenisRef = useRef(null)
   const timeoutgsap = 1.2
-
-
-  const tl = gsap.timeline({ overwrite: true })
   const indexRef = useRef(100)
+  const tl = gsap.timeline({
+    overwrite: true
+  })
+
+
   const enterAnim = (dom) => {
     tl
       .fromTo(dom, {
@@ -120,7 +95,7 @@ function PageTransition({
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
         clearProps: "clip-path",
         duration: timeoutgsap,
-        ease:"power2.out"
+        ease: "power2.out"
       })
       .fromTo(dom.children[0], {
         rotate: 7,
@@ -132,15 +107,15 @@ function PageTransition({
         scale: 1,
         clearProps: "clip-path",
         duration: timeoutgsap,
-        ease:"power2.out"
+        ease: "power2.out"
       }, '<')
   }
 
   const exitAnim = (dom) => {
     tl
-      .set(dom.children[0],{
-       /*  '-webkit-filter': 'brightness(100%)',
-        filter: 'brightness(100%)', */
+      .set(dom.children[0], {
+        /*  '-webkit-filter': 'brightness(100%)',
+         filter: 'brightness(100%)', */
       })
       .fromTo(dom.children[0], {
         rotate: 0,
@@ -150,12 +125,60 @@ function PageTransition({
         rotate: -7,
         y: -window.innerHeight / 2,
         scale: 1.2,
-      /*   '-webkit-filter': 'brightness(36%)',
-        filter: 'brightness(36%)', */
+        /*   '-webkit-filter': 'brightness(36%)',
+          filter: 'brightness(36%)', */
         duration: timeoutgsap
       })
 
   }
+
+  function reloadLenis(pathName) {
+    if (pathName == '/work') return
+    console.log("useLenis hooks----", pathName, pathNameFormat)
+    gsap.registerPlugin(ScrollTrigger)
+    const navbarModal = document.getElementById(`navbar`)
+    const buttonNavbar = document.getElementById(`button_menu`)
+    const target = window.innerHeight * 1.5
+    const domScroll = document.getElementById(`${pathNameFormat}page`)
+    console.log(domScroll)
+    const lenis = new Lenis({
+      syncTouch: true,
+      wrapper: domScroll,
+      duration: 1.2,
+      easing: (t) => 1 - Math.pow(1 - t, 3.5)
+    })
+    lenisRef.current = lenis;
+    window.lenis = lenis;
+    lenisRef.current.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
+      console.log("???")
+      ScrollTrigger.refresh()
+      if (scroll > target && scroll < target * 2) { // tổng 3 target là kill raf này
+        navbarModal.style.display = 'none';
+        buttonNavbar.style.display = 'flex';
+      } else if (scroll < target) {
+        navbarModal.style.display = 'block';
+        buttonNavbar.style.display = 'none';
+      }
+    })
+
+    ScrollTrigger.defaults({ scroller: domScroll });
+
+    ScrollTrigger.refresh()
+    gsap.ticker.add(update)
+
+    function update(time) {
+      if (window.lenis) window.lenis.raf(time * 1300);
+
+    }
+    return () => {
+      if (lenisRef.current) {
+        window.lenis.destroy()
+        lenisRef.current.destroy()
+        gsap.ticker.remove(update)
+      }
+    }
+  }
+
 
   const enterAnimForWorkPageDetail = (dom) => {
     // do nothing
@@ -170,11 +193,11 @@ function PageTransition({
     let thumbnailProject = dom.children[0].children[0].children[2]
     let backgroundProject = dom.children[0].children[0].children[3].children[Number(item_project_active)].children[0].children[0]
 
-   
+
     tl
       .set(thumbnailProject, {
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-      
+
       }).to(
         backgroundProject, {
         scale: 1,
@@ -182,110 +205,119 @@ function PageTransition({
       }
       ).to(
         thumbnailProject, {
-         
+
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
         duration: timeoutgsap
       }
         , "<")
       .to(
-        [titleProject,subtitleProject], {
-         
-        opacity:0,
-        duration: timeoutgsap/3
+        [titleProject, subtitleProject], {
+
+        opacity: 0,
+        duration: timeoutgsap / 3
       }
         , "<")
 
   }
-  function setValStore(val, nameVal) {
-    localStorage.setItem(nameVal, val.toString())
-  }
+
+  useEffect(() => {
+    console.log("init lenis on FIRST LOAD",pathName,pathNameFormat)
+    reloadLenis(pathName)
+  }, [])
   return (
-    <PageTransitionGroup {...rest}>
-      <TransitionGroup component={null}>
+    <ReactLenis root ref={lenisRef} autoRaf={false}>
 
-        <Transition
-          key={transitionKey}
-          timeout={timeoutgsap * 1000}
-          onEnter={node => {
-            let targetPath = transitionKey
-            setValStore(false, "truyentam")
-            setValStore(targetPath, "currentPath") // save it to cahnge anim type when on work page
+      <PageTransitionGroup {...rest}>
+        <TransitionGroup component={null}>
+
+          <Transition
+            key={transitionKey}
+            timeout={timeoutgsap * 1000}
+            onEnter={node => {
+              let targetPath = transitionKey
+              setValStore(false, "truyentam")
+              setValStore(targetPath, "currentPath") // save it to cahnge anim type when on work page
+
+              console.log("onEnter")
+              if (listPathAndIdDom.pagesWork.includes(transitionKey)) {
+
+                enterAnimForWorkPageDetail(node)
+              } else {
+                // df anim
+                enterAnim(node)
+              }
 
 
-            if (listPathAndIdDom.pagesWork.includes(transitionKey)) {
+            }}
+            onEntered={node => {
+              
+              console.log("onEntered")
+              // this need to use to toggle lenis when page entered with smoething like redux/zustand
+              setValStore(true, "truyentam")
+              reloadLenis(pathName)
+              // console.log("transitionKey === onEntered FOR LLENIS SET", transitionKey)
+            }}
+            onExit={node => {
+              let target__from_work = localStorage.getItem('currentPath')
 
-              enterAnimForWorkPageDetail(node)
-            } else {
-              // df anim
-              enterAnim(node)
-            }
+              if (listPathAndIdDom.pagesWork.includes(target__from_work)) {
+                let activeItemOnWorkPage = localStorage.getItem('activeItemOnWorkPage')
 
+                exitAnimForWorkPage(node, activeItemOnWorkPage)
+              } else {
+                // df anim
+                exitAnim(node)
+              }
 
-          }}
-          onEntered={node => {
-            // this need to use to toggle lenis when page entered with smoething like redux/zustand
-            setValStore(true, "truyentam")
-            // console.log("transitionKey === onEntered FOR LLENIS SET", transitionKey)
-          }}
-          onExit={node => {
-            let target__from_work = localStorage.getItem('currentPath')
-         
-            if (listPathAndIdDom.pagesWork.includes(target__from_work)) {
-              let activeItemOnWorkPage = localStorage.getItem('activeItemOnWorkPage')
-   
-              exitAnimForWorkPage(node, activeItemOnWorkPage)
-            } else {
-              // df anim
-              exitAnim(node)
-            }
+            }}
+          >
+            {state => {
+              let content;
+              switch (pathName) {
+                case '/':
+                  content = <Home />;
+                  break;
+                case '/home':
+                  content = <Home />;
+                  break;
+                case '/about':
+                  content = <About />;
+                  break;
+                case '/contact':
+                  content = <Contact />;
+                  break;
+                case '/work':
+                  content = <Work />;
+                  break;
+                case '/work/work1':
+                  content = <Work1 />;
+                  break;
+                case '/work/work2':
+                  content = <Work2 />;
+                  break;
+                case '/work/work3':
+                  content = <Work3 />;
+                  break;
+                case '/work/work4':
+                  content = <Work4 />;
+                  break;
+                default:
 
-          }}
-        >
-          {state => {
-            let content;
-            switch (pathName) {
-              case '/':
-                content = <Home />;
-                break;
-              case '/home':
-                content = <Home />;
-                break;
-              case '/about':
-                content = <About />;
-                break;
-              case '/contact':
-                content = <Contact />;
-                break;
-              case '/work':
-                content = <Work />;
-                break;
-              case '/work/work1':
-                content = <Work1 />;
-                break;
-              case '/work/work2':
-                content = <Work2 />;
-                break;
-              case '/work/work3':
-                content = <Work3 />;
-                break;
-              case '/work/work4':
-                content = <Work4 />;
-                break;
-              default:
+                  return <h1>404 Page , lenis will err</h1>;
+              }
 
-                return null;
-            }
+              return (
+                <PageTransitionWrapper state={state} data={`${state}DOM_ID`}>
+                  {content}
+                </PageTransitionWrapper>
+              );
+            }}
+          </Transition>
 
-            return (
-              <PageTransitionWrapper state={state} data={`${state}DOM_ID`}>
-                {content}
-              </PageTransitionWrapper>
-            );
-          }}
-        </Transition>
+        </TransitionGroup>
+      </PageTransitionGroup>
+    </ReactLenis>
 
-      </TransitionGroup>
-    </PageTransitionGroup>
   );
 }
 

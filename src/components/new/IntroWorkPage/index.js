@@ -19,7 +19,7 @@ export default function IntroWorkPage({ dataBanner, backgroundImage }) {
     return (
         <section className='IntroWorkPage' ref={container}>
             <div className="background">
-                <Image src={backgroundImage} width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
+                <Image alt="d" src={backgroundImage} width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
             </div>
             <div className='container'>
                 <div className='text-1'>

@@ -1,66 +1,44 @@
 "use client"
 
-import { Suspense } from 'react'
-import { NavigationEvents } from './NavigationEvents.js'
-import { ReactLenis } from "@studio-freight/react-lenis";
-import { PageTransition } from '@/lib/TransitionPage';
-import Link from "next/link";
-import { usePathname,useRouter } from "next/navigation";
-import styled from 'styled-components';
 
-import { useRef, useEffect , useState } from "react";
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { PageTransition } from '@/lib/TransitionPage';
+
+import { usePathname, useRouter } from "next/navigation";
+
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
-import Lenis from "@studio-freight/lenis";
-import NavbarOpenFull from "@/components/old/NavbarOpenFull/index.js";
+
 import NavbarModalSection from '@/components/new/NavbarModalSection/index.js';
 import NavbarSectionDeskop from '@/components/new/NavbarSectionDeskop/index.js';
-import NextIntersectionObserver from '@/components/HookComponent/NextIntersectionObserver';
 import ButtonMenu from '@/components/new/ButtonMenu'
-const NavbarSECTION = styled.div`
-  position:fixed;
-  top:0;
-  left:0;
-  z-index:999;
-  width: 100vw;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  > a {
-    margin-left:3rem;
 
-  }
-  
-`;
 const listPathAndIdDom = {
     pages: [
-      '/',
-      '/home',
-      '/work',
-      '/contact',
-      '/about'
+        '/',
+        '/home',
+        '/work',
+        '/contact',
+        '/about'
     ],
     pagesWork: [
-      '/work/work1',
-      '/work/work2',
-      '/work/work3',
-      '/work/work4'
+        '/work/work1',
+        '/work/work2',
+        '/work/work3',
+        '/work/work4'
     ],
     idpages: [
-      '#homepage',
-      '#aboutpage',
-      '#workpage',
-      '#contactpage'
+        '#homepage',
+        '#aboutpage',
+        '#workpage',
+        '#contactpage'
     ],
     idpagesWork: [
-      '#work1page',
-      '#work2page',
-      '#work3page',
-      '#work4page'
+        '#work1page',
+        '#work2page',
+        '#work3page',
+        '#work4page'
     ]
-  }
+}
 export const pages = [
     {
         path: "/home",
@@ -86,24 +64,23 @@ export const pages = [
 
 function removeSplash(target) {
     let value
-    if(listPathAndIdDom.pagesWork.includes(target)) {
+    if (listPathAndIdDom.pagesWork.includes(target)) {
         value = target.replace(/\/work\//g, "");
 
-    }else{
+    } else {
         value = target.replace(/\//g, "");
         if (value == '') value = "home"
     }
-   
+
     return value
 }
 
 
 export default function RouterControls({ children }) {
-     console.log("RouterControls render )))))))))))))))))")
+    console.log("RouterControls render )))))))))))))))))")
     const pathName = usePathname()
     const router = useRouter()
     const pathNameFormat = removeSplash(pathName)
-    const lenisRef = useRef(null)
 
     const button_menuRef = useRef(null)
     const navbarRef = useRef(null)
@@ -113,67 +90,6 @@ export default function RouterControls({ children }) {
         button_menuRef.current = document.getElementById(`button_menu`)
         navbarRef.current.style.display = 'flex';
         button_menuRef.current.style.display = 'none';
-      
-        setTimeout(() => {
-            console.log("lenis fc", pathName)
-            gsap.registerPlugin(ScrollTrigger)
-            console.log(pathNameFormat)
-            const iddom = document.getElementById(`${pathNameFormat}page`)
-   
-            const target = window.innerHeight*1.5
-            //console.log(`w_${pathNameFormat}page`, iddom)
-
-            const lenis = new Lenis({
-                syncTouch: true,
-                wrapper: iddom,
-                // lerp:0.07,
-                duration: 1.2,
-                // easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)), // https://easings.net
-                easing: (t) => 1 - Math.pow(1 - t, 3.5)
-            })
-            lenisRef.current = lenis;
-            window.lenis = lenis;
-            lenisRef.current.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
-                ScrollTrigger.update()
-    
-                if (scroll > target && scroll < target * 2) { // tổng 3 target là kill raf này
-                    navbarRef.current.style.display = 'none';
-                    button_menuRef.current.style.display = 'flex';
-                } else if (scroll < target){
-                    navbarRef.current.style.display = 'block';
-                    button_menuRef.current.style.display = 'none';
-                }
-            
-            })
-
-            ScrollTrigger.defaults({ scroller: iddom });
-
-            //ScrollTrigger.scrollerProxy(`#${removeSplash(pathName)}page`, { pinType: "fixed" });
-
-            // ScrollTrigger.scrollerProxy(`#${pathNameFormat}scroll`, {
-            //     scrollTop(value) {
-            //         if (arguments.length) {
-            //             lenisRef.current.scroll = value; // setter
-            //         }
-            //         return lenisRef.current.scroll;    // getter
-            //     },
-            //     getBoundingClientRect() {
-            //         return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
-            //     }
-            // });
-
-            gsap.ticker.add(update)
-            
-
-        }, 1500);
-        function update(time) {
-            lenisRef.current?.raf(time * 1300);
-        }
-        return () => {
-            if(lenisRef.current) lenisRef.current.destroy()
-            gsap.ticker.remove(update)
-        }
-
     }, [pathName])
 
 
@@ -189,7 +105,7 @@ export default function RouterControls({ children }) {
                 onComplete: () => {
                     menuActive.current = false
                     menuAnimRuning.current = false
-                    gsap.set([elMenuWrapper,elMenuWrapper.parentNode], { zIndex: -1 })
+                    gsap.set([elMenuWrapper, elMenuWrapper.parentNode], { zIndex: -1 })
                 }
             })
                 .to(button_menuRef.current.children[1], {
@@ -222,20 +138,20 @@ export default function RouterControls({ children }) {
                     ease: "power2.out",
                 }, "<")
         } else {
-           // console.log("???",elMenuWrapper.parentNode)
+            // console.log("???",elMenuWrapper.parentNode)
             gsap.timeline({
                 onComplete: () => {
                     menuActive.current = true
                     menuAnimRuning.current = false
                 }
             })
-            .set(elContent,{
-                '-webkit-filter': 'brightness(100%)',
-                filter: 'brightness(100%)',
-            })
-      
-                .set(elMenuWrapper.parentNode,{zIndex: 500})
-                .set(elMenuWrapper, {  opacity: 1, clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)' })
+                .set(elContent, {
+                    '-webkit-filter': 'brightness(100%)',
+                    filter: 'brightness(100%)',
+                })
+
+                .set(elMenuWrapper.parentNode, { zIndex: 500 })
+                .set(elMenuWrapper, { opacity: 1, clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)' })
                 .set(elMenu, {
                     rotate: -4,
                     scale: 1.7,
@@ -289,14 +205,14 @@ export default function RouterControls({ children }) {
         let elMenu = document.getElementById("navbarModal")
         let elMenuWrapper = document.getElementById("w_navbarModal")
         let elContent = document.getElementById(`${pathNameFormat}page`)
-       
+
         router.push(e.target.getAttribute('data_link'))
         let duration = 1
         gsap.timeline({
             onComplete: () => {
                 menuActive.current = false
                 menuAnimRuning.current = false
-                gsap.set([elMenuWrapper,elMenuWrapper.parentNode], { zIndex: -1 })
+                gsap.set([elMenuWrapper, elMenuWrapper.parentNode], { zIndex: -1 })
             }
         })
             .to(elMenuWrapper, {
@@ -328,26 +244,20 @@ export default function RouterControls({ children }) {
     return (
         <>
 
-            <Suspense fallback={null}>
-                <NavigationEvents />
-            </Suspense>
 
 
-            <ButtonMenu handleOpenMenu={handleCickMenu}/>
+            <ButtonMenu handleOpenMenu={handleCickMenu} />
             <NavbarSectionDeskop handleRedirect={handleRedirectBaseHistory} />
             <NavbarModalSection handleRedirect={handleRedirectBaseHistory} />
-            
-            
-            <ReactLenis root ref={lenisRef} autoRaf={false}>
-                
-                <PageTransition
-                    preset={'roomToTop'}
-                    transitionKey={pathName}
-                >
-                    {children}
-                </PageTransition>
-            </ReactLenis>
-           
+            <PageTransition
+                preset={'roomToTop'}
+                transitionKey={pathName}
+            >
+                {children}
+            </PageTransition>
+
+
+
 
         </>
 

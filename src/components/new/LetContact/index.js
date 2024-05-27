@@ -8,7 +8,7 @@ export default function LetContact() {
       <div className='container'>
       <ul className="media-wrapper">
         <li className="media">
-          <Image src="/clone/media3.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
+          <Image alt="d" src="/clone/media3.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
         </li>
         <li className="media">
           <video
@@ -27,9 +27,9 @@ export default function LetContact() {
         </li>
 
         <li className="media">
-          <Image src="/clone/media1.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
+          <Image alt="d"  src="/clone/media1.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
         </li>
-        <li className="media"> <Image src="/clone/media2.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} /></li>
+        <li className="media"> <Image alt="d"  src="/clone/media2.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} /></li>
         <li className="media">
           <video
             autoPlay

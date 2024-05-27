@@ -4,7 +4,7 @@ import Star from '../../icons/Star';
 import './style.css'
 import Image from 'next/image';
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const AboutContentLarge = ({ backgroundClass1, backgroundClass2, backgroundClass3 }) => {
 

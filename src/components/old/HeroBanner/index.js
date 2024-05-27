@@ -3,7 +3,7 @@ import Image from "next/image"
 import "./style.css"
 import ButtonHoverUnderLine from "@/components/ButtonHoverUnderLine"
 import gsap from 'gsap'
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useEffect, useRef } from "react"
 export default function HeroBanner({ scroller,pageName, hero_img, handleRedirect }) {
     const backgroundBanner = useRef(null)

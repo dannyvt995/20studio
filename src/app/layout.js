@@ -14,6 +14,7 @@ import "@/styles/clone.css";
 import "@/styles/config_clone.css";
 import RouterControls from "./RouterControls";
 import LenisScrolling from "@/components/LenisScrolling";
+import CacheImageGroup from "@/components/new/CacheImageGroup";
 
 
 export default function RootLayout({ children }) {
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
      {/*  <LenisScrolling>
       { children }
       </LenisScrolling> */}
+      <CacheImageGroup />
       <RouterControls>
       { children }
       </RouterControls>

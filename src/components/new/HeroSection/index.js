@@ -1,3 +1,5 @@
+"use client"
+import { useRef ,useEffect} from 'react'
 import React from 'react'
 
 import './style.css'
@@ -7,9 +9,36 @@ import Link from 'next/link'
 import ButtonHoverUnderLine from '@/components/ButtonHoverUnderLine'
 import ButtonHoverUnderLineNew from '../ButtonHoverUnderLineNew'
 
-export default function HeroSection({backgroundImage,backgroundSize}) {
+
+
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+export default function HeroSection({scrollerRef,backgroundImage,backgroundSize}) {
+    const triggleSection = useRef(null)
+    const backgroundImg = useRef(null)
+    useEffect(() => {
+    
+      gsap.registerPlugin(ScrollTrigger)
+      console.log("Reinit/init scrolltriggle on component tổng FROM HeroSection")
+  
+      const ctx = gsap.context(() => {
+        gsap.to(backgroundImg.current, {
+          y: window.innerHeight * .64, // calc(100vh * -1.2)
+          scrollTrigger: {
+            scroller: scrollerRef,
+            trigger: triggleSection.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+        
+          }
+        });
+        return () => ctx.revert();
+      });
+    }, [])
     return (
-        <section className='hero_section dark_bg' id="hero_section">
+        <section className='hero_section dark_bg' id="hero_section" ref={triggleSection}>
             <div className='container'>
                 <div className='text-1'>
                     <p className='intro'>
@@ -62,8 +91,8 @@ export default function HeroSection({backgroundImage,backgroundSize}) {
                         </ul>
                 </div>
             </div>
-            <div className='background'>
-                <Image src={`${backgroundImage}`} width={0} height={0} sizes="100vw" style={backgroundSize} />
+            <div className='background' ref={backgroundImg}>
+                <Image alt="d" src={`${backgroundImage}`} width={0} height={0} sizes="100vw" style={backgroundSize} />
             </div>
         </section>
     )

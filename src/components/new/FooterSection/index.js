@@ -1,9 +1,42 @@
-import React from 'react'
+
+"use client"
+
+import {useEffect,useRef} from 'react'
 import './style.css'
-export default function FooterSection() {
+
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ButtonHoverUnderLineNew from '../ButtonHoverUnderLineNew';
+import Link from 'next/link';
+
+
+export default function FooterSection({scrollerRef}) {
+    const triggleSection = useRef(null)
+    const domEffect = useRef(null)
+    useEffect(() => {
+    
+        gsap.registerPlugin(ScrollTrigger)
+        console.log("Reinit/init scrolltriggle on component tổng FROM HeroSection")
+        const timeline = gsap.timeline({
+            scrollTrigger: {
+                scroller: scrollerRef,
+                trigger: triggleSection.current,
+                start: "top bottom",
+                end: "bottom bottom",
+                scrub: true
+              }
+        })
+        const ctx = gsap.context(() => {
+            timeline.set(domEffect.current,{ y: -window.innerHeight * .5}).fromTo(domEffect.current, {
+            y: -window.innerHeight * .5, // calc(100vh * -1.2)
+           
+          },{y:0})
+          return () => ctx.revert();
+        });
+      }, [])
     return (
-        <section className='footer_section' id="footer_section">
-            <div className='container'>
+        <section className='footer_section' id="footer_section" ref={triggleSection}>
+            <div className='container' ref={domEffect}>
                 <div className='title'>
                     <div>Our</div>
                     <div>Story</div>
@@ -27,24 +60,16 @@ export default function FooterSection() {
                 </ul>
                 <ul className='nav_footer'>
                     <li className="item">
-                        <a >
-                            Dự án
-                        </a>
+                    <ButtonHoverUnderLineNew noName="var(--font-lh-p)" autoLink="/work" >Dự án</ButtonHoverUnderLineNew>
                     </li>
                     <li className='item'>
-                        <a>
-                            20Studio
-                        </a>
+                    <ButtonHoverUnderLineNew noName="var(--font-lh-p)" autoLink="/about" classStyle="list-link">20 Studio</ButtonHoverUnderLineNew>
                     </li>
                     <li className='item'>
-                        <a>
-                            Dịch vụ
-                        </a>
+                    <ButtonHoverUnderLineNew  noName="var(--font-lh-p)" autoLink="/" classStyle="list-link">Dịch vụ</ButtonHoverUnderLineNew>
                     </li>
                     <li className='item'>
-                        <a>
-                            Liên hệ
-                        </a>
+                    <ButtonHoverUnderLineNew noName="var(--font-lh-p)" autoLink="/contact" classStyle="list-link">Liên hệ</ButtonHoverUnderLineNew>
                     </li>
                 </ul>
                 <ul className='social'>

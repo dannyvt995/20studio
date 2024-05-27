@@ -3,7 +3,7 @@ import Image from "next/image"
 import Star from "../../icons/Star"
 
 import gsap from "gsap"
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from 'split-type'
 import "./style.css"
 import { useEffect, useRef } from "react"

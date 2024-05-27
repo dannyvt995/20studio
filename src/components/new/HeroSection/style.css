@@ -13,7 +13,9 @@
     right: 0;
 
     top:0;
+    will-change: transform;
 }
+
 #hero_section .intro,.title {
     display: flex;
     flex-direction: column;
