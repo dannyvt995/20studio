@@ -27,3 +27,15 @@ body {
 a {
     position:relative;
 }
+.cream_background {
+    background-color: var(--cream) !important;
+}
+.greendam_background {
+    background-color: var(--greendam) !important;
+}
+.greendam_background * {
+    color:var(--color-white-08) !important;
+}
+:root {
+    --greendam:rgb(134, 143, 138);
+}

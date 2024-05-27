@@ -1,4 +1,6 @@
 "use client"
+
+import { memo } from 'react';
 import AboutContentLarge from '@/components/old/AboutContentLarge';
 import React, { Suspense } from 'react'
 import styled from 'styled-components';
@@ -23,7 +25,7 @@ const HomePageStyled = styled.div`
 `;
 
 
-export default function Home({handleRedirect}) {
+function Home() {
   console.log('============== HOME PAGE')
 
   return (
@@ -42,3 +44,7 @@ export default function Home({handleRedirect}) {
 
   )
 }
+
+
+
+export default memo(Home);

@@ -99,7 +99,7 @@ function removeSplash(target) {
 
 
 export default function RouterControls({ children }) {
- // console.log("RouterControls render )))))))))))))))))")
+     console.log("RouterControls render )))))))))))))))))")
     const pathName = usePathname()
     const router = useRouter()
     const pathNameFormat = removeSplash(pathName)
@@ -107,21 +107,13 @@ export default function RouterControls({ children }) {
 
     const button_menuRef = useRef(null)
     const navbarRef = useRef(null)
-    const [isNavbarVisible, setIsNavbarVisible] = useState(true);
 
     useEffect(() => {
         navbarRef.current = document.getElementById(`navbar`)
         button_menuRef.current = document.getElementById(`button_menu`)
         navbarRef.current.style.display = 'flex';
         button_menuRef.current.style.display = 'none';
-      /*   
-        if(pathName === '/contact') {
-           // navbarRef.current.classList.add('navbar_item_colorblack')
-            button_menuRef.current.classList.add('btn_menu_active')
-        }else{
-            //navbarRef.current.classList.remove('navbar_item_colorblack')
-            button_menuRef.current.classList.remove('btn_menu_active')
-        } */
+      
         setTimeout(() => {
             console.log("lenis fc", pathName)
             gsap.registerPlugin(ScrollTrigger)
@@ -143,7 +135,7 @@ export default function RouterControls({ children }) {
             window.lenis = lenis;
             lenisRef.current.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
                 ScrollTrigger.update()
-                console.log(velocity)
+    
                 if (scroll > target && scroll < target * 2) { // tổng 3 target là kill raf này
                     navbarRef.current.style.display = 'none';
                     button_menuRef.current.style.display = 'flex';
@@ -178,7 +170,6 @@ export default function RouterControls({ children }) {
             lenisRef.current?.raf(time * 1300);
         }
         return () => {
-            //console.log('enter page == base patchName')
             if(lenisRef.current) lenisRef.current.destroy()
             gsap.ticker.remove(update)
         }
@@ -298,7 +289,7 @@ export default function RouterControls({ children }) {
         let elMenu = document.getElementById("navbarModal")
         let elMenuWrapper = document.getElementById("w_navbarModal")
         let elContent = document.getElementById(`${pathNameFormat}page`)
-        console.log(e.target)
+       
         router.push(e.target.getAttribute('data_link'))
         let duration = 1
         gsap.timeline({

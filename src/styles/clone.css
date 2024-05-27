@@ -1,5 +1,7 @@
 section {
     position:relative;
+    border: 1px solid red;
+    box-sizing: border-box;
 }
 .container {
     position:relative;

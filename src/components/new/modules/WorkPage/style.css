@@ -76,7 +76,7 @@
     pointer-events: none;
     position: relative;
     width: 22.0833333333vw;
-
+    z-index:10;
 }
 #work_page .thumbnail,#work_page  .thumbnail-image {
     bottom: 0;
@@ -87,6 +87,12 @@
 }
 #work_page .thumbnail {
     overflow: hidden;
+    
+    opacity:0;
+    
+}
+#work_page .thumbnail:first-child {
+    opacity:1;
 }
 #work_page .projects {
     bottom: 0;
@@ -98,6 +104,13 @@
     top: 0;
     width: 100%;
     z-index:1;
+    pointer-events: none;
+    user-select: none;
+
+}
+#work_page .projects button {
+    border:none;
+    outline:none;
 }
 #work_page .project-image {
     height: 124.5833333333vw;

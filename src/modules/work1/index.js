@@ -1,32 +1,33 @@
 'use client'
-import {useEffect,useRef} from 'react';
-import gsap from 'gsap'
-import Image from 'next/image';
-import DetailWorkPage from '@/components/new/DetailWorkPage';
-import Banner_DetailWorkPage from '@/components/new/DetailWorkPage/components/Banner_DetailWorkPage';
+import { memo } from 'react';
 import IntroWorkPage from '@/components/new/IntroWorkPage';
-Image
+import ProjectText from '@/components/new/ProjectText';
+import GridImage1 from '@/components/new/Some_Component_For_Post/GridImageStyle1';
+import Layout_1 from '@/components/new/Some_Component_For_Post/Layout_1';
+import Layout_2 from '@/components/new/Some_Component_For_Post/Layout_2';
+import Layout_3 from '@/components/new/Some_Component_For_Post/Layout_3';
+import Layout_4 from '@/components/new/Some_Component_For_Post/Layout_4';
 const Work1 = () => {
-    const title = useRef(null)
-    useEffect(() => {
-        if(title.current) {
-            const tl = gsap.timeline();
-            tl.to(title.current,{
-                delay:.5, // listencd router change to map exacly js fire
-                opacity:1,
-                y: -100,
-                duration:1
-            })
-            return () => {
-                tl.kill();
-              };
-        }
-    },[])
+
     return (
         <div id='work1page'>
-             <IntroWorkPage backgroundImage={'/clone/services1.webp'}/>
+             <IntroWorkPage  backgroundImage={"/clone/services1.webp"}/>
+             <ProjectText disableTitle={false}/>
+             <GridImage1/>
+             <ProjectText disableTitle={true}/>
+             <div className='cream_background'>
+                <ProjectText disableTitle={false}/>
+             </div>
+             <div className='dark_background'>
+                <ProjectText disableTitle={false}/>
+             </div>
+             <Layout_1/>
+             <Layout_2/>
+             <Layout_3/>
+             <Layout_4/>
         </div>
     );
 }
 
-export default Work1;
+
+export default memo(Work1);

@@ -28,7 +28,7 @@ ul {
     --col_width : calc(calc(calc(100vw - calc(var(--grid_margin_des) * 2)) - calc(var(--grid_gap) * 11)) / 12);
 
 
-
+    --cream: rgb(245, 238, 221);
     --black: #0d0e13;
     --white: #fff;
     --gray: hsl(0, 0%, 49%);
@@ -61,7 +61,7 @@ ul {
     --color-sand-06: hsla(28,37%,81%,.6);
     --color-sand-08: hsla(28,37%,81%,.8);
     --font-f-lausanne-300: "Lausanne-300";
-    --font-f-lausanne-400: "Lausanne-400";
+    --font-f-Lausanne-300: "Lausanne-300";
     --font-f-lausanne-500: "Lausanne-500";
     --font-s-h0: 25.6vw;
     --font-lh-h0: 25.6vw;
@@ -203,7 +203,7 @@ ul.format,ol.format {
 .light_background p,
 .light_background a,
 .light_background span {
-    color: var(--black);
+    color: var(--black) !important;
 }
 .dark_background {
     background-color: var(--black);
@@ -216,7 +216,7 @@ ul.format,ol.format {
 .dark_background p,
 .dark_background a,
 .dark_background span {
-    color: var(--white);
+    color: var(--white) !important;
 }
 
 /* add */

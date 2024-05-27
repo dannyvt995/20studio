@@ -1,29 +1,18 @@
 'use client'
-import {useEffect,useRef} from 'react';
-import gsap from 'gsap'
+import { memo } from 'react';
 import IntroWorkPage from '@/components/new/IntroWorkPage';
+import Layout_1 from '@/components/new/Some_Component_For_Post/Layout_1';
+import Layout_2 from '@/components/new/Some_Component_For_Post/Layout_2';
 
 const Work2 = () => {
-    const title = useRef(null)
-    useEffect(() => {
-        if(title.current) {
-            const tl = gsap.timeline();
-            tl.to(title.current,{
-                delay:.5, // listencd router change to map exacly js fire
-                opacity:1,
-                y: -100,
-                duration:1
-            })
-            return () => {
-                tl.kill();
-              };
-        }
-    },[])
+
     return (
         <div id='work2page'>
-              <IntroWorkPage backgroundImage={'/clone/services2.webp'}/>
+             <IntroWorkPage  backgroundImage={"/clone/services2.webp"}/>
+             <Layout_1/>
+                <Layout_2/>
         </div>
     );
 }
 
-export default Work2;
+export default memo(Work2);

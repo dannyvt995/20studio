@@ -1,0 +1,24 @@
+{
+    "list_project" : {
+        "/work/work1":{
+            "backgroundProject": "/clone/services1.webp",
+            "name_project": ["This name","And info","Of project 1"],
+            "subtitle_project" : "This is some subtitle for this project 1"
+        },
+        "/work/work2":{
+            "backgroundProject": "/clone/services2.webp",
+            "name_project": ["This name","And info","Of project 2"],
+            "subtitle_project" : "This is some subtitle for this project 2"
+        },
+        "/work/work3":{
+            "backgroundProject": "/clone/services3.webp",
+            "name_project": ["This name","And info","Of project 3"],
+            "subtitle_project" : "This is some subtitle for this project 3"
+        },
+        "/work/work4":{
+            "backgroundProject": "/clone/services4.webp",
+            "name_project": ["This name","And info","Of project 4"],
+            "subtitle_project" : "This is some subtitle for this project 4"
+        }
+    }
+}

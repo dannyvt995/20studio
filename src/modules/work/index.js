@@ -1,4 +1,5 @@
 "use client"
+import { memo } from 'react';
 import React from 'react'
 import styled from 'styled-components';
 import ProjectsSection from '@/components/old/ProjectsSection';
@@ -16,7 +17,7 @@ left:0;
 `;
 
 
-export default function Work({handleRedirect}) {
+function Work({handleRedirect}) {
   console.log('============== WORK PAGE')
   return (
     <>
@@ -29,3 +30,5 @@ export default function Work({handleRedirect}) {
 
   )
 }
+
+export default memo(Work);

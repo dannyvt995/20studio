@@ -35,3 +35,6 @@
     color:var(--white);
     will-change: transform;
 }
+#navbar .nav-item a:hover {
+    color:var(--white) !important;
+}

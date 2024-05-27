@@ -160,34 +160,38 @@ function PageTransition({
   const enterAnimForWorkPageDetail = (dom) => {
     // do nothing
   }
-  const exitAnimForWorkPage = (dom, itemactive) => {
+  const exitAnimForWorkPage = (dom, item_project_active) => {
     // always is #work page
-    console.log("TRY THIS HERH")
-    //console.log(itemactive, itemactive, itemactive)
-    let bgLargeDom_workpage = dom.children[0].children[0].children[0].children[0].children[Number(itemactive)]
-    let bgContent_workpage = dom.children[0].children[0].children[1]
-    let bgThumbDom_workpage = dom.children[0].children[0].children[2]
+    // Now we have 4 item dom
+    // .heading , .indicator, .thumbnail , .projects // 0,1,2,3
+    // 
+    let titleProject = dom.children[0].children[0].children[0].children[0].children[Number(item_project_active)]
+    let subtitleProject = dom.children[0].children[0].children[0].children[1].children[Number(item_project_active)]
+    let thumbnailProject = dom.children[0].children[0].children[2]
+    let backgroundProject = dom.children[0].children[0].children[3].children[Number(item_project_active)].children[0].children[0]
 
+   
     tl
-      .set(bgThumbDom_workpage, {
+      .set(thumbnailProject, {
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
       
-      })
-      .set(bgLargeDom_workpage,{
-        '-webkit-filter': 'blur(2px)',
-        filter: 'blur(2px)',
       }).to(
-        bgLargeDom_workpage, {
-          '-webkit-filter': 'blur(0px)',
-          filter: 'blur(0px)',
+        backgroundProject, {
         scale: 1,
         duration: timeoutgsap
       }
       ).to(
-        bgThumbDom_workpage, {
+        thumbnailProject, {
          
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
         duration: timeoutgsap
+      }
+        , "<")
+      .to(
+        [titleProject,subtitleProject], {
+         
+        opacity:0,
+        duration: timeoutgsap/3
       }
         , "<")
 
@@ -225,9 +229,10 @@ function PageTransition({
           }}
           onExit={node => {
             let target__from_work = localStorage.getItem('currentPath')
-
+         
             if (listPathAndIdDom.pagesWork.includes(target__from_work)) {
               let activeItemOnWorkPage = localStorage.getItem('activeItemOnWorkPage')
+   
               exitAnimForWorkPage(node, activeItemOnWorkPage)
             } else {
               // df anim

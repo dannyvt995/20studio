@@ -42,7 +42,7 @@
 }
 @media (min-width: 601px) {
     .footer_section {
-        padding: 2.8888888889vw 0 2.8888888889vw !important;
+        padding: 2.8888888889vw 0 2.8888888889vw  !important;
     }
     #footer_section .container{
         grid-column-gap: 2.2222222222vw;

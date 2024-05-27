@@ -1,6 +1,6 @@
 #button_menu {
     color: #0d0e13;
-    color: var(--color-dark-grey);
+    color: var(--white);
     display: none;
    
     padding: 8vw;
@@ -11,8 +11,8 @@
     z-index: 999;
     align-items: center;
     background-color:unset !important;
-   
-    border: none;
+    outline:none!important;
+    border: none!important;
 }
 #button_menu .lable {
     font-family: Lausanne-300;

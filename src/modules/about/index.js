@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import styled from 'styled-components';
-
+import { memo } from 'react';
 import HeroSection from '@/components/new/HeroSection'
 import ServicesSection from '@/components/new/ServicesSection'
 import NavbarSectionDeskop from '@/components/new/NavbarSectionDeskop'
@@ -25,7 +25,7 @@ left:0;
 `;
 
 
-export default function About({ handleRedirect }) {
+function About({ handleRedirect }) {
   console.log('============== ABOUT PAGE')
   return (
     <>
@@ -45,3 +45,6 @@ export default function About({ handleRedirect }) {
 
   )
 }
+
+
+export default memo(About);

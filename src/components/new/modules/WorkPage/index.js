@@ -8,20 +8,23 @@ import Link from 'next/link';
 
 
 
-function loadAnimationEnterPage(list_child_title, list_child_subtitles) {
+function loadAnimationEnterPage(ListChildTitleRef, ListChildSubtitleRef,ListThumbnailRef) {
   //list_child_title = list_child_subtitles
-  console.log('loadAnimationEnterPage')
-  list_child_title.forEach((child, index) => {
+
+  ListChildTitleRef.forEach((child, index) => {
+  
     if (index === 0) {
       gsap.timeline({}).set(child, {
         yPercent: 0,
         opacity: 1,
-      }).set(list_child_subtitles[index], { opacity: .8 })
+      })
+      .set(ListChildSubtitleRef[index], { opacity: .8 })
     } else {
       gsap.timeline({}).set(child, {
         yPercent: -100,
         opacity: 1,
-      }).set(list_child_subtitles[index], { opacity: 0 })
+      })
+      .set(ListChildSubtitleRef[index], { opacity: 0 })
     }
   });
 }
@@ -63,12 +66,15 @@ function gsapSlider({ prevState, nextState, ListChildTitle, ListChildSub, ListCh
   }
 
   gsap.timeline({
-    onComplete: () => { StateLock.current = false; }
+    onComplete: () => { 
+      StateLock.current = false;
+     }
 
   })
     .set(ListChildTitle[nextState], { yPercent: -100 * dir })
     .set(ListChildSub[nextState], { opacity: 0 })
     .set(ListChildThumbnail[nextState], {
+      opacity:1,
       clipPath: pathResultBaseDirection1,
       zIndex: indexOfSlider.current + 111,
     })
@@ -116,6 +122,9 @@ function gsapSlider({ prevState, nextState, ListChildTitle, ListChildSub, ListCh
     }, "<")
 
 }
+function setValStore(val, nameVal) {
+  localStorage.setItem(nameVal, val.toString())
+}
 
 export default function WorkPage() {
   const observeRefPageWheel = useRef(null)
@@ -142,6 +151,7 @@ export default function WorkPage() {
   const ListChildBackgroundRef = useRef([])
 
   useEffect(() => {
+    setValStore(0,'activeItemOnWorkPage')
     ListTitleRef.current = Array.from(titlesRef.current.children);
     ListSubtitleRef.current = Array.from(subtitlesRef.current.children);
     ListThumbnailRef.current = Array.from(thumbnailsRef.current.children);
@@ -159,7 +169,7 @@ export default function WorkPage() {
       Array.from(child.children, child => child) // vi thumb co 0 lop wrap
     );
 
-    loadAnimationEnterPage(ListChildTitleRef.current, ListChildSubtitleRef.current);
+    loadAnimationEnterPage(ListChildTitleRef.current, ListChildSubtitleRef.current,ListThumbnailRef.current);
   }, []);
 
 
@@ -190,6 +200,7 @@ export default function WorkPage() {
       });
       //update val
       valueRef.current = nextvalueRef
+      setValStore(valueRef.current.toString(),'activeItemOnWorkPage')
     } else if (dir === -1) {
       let nextvalueRef = (parseInt(valueRef.current) + 1) % ListTitleRef.current.length; // Loop from 0 to 4
       //just active for parent wrap
@@ -216,6 +227,7 @@ export default function WorkPage() {
       })
       //update val
       valueRef.current = nextvalueRef
+      setValStore(valueRef.current.toString(),'activeItemOnWorkPage')
     }
   }
 

@@ -27,6 +27,7 @@
 }
 .IntroWorkPage .title  {
     margin: auto 0 5.0666666667vw;
+    width: 100%;
 }
 .IntroWorkPage .title span{
     font-weight:300;
@@ -46,6 +47,7 @@
     overflow: hidden;
     position: absolute;
     right: 0;
+   
 }
 .IntroWorkPage .subtitle {
     opacity: .8;
@@ -109,7 +111,16 @@
     font-family: "Lausanne-500";
     font-family: var(--font-f-lausanne-500);
 }
-
+.IntroWorkPage .subtitle  {
+    width:100%;
+    height:var(--font-lh-p-small);
+}
+.IntroWorkPage .subtitle .text-line{
+        position:relative;
+        height:var(--font-lh-p-small);
+        width:100%;
+        overflow:hidden;
+}
 @media (min-width: 601px) {
     .IntroWorkPage  {
         height: 124.5138888889vw !important;
@@ -134,7 +145,8 @@
     .IntroWorkPage .title {
         margin-bottom: 0;
     }
-    .IntroWorkPage .subtitle .text-line{
+  
+    .IntroWorkPage .subtitle .text-line span{
         font-family: "Lausanne-300";
         font-family: var(--font-f-lausanne-300);
         font-size: 3.7333333333vw;
@@ -170,4 +182,20 @@
         grid-column: 7 / 9;
     }
     
+}
+
+
+/*  animation */
+.IntroWorkPage .title .ii {
+    position:relative;
+    height: var(--font-s-h1);
+    overflow:hidden;
+}
+.IntroWorkPage .title .iii ,
+.IntroWorkPage .subtitle .iii {
+    position:absolute;
+    top:0;
+    left:0;
+    will-change:tranform;
+    transform: translateY(100%);
 }

@@ -1,4 +1,5 @@
 "use client"
+import { memo } from 'react';
 import ContactSection from '@/components/old/ContactSection';
 import ContactPageIntro from '@/components/new/ContactPageIntro';
 import FooterSection from '@/components/new/FooterSection'
@@ -18,7 +19,7 @@ const ContactPageStyled = styled.div`
 `;
 
 
-export default function Contact({handleRedirect}) {
+function Contact({handleRedirect}) {
   
   return (
     <>
@@ -31,3 +32,5 @@ export default function Contact({handleRedirect}) {
    
   )
 }
+
+export default memo(Contact);

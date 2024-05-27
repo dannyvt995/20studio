@@ -4,6 +4,7 @@ import React from 'react'
 import './style.css'
 import ButtonHoverUnderLineNew from '../ButtonHoverUnderLineNew';
 export default function NavbarModalSection({handleRedirect}) {
+    console.log("NavbarModalSection")
     const handleClick = (e) => {
         if (handleRedirect) {
             handleRedirect(e);
