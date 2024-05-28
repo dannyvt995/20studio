@@ -140,7 +140,9 @@ function PageTransition({
       let targetId = removeSplash(pathName)
       const targetDom = document.getElementById(`${targetId}page`)
       const targetParentDom = targetDom.parentNode
-      enterAnim(targetParentDom)
+      setTimeout(() => {
+        enterAnim(targetParentDom)
+      }, 500);
     } else {
       console.log('No matches found');
     }
