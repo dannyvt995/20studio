@@ -7,13 +7,13 @@ export default function GridImageStyle2() {
     <section className='GridImageStyle2'>
         <div className='container is-exploded'>
             <div className='warpper'>
-                <div className='media'> <Image className='image' src="/clone/detail-work-page/grid11.webp" width={500} height={300} objectFit='reponsive'/></div>
-                <div className='media'> <Image className='image' src="/clone/detail-work-page/grid11.webp" width={500} height={300} objectFit='reponsive'/></div>
-                <div className='media'> <Image className='image' src="/clone/detail-work-page/grid11.webp" width={500} height={300} objectFit='reponsive'/></div>
-                <div className='media'> <Image className='image' src="/clone/detail-work-page/grid11.webp" width={500} height={300} objectFit='reponsive'/></div>
-                <div className='media'> <Image className='image' src="/clone/detail-work-page/grid11.webp" width={500} height={300} objectFit='reponsive'/></div>
-                <div className='media'> <Image className='image' src="/clone/detail-work-page/grid11.webp" width={500} height={300} objectFit='reponsive'/></div>
-                <div className='media'> <Image className='image' src="/clone/detail-work-page/grid11.webp" width={500} height={300} objectFit='reponsive'/></div>
+                <div className='media'> <Image className='image' alt="alt" src="/clone/detail-work-page/grid11.webp" width={500} height={300} objectFit='reponsive'/></div>
+                <div className='media'> <Image className='image' alt="alt" src="/clone/detail-work-page/grid11.webp" width={500} height={300} objectFit='reponsive'/></div>
+                <div className='media'> <Image className='image' alt="alt" src="/clone/detail-work-page/grid11.webp" width={500} height={300} objectFit='reponsive'/></div>
+                <div className='media'> <Image className='image' alt="alt" src="/clone/detail-work-page/grid11.webp" width={500} height={300} objectFit='reponsive'/></div>
+                <div className='media'> <Image className='image' alt="alt" src="/clone/detail-work-page/grid11.webp" width={500} height={300} objectFit='reponsive'/></div>
+                <div className='media'> <Image className='image' alt="alt" src="/clone/detail-work-page/grid11.webp" width={500} height={300} objectFit='reponsive'/></div>
+                <div className='media'> <Image className='image' alt="alt" src="/clone/detail-work-page/grid11.webp" width={500} height={300} objectFit='reponsive'/></div>
             </div>
         </div>
     </section>

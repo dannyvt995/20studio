@@ -24,7 +24,7 @@ export default function Banner_DetailWorkPage() {
             </div>
             <div className="background">
                 <Image src="/home/banner.webp" 
-                            alt="asd" width={0} height={0} sizes="100vw" 
+                            alt="alt" width={0} height={0} sizes="100vw" 
                             style={{width:"100%",height:"auto"}} />
             </div>
         </div>

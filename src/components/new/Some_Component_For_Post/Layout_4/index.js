@@ -23,7 +23,7 @@ export default function Layout_4() {
                     </video>
                 </div>
                 <div  className="media">
-                <Image src={"/clone/layout_component1__5.webp"} width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
+                <Image alt="alt" src={"/clone/layout_component1__5.webp"} width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
          
                 </div>
                 <h2   className="label">

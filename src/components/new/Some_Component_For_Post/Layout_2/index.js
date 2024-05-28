@@ -20,7 +20,7 @@ export default function Layout_2() {
             </h2>
             <blockquote className="blockquote"><div className="body"><p>When I discovered Exo Ape’s website, I knew these guys were perfect fit. We were considering options with a few agencies, but these guys stood out head and shoulders. Their attention to design, motion, and user experience is unlike anything I had seen before, and we feel honored to have partnered with them. The results speak for themselves - we’re ecstatic.</p></div></blockquote>
             <div className="author">
-            <Image className="avatar" src={"/clone/layout_component2__1.webp"} width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }}  />
+            <Image className="avatar" src={"/clone/layout_component2__1.webp"} width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} alt="alt" />
                 <p className="details">
         Marvin Nooitgedacht<br/> <span>CEO</span></p></div>
         </div>

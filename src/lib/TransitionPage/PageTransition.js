@@ -150,7 +150,7 @@ function PageTransition({
     lenisRef.current = lenis;
     window.lenis = lenis;
     lenisRef.current.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
-      console.log("???")
+     
       ScrollTrigger.refresh()
       if (scroll > target && scroll < target * 2) { // tổng 3 target là kill raf này
         navbarModal.style.display = 'none';

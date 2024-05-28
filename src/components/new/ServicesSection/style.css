@@ -1,4 +1,4 @@
-#servcies_section .servcies_section {
+#servcies_section {
     color: #0d0e13;
     color: var(--color-dark-grey);
     padding: 21.3333333333vw 0;
@@ -69,7 +69,11 @@
 
 @media (min-width: 601px) {
     .servcies_section {
+     
         padding: 14.3055555556vw 0;
+    }
+    .servcies_section .container {
+        margin: 0 8.3333333333vw;
     }
     #servcies_section .lable {
         height: 2.3611111111vw;

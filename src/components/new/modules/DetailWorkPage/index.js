@@ -7,7 +7,7 @@ import GridImage2 from '../../Some_Component_For_Post/GridImageStyle2'
 export default function DetailWorkPage() {
   return (
     <div className='DetailWorkPage'>
-      <IntroWorkPage/>
+
       <ProjectText/>
       <GridImage1/>
       <GridImage2/>

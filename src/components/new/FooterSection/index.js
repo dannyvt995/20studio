@@ -16,7 +16,7 @@ export default function FooterSection({scrollerRef}) {
     useEffect(() => {
     
         gsap.registerPlugin(ScrollTrigger)
-        console.log("Reinit/init scrolltriggle on component tổng FROM HeroSection")
+        console.log("Reinit/init scrolltriggle on component tổng FROM HeroSection",scrollerRef)
         const timeline = gsap.timeline({
             scrollTrigger: {
                 scroller: scrollerRef,

@@ -353,22 +353,22 @@ export default function WorkPage() {
       <div className='projects' ref={backgroundsRef}>
         <button type="button" className="project active" style={{ display: 'block' }}>
           <div className="project-wrap">
-            <Image src="/clone/services1.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
+            <Image src="/clone/services1.webp" alt="alt" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
           </div>
         </button>
         <button type="button" className="project" style={{ display: 'block' }}>
           <div className="project-wrap">
-            <Image src="/clone/services2.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
+            <Image src="/clone/services2.webp" alt="alt" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
           </div>
         </button>
         <button type="button" className="project" style={{ display: 'block' }}>
           <div className="project-wrap">
-            <Image src="/clone/services3.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
+            <Image src="/clone/services3.webp" alt="alt" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
           </div>
         </button>
         <button type="button" className="project" style={{ display: 'block' }}>
           <div className="project-wrap">
-            <Image src="/clone/services4.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
+            <Image src="/clone/services4.webp" alt="alt" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
           </div>
         </button>
       {/*   <button type="button" className="project" style={{ display: 'block' }}>

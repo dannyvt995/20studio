@@ -8,10 +8,10 @@ export default function GridImage1() {
             <div className='container'>
                 <div className='row'>
                     <div className='media'>
-                        <Image src="/clone/detail-work-page/grid11.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
+                        <Image alt="alt" src="/clone/detail-work-page/grid11.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
                     </div>
                     <div className='media'>
-                        <Image src="/clone/detail-work-page/grid12.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
+                        <Image alt="alt" src="/clone/detail-work-page/grid12.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
                     </div>
                     <div className='media'>
                         <video
@@ -29,12 +29,12 @@ export default function GridImage1() {
                         </video>
                     </div>
                     <div className='media'>
-                        <Image src="/clone/detail-work-page/grid14.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
+                        <Image alt="alt" src="/clone/detail-work-page/grid14.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
                     </div>
                 </div>
                 <div className='row'>
                     <div className='media'>
-                        <Image src="/clone/detail-work-page/grid15.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
+                        <Image alt="alt" src="/clone/detail-work-page/grid15.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
                     </div>
 
                     <div className='media'>
@@ -53,10 +53,10 @@ export default function GridImage1() {
                         </video>
                     </div>
                     <div className='media'>
-                        <Image src="/clone/detail-work-page/grid17.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
+                        <Image alt="alt" src="/clone/detail-work-page/grid17.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
                     </div>
                     <div className='media'>
-                        <Image src="/clone/detail-work-page/grid18.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
+                        <Image alt="alt" src="/clone/detail-work-page/grid18.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
                     </div>
                 </div>
             </div>

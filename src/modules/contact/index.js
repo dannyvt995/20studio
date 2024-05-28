@@ -1,5 +1,5 @@
 "use client"
-import { memo } from 'react';
+import { memo, useRef } from 'react';
 import ContactSection from '@/components/old/ContactSection';
 import ContactPageIntro from '@/components/new/ContactPageIntro';
 import FooterSection from '@/components/new/FooterSection'
@@ -20,13 +20,12 @@ const ContactPageStyled = styled.div`
 
 
 function Contact({handleRedirect}) {
-  
+  const scrollerRef = useRef()
   return (
     <>
-    <ContactPageStyled id="contactpage" >
+    <ContactPageStyled id="contactpage" ref={scrollerRef}>
       <ContactPageIntro/>
-      <LetContact/>
-      <FooterSection/>
+      <FooterSection scrollerRef={scrollerRef.current}/>
     </ContactPageStyled>
     </>
    

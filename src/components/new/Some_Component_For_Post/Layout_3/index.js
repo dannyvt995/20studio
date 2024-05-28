@@ -17,7 +17,7 @@ export default function Layout_3() {
                 </div>
                 <div className="left">
                     <div className="media">
-                        <Image src={"/clone/layout_component2__1.webp"} width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
+                        <Image alt="alt" src={"/clone/layout_component2__1.webp"} width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
                     </div>
                 </div>
                 <div className="right">

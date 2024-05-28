@@ -78,7 +78,7 @@
     .POST_layout1 .container {
         grid-column-gap: 2.2222222222vw;
         grid-template-columns: repeat(12, 1fr);
-     
+        margin: 0 8.3333333333vw;
     }
     /* text */
     .POST_layout1 .label {

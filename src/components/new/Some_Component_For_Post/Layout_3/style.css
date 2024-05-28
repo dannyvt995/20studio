@@ -91,7 +91,7 @@
     .POST_layout3 .container {
         grid-column-gap: 2.2222222222vw;
         grid-template-columns: repeat(12, 1fr);
-     
+        margin: 0 8.3333333333vw;
     }
     .POST_layout3 .text {
         left: 42.7777777778vw;
