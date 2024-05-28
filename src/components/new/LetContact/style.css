@@ -109,6 +109,9 @@
     position: relative;
 }
 @media (min-width: 601px) {
+    #letcontact_section .container {
+        margin: 0 8.3333333333vw;
+    }
     #letcontact_section {
         padding: 13.8888888889vw 0;
     }

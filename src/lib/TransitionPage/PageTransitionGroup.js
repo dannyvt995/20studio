@@ -6,6 +6,7 @@ const PageTransitionGroup = styled.div`
   height: 100vh;
   perspective: 1200px;
   overflow:hidden;
+
 `;
 
 export { PageTransitionGroup };

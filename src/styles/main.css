@@ -26,9 +26,31 @@
     opacity: 0;
   
 }
-#aboutpage,#contactpage,#homepage {
+#aboutpage,#contactpage,#homepage,#workpage {
     overflow:hidden;
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    will-change:tranform,opacity;
+    transform: scale(1.2) rotate(7deg) translateY(50%);
+   
 }
+
+#wrapper_this {
+    overflow:hidden;
+    position:absolute;
+    width:100vw;
+    height:100vh;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    will-change:tranform;
+    clip-path: polygon(0% 100%, 100% 120%, 100% 100%, 0% 100%);
+}
+
 .page h1 {
     z-index: 9999;
     margin: auto;
@@ -267,4 +289,8 @@ main {
     width: 100%;
     height: 100vh;
     background: blue;
+}
+
+.white_bg {
+    background:white;
 }

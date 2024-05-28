@@ -73,65 +73,18 @@ function PageTransition({
   transitionKey,
   ...rest
 }) {
-  console.log("PageTransition render............")
+  //console.log("PageTransition render............")
   const pathName = usePathname(null)
   const pathNameFormat = removeSplash(pathName)
   const lenisRef = useRef(null)
-  const timeoutgsap = 1.2
+  const timeTransition = 1.5
   const indexRef = useRef(100)
-  const tl = gsap.timeline({
-    overwrite: true
-  })
-
-
-  const enterAnim = (dom) => {
-    tl
-      .fromTo(dom, {
-        zIndex: indexRef.current++,
-        clipPath: 'polygon(0% 100%, 100% 120%, 100% 100%, 0% 100%)',
-
-      }, {
-
-        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-        clearProps: "clip-path",
-        duration: timeoutgsap,
-        ease: "power2.out"
-      })
-      .fromTo(dom.children[0], {
-        rotate: 7,
-        y: window.innerHeight / 2,
-        scale: 1.2
-      }, {
-        rotate: 0,
-        y: 0,
-        scale: 1,
-        clearProps: "clip-path",
-        duration: timeoutgsap,
-        ease: "power2.out"
-      }, '<')
-  }
-
-  const exitAnim = (dom) => {
-    tl
-      .set(dom.children[0], {
-        /*  '-webkit-filter': 'brightness(100%)',
-         filter: 'brightness(100%)', */
-      })
-      .fromTo(dom.children[0], {
-        rotate: 0,
-        y: 0,
-        scale: 1,
-      }, {
-        rotate: -7,
-        y: -window.innerHeight / 2,
-        scale: 1.2,
-        /*   '-webkit-filter': 'brightness(36%)',
-          filter: 'brightness(36%)', */
-        duration: timeoutgsap
-      })
-
-  }
-
+  const easeTransition = "power4.out"
+  const allPaths = [
+    ...listPathAndIdDom.pages,
+    ...listPathAndIdDom.pagesWork,
+  ];
+  const matches = allPaths.filter(path => path === pathName);
   function reloadLenis(pathName) {
     if (pathName == '/work') return
     console.log("useLenis hooks----", pathName, pathNameFormat)
@@ -140,7 +93,7 @@ function PageTransition({
     const buttonNavbar = document.getElementById(`button_menu`)
     const target = window.innerHeight * 1.5
     const domScroll = document.getElementById(`${pathNameFormat}page`)
-    console.log(domScroll)
+   // console.log(domScroll)
     const lenis = new Lenis({
       syncTouch: true,
       wrapper: domScroll,
@@ -150,7 +103,7 @@ function PageTransition({
     lenisRef.current = lenis;
     window.lenis = lenis;
     lenisRef.current.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
-     
+
       ScrollTrigger.refresh()
       if (scroll > target && scroll < target * 2) { // tổng 3 target là kill raf này
         navbarModal.style.display = 'none';
@@ -179,51 +132,131 @@ function PageTransition({
     }
   }
 
+  useEffect(() => {
+
+   // console.log("init lenis and fire anim on FIRST LOAD", pathName, pathNameFormat)
+    reloadLenis(pathName)
+    if (matches.length > 0) {
+      let targetId = removeSplash(pathName)
+      const targetDom = document.getElementById(`${targetId}page`)
+      const targetParentDom = targetDom.parentNode
+      enterAnim(targetParentDom)
+    } else {
+      console.log('No matches found');
+    }
+  }, [])
+
+
+  
 
   const enterAnimForWorkPageDetail = (dom) => {
-    // do nothing
+    // because wrapper_this warp all compoent , so activv this if need diffrence eefect
+    gsap.set(dom, {
+      clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+    })
   }
+
   const exitAnimForWorkPage = (dom, item_project_active) => {
     // always is #work page
     // Now we have 4 item dom
     // .heading , .indicator, .thumbnail , .projects // 0,1,2,3
-    // 
     let titleProject = dom.children[0].children[0].children[0].children[0].children[Number(item_project_active)]
     let subtitleProject = dom.children[0].children[0].children[0].children[1].children[Number(item_project_active)]
     let thumbnailProject = dom.children[0].children[0].children[2]
     let backgroundProject = dom.children[0].children[0].children[3].children[Number(item_project_active)].children[0].children[0]
 
-
-    tl
+    const tlexitAnim__FromWorkPage = gsap.timeline({
+      overwrite: true
+    })
+    tlexitAnim__FromWorkPage
       .set(thumbnailProject, {
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
 
       }).to(
         backgroundProject, {
         scale: 1,
-        duration: timeoutgsap
+        duration: timeTransition,
+        ease: easeTransition
       }
       ).to(
         thumbnailProject, {
 
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
-        duration: timeoutgsap
+        duration: timeTransition,
+        ease: easeTransition
       }
         , "<")
       .to(
         [titleProject, subtitleProject], {
 
         opacity: 0,
-        duration: timeoutgsap / 3
+        duration: timeTransition / 3,
+        ease: easeTransition
       }
         , "<")
 
   }
 
-  useEffect(() => {
-    console.log("init lenis on FIRST LOAD",pathName,pathNameFormat)
-    reloadLenis(pathName)
-  }, [])
+
+  const enterAnim = (dom) => {
+    gsap.timeline()
+    .set(dom.parentNode, { zIndex: indexRef.current++ })
+      .set(dom, { clipPath: 'polygon(0% 100%, 100% 110%, 100% 100%, 0% 100%)' })
+      .set(dom.children[0], { 
+        '-webkit-filter': 'brightness(100%)',
+        filter: 'brightness(100%)',
+        rotate: 0,
+        y: 0,
+        x: 0,
+        scale: 1,
+       })
+      .set(dom.children[0], {
+        '-webkit-filter': 'brightness(100%)',
+        filter: 'brightness(100%)',
+        rotate: 7,
+        y: window.innerHeight / 2,
+        scale: 1.2
+      })
+
+
+      .to(dom, {
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+        duration: timeTransition,
+        ease: easeTransition
+      })
+      .to(dom.children[0], {
+        '-webkit-filter': 'brightness(100%)',
+        filter: 'brightness(100%)',
+        rotate: 0,
+        y: 0,
+        x: 0,
+        scale: 1,
+        duration: timeTransition,
+        ease: easeTransition
+      }, '<');
+  };
+
+  const exitAnim = (dom) => {
+  
+
+    gsap.timeline()
+   
+      .set(dom.children[0], {
+        '-webkit-filter': 'brightness(100%)',
+        filter: 'brightness(100%)',
+      }
+      )
+      .to(dom.children[0], {
+             '-webkit-filter': 'brightness(26%)',
+          filter: 'brightness(26%)',
+        rotate: -7,
+        y: -window.innerHeight / 2,
+        scale: 1.2,
+        duration: timeTransition,
+        ease: easeTransition
+      });
+  };
+
   return (
     <ReactLenis root ref={lenisRef} autoRaf={false}>
 
@@ -231,8 +264,10 @@ function PageTransition({
         <TransitionGroup component={null}>
 
           <Transition
+
             key={transitionKey}
-            timeout={timeoutgsap * 1000}
+            timeout={timeTransition * 1000}
+            unmountOnExit
             onEnter={node => {
               let targetPath = transitionKey
               setValStore(false, "truyentam")
@@ -241,32 +276,32 @@ function PageTransition({
               console.log("onEnter")
               if (listPathAndIdDom.pagesWork.includes(transitionKey)) {
 
-                enterAnimForWorkPageDetail(node)
+                enterAnimForWorkPageDetail(node.children[0])
               } else {
-                // df anim
-                enterAnim(node)
+                enterAnim(node.children[0])
               }
 
 
             }}
             onEntered={node => {
-              
+
               console.log("onEntered")
               // this need to use to toggle lenis when page entered with smoething like redux/zustand
               setValStore(true, "truyentam")
               reloadLenis(pathName)
               // console.log("transitionKey === onEntered FOR LLENIS SET", transitionKey)
             }}
+
+
             onExit={node => {
               let target__from_work = localStorage.getItem('currentPath')
 
               if (listPathAndIdDom.pagesWork.includes(target__from_work)) {
                 let activeItemOnWorkPage = localStorage.getItem('activeItemOnWorkPage')
 
-                exitAnimForWorkPage(node, activeItemOnWorkPage)
+                exitAnimForWorkPage(node.children[0], activeItemOnWorkPage)
               } else {
-                // df anim
-                exitAnim(node)
+                exitAnim(node.children[0])
               }
 
             }}
@@ -308,7 +343,9 @@ function PageTransition({
 
               return (
                 <PageTransitionWrapper state={state} data={`${state}DOM_ID`}>
-                  {content}
+                  <div id='wrapper_this'>
+                    {content}
+                  </div>
                 </PageTransitionWrapper>
               );
             }}

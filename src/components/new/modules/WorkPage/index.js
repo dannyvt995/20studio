@@ -4,27 +4,25 @@ import './style.css'
 import gsap from 'gsap'
 import { Observer } from "gsap/dist/Observer";
 import Image from 'next/image'
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
-
-
-function loadAnimationEnterPage(ListChildTitleRef, ListChildSubtitleRef,ListThumbnailRef) {
+function loadAnimationEnterPage(ListChildTitleRef, ListChildSubtitleRef, ListThumbnailRef) {
   //list_child_title = list_child_subtitles
 
   ListChildTitleRef.forEach((child, index) => {
-  
+
     if (index === 0) {
       gsap.timeline({}).set(child, {
         yPercent: 0,
         opacity: 1,
       })
-      .set(ListChildSubtitleRef[index], { opacity: .8 })
+        .set(ListChildSubtitleRef[index], { opacity: .8 })
     } else {
       gsap.timeline({}).set(child, {
         yPercent: -100,
         opacity: 1,
       })
-      .set(ListChildSubtitleRef[index], { opacity: 0 })
+        .set(ListChildSubtitleRef[index], { opacity: 0 })
     }
   });
 }
@@ -66,15 +64,15 @@ function gsapSlider({ prevState, nextState, ListChildTitle, ListChildSub, ListCh
   }
 
   gsap.timeline({
-    onComplete: () => { 
+    onComplete: () => {
       StateLock.current = false;
-     }
+    }
 
   })
     .set(ListChildTitle[nextState], { yPercent: -100 * dir })
     .set(ListChildSub[nextState], { opacity: 0 })
     .set(ListChildThumbnail[nextState], {
-      opacity:1,
+      opacity: 1,
       clipPath: pathResultBaseDirection1,
       zIndex: indexOfSlider.current + 111,
     })
@@ -88,7 +86,7 @@ function gsapSlider({ prevState, nextState, ListChildTitle, ListChildSub, ListCh
         yPercent: 0,
         stagger: 0.1,
         duration: durationAnimation,
-        ease: "power4.inOut"
+        ease: "power3.inOut"
       })
     .to(
       ListChildTitle[prevState],
@@ -97,7 +95,7 @@ function gsapSlider({ prevState, nextState, ListChildTitle, ListChildSub, ListCh
         yPercent: 100 * dir,
         duration: durationAnimation,
         stagger: 0.1,
-        ease: "power4.inOut"
+        ease: "power3.inOut"
       }, "<")
     .to(
       ListChildSub[nextState],
@@ -105,19 +103,19 @@ function gsapSlider({ prevState, nextState, ListChildTitle, ListChildSub, ListCh
         opacity: .8,
         duration: durationAnimation,
         stagger: 0.1,
-        ease: "power4.inOut"
+        ease: "power3.inOut"
       }, "<")
     .to(
       ListChildSub[prevState],
       {
         opacity: 0,
         stagger: 0.1,
-        ease: "power4.inOut"
+        ease: "power3.inOut"
       }, "<")
     .to([ListChildThumbnail[nextState], ListBackgroundRef[nextState]], {
       clipPath: listPath[0],
       duration: durationAnimation,
-      ease: "power4.inOut",
+      ease: "power3.inOut"
 
     }, "<")
 
@@ -133,7 +131,7 @@ export default function WorkPage() {
   const indexOfSlider = useRef(555)
   const durationAnim = 1
   const valueRef = useRef(0)
-
+  const router = useRouter()
   // ['title','subtitle','indicator','thumbnails','projects']
   const titlesRef = useRef(null)
   const subtitlesRef = useRef(null)
@@ -150,8 +148,9 @@ export default function WorkPage() {
   const ListChildThumbnailRef = useRef([])
   const ListChildBackgroundRef = useRef([])
 
+
   useEffect(() => {
-    setValStore(0,'activeItemOnWorkPage')
+    setValStore(0, 'activeItemOnWorkPage')
     ListTitleRef.current = Array.from(titlesRef.current.children);
     ListSubtitleRef.current = Array.from(subtitlesRef.current.children);
     ListThumbnailRef.current = Array.from(thumbnailsRef.current.children);
@@ -169,7 +168,7 @@ export default function WorkPage() {
       Array.from(child.children, child => child) // vi thumb co 0 lop wrap
     );
 
-    loadAnimationEnterPage(ListChildTitleRef.current, ListChildSubtitleRef.current,ListThumbnailRef.current);
+    loadAnimationEnterPage(ListChildTitleRef.current, ListChildSubtitleRef.current, ListThumbnailRef.current);
   }, []);
 
 
@@ -200,7 +199,7 @@ export default function WorkPage() {
       });
       //update val
       valueRef.current = nextvalueRef
-      setValStore(valueRef.current.toString(),'activeItemOnWorkPage')
+      setValStore(valueRef.current.toString(), 'activeItemOnWorkPage')
     } else if (dir === -1) {
       let nextvalueRef = (parseInt(valueRef.current) + 1) % ListTitleRef.current.length; // Loop from 0 to 4
       //just active for parent wrap
@@ -227,7 +226,7 @@ export default function WorkPage() {
       })
       //update val
       valueRef.current = nextvalueRef
-      setValStore(valueRef.current.toString(),'activeItemOnWorkPage')
+      setValStore(valueRef.current.toString(), 'activeItemOnWorkPage')
     }
   }
 
@@ -262,7 +261,25 @@ export default function WorkPage() {
     observeRefPageWheel.current.enable()
   }, [work_page_ref])
 
+  function handleOpenProject(e) {
+    if (stopNow.current === true) return
+    let targetIndexProject = e.currentTarget.getAttribute("index_project")
+    switch (targetIndexProject) {
+      case "1":
+        router.push('/work/work1')
+        break;
+      case "2":
+        router.push('/work/work2')
+        break;
+      case "3":
+        router.push('/work/work3')
+        break;
+      case "4":
+        router.push('/work/work4')
+        break;
 
+    }
+  }
   return (
     <section className='work_page' id="work_page" ref={work_page_ref}>
       {/*       <h1  className="h1">Work</h1> */}
@@ -288,11 +305,6 @@ export default function WorkPage() {
             <span className='ii'><span className='iii'>Studio</span></span>
             <span className='ii'><span className='iii'>Years</span></span>
           </div>
-          {/*   <div>
-            <span className='ii'><span className='iii'>Hi from 5 </span></span>
-            <span className='ii'><span className='iii'>5555</span></span>
-            <span className='ii'><span className='iii'>555</span></span>
-          </div> */}
         </div>
         <div className="subtitle" ref={subtitlesRef}>
           <div className='active'>
@@ -315,11 +327,6 @@ export default function WorkPage() {
             <span className='ii'><span className='iii'></span></span>
             <span className='ii'><span className='iii'></span></span>
           </div>
-          {/*  <div>
-            <span className='ii'><span className='iii'>55555555555 to scale</span></span>
-            <span className='ii'><span className='iii'></span></span>
-            <span className='ii'><span className='iii'></span></span>
-          </div> */}
         </div>
       </div>
       <div className='indicator'>
@@ -329,53 +336,40 @@ export default function WorkPage() {
 
       <div className='thumbnails' ref={thumbnailsRef}>
         <div className="thumbnail active">
-          <div style={{ position: 'fixed', width: '100px', height: '20px', top: '50vh', background: 'white', pointerEvents: 'auto', userSelect: 'auto', zIndex: 'inherit' }}>
-            <Link href="/work/work1">Enter Job1</Link>
-          </div>
+
           <Image src="/clone/services1.webp" alt="job1" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="thumbnail-image" /></div>
         <div className="thumbnail">
-          <div style={{ position: 'fixed', width: '100px', height: '20px', top: '50vh', background: 'white', pointerEvents: 'auto', userSelect: 'auto', zIndex: 'inherit' }}>
-            <Link href="/work/work2">Enter Job2</Link>
-          </div>
+
           <Image src="/clone/services2.webp" alt="job1" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="thumbnail-image" /></div>
         <div className="thumbnail">
-          <div style={{ position: 'fixed', width: '100px', height: '20px', top: '50vh', background: 'white', pointerEvents: 'auto', userSelect: 'auto', zIndex: 'inherit' }}>
-            <Link href="/work/work3">Enter Job3</Link>
-          </div>
+
           <Image src="/clone/services3.webp" alt="job1" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="thumbnail-image" /></div>
         <div className="thumbnail">
-          <div style={{ position: 'fixed', width: '100px', height: '20px', top: '50vh', background: 'white', pointerEvents: 'auto', userSelect: 'auto', zIndex: 'inherit' }}>
-            <Link href="/work/work4">Enter Job4</Link>
-          </div>
+
           <Image src="/clone/services4.webp" alt="job1" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="thumbnail-image" /></div>
-      {/*   <div className="thumbnail"><Image src="/clone/media3.webp" alt="job1" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="thumbnail-image" /></div> */}
+
       </div>
       <div className='projects' ref={backgroundsRef}>
-        <button type="button" className="project active" style={{ display: 'block' }}>
+        <button onClick={handleOpenProject} index_project="1" type="button" className="project active" style={{ display: 'block' }}>
           <div className="project-wrap">
             <Image src="/clone/services1.webp" alt="alt" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
           </div>
         </button>
-        <button type="button" className="project" style={{ display: 'block' }}>
+        <button onClick={handleOpenProject} index_project="2" type="button" className="project" style={{ display: 'block' }}>
           <div className="project-wrap">
             <Image src="/clone/services2.webp" alt="alt" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
           </div>
         </button>
-        <button type="button" className="project" style={{ display: 'block' }}>
+        <button onClick={handleOpenProject} index_project="3" type="button" className="project" style={{ display: 'block' }}>
           <div className="project-wrap">
             <Image src="/clone/services3.webp" alt="alt" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
           </div>
         </button>
-        <button type="button" className="project" style={{ display: 'block' }}>
+        <button onClick={handleOpenProject} index_project="4" type="button" className="project" style={{ display: 'block' }}>
           <div className="project-wrap">
             <Image src="/clone/services4.webp" alt="alt" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
           </div>
         </button>
-      {/*   <button type="button" className="project" style={{ display: 'block' }}>
-          <div className="project-wrap">
-            <Image src="/clone/media3.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
-          </div>
-        </button> */}
       </div>
     </section>
   )

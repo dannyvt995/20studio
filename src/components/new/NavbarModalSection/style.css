@@ -26,9 +26,13 @@
     grid-template-columns: repeat(10, 1fr);
     margin: 0 8vw;
 
-    height:fit-content;
+    height: fit-content;
 }
-
+#navbar_modal_section .logo {
+    position:fixed;
+    top:-10vw;
+    left:4.1vw;
+}
 #navbar_modal_section .images {
     overflow: hidden;
 }
@@ -49,7 +53,8 @@
     grid-column: 2 / 6;
 }
 
-#navbar_modal_section .link-item {
+#navbar_modal_section .link-item,
+#navbar_modal_section .logo{
     color: hsla(33, 14%, 88%, .6);
     color: var(--color-light-grey-06);
     display: inline-flex;
@@ -65,6 +70,9 @@
     transform-origin: top left;
     transition: color .5s;
     will-change: transform;
+}
+#navbar_modal_section  .sub-link:last-child {
+    margin-left: auto;
 }
 @media (min-width: 601px) {
     #navbar_modal_section .container {
@@ -99,5 +107,13 @@
     }
     #navbar_modal_section .social {
         grid-column: 8 / 13;
+    }
+    #navbar_modal_section .sub {
+        align-items: flex-end;
+        bottom: -8.9666666667vw;
+        display: flex;
+        left: 4.1666666667vw;
+        position: absolute;
+        width: 61.8888888889vw;
     }
 }

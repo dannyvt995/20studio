@@ -3,8 +3,8 @@ import React from 'react'
 import './style.css'
 import ButtonHoverUnderLineNew from '../ButtonHoverUnderLineNew';
 
-export default function NavbarSectionDeskop({ handleRedirect }) {
-
+function NavbarSectionDeskop() {
+    console.log('NavbarSectionDeskop')
     return (
         <nav className="nav" id='navbar'>
             <ul className="nav-list">
@@ -24,3 +24,4 @@ export default function NavbarSectionDeskop({ handleRedirect }) {
         </nav>
     )
 }
+export default  NavbarSectionDeskop

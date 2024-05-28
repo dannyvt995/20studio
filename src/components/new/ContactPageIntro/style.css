@@ -12,6 +12,8 @@
 .ContactPageIntro .image {
     position: relative;
     z-index: 1;
+    aspect-ratio: 248 / 371;
+    overflow:hidden;
 }
 .ContactPageIntro .h1 {
     height: 1px;
@@ -54,6 +56,7 @@
     }
     .ContactPageIntro .container {
      /*    margin: 0 8.3333333333vw; */
+     padding: 0 8.3333333333vw;
     }
     .ContactPageIntro .image {
         height: 39.375vw;

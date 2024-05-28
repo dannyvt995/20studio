@@ -6,7 +6,10 @@ export default function ContactPageIntro() {
     return (
         <section className='ContactPageIntro'>
             <div className='container'>
-                <Image className='image' src="/clone/contact-page.webp" width={0} height={0} sizes="100vw" alt="e" />
+                <div className='image'>
+                <Image  src="/home/banner.webp" width={0} height={0} sizes="100vw" style={{width:'auto',height:'100%',    position: 'absolute',left:'50%',transform: 'translateX(-50%)'}} alt="e" />
+                </div>
+              
                 <h1 className="h1">Contact</h1>
                 <h2 className="title">
                     <div className='marquee'>
@@ -14,27 +17,27 @@ export default function ContactPageIntro() {
                     </div>
                 </h2>
                 <div className='left'>
-                    <div className="body"><p>Ready for lift-off? Ping, tweet, message or poke — and we will get back as soon as possible.</p></div>
+                    <div className="body"><p>Sẵn sàng để cất cánh? Mess, tweet, tin nhắn và chúng tôi sẽ liên hệ lại sớm nhất có thể.</p></div>
                     <ul className="contact">
                         <li className="contact-item">
                             <a href="mailto:hello@exoape.com" className="link is-dark">
-                            hello@exoape.com
+                            vphcm@20studio.com
                             </a>
                         </li>
                         <li className="contact-item">
                             <a href="tel:+31 772 086 200" className="link is-dark">
-                                +31 772 086 200
+                                +11 222 333 444
                             </a>
                         </li>
                     </ul>
                 </div>
                 <div className='right'>
                     <a className="address">
-                        Willem II Singel 8<br/>
-                        6041 HS, Roermond<br/>
-                        The Netherlands
+                        30 Lý Chính Thắng,<br/>
+                        Quận 3,<br/>
+                        Hồ Chí Minh
                     </a>
-                    <a className='link'>View on maps</a>
+                    <a className='link'>Xem bản đồ</a>
                 </div>
             </div>
         </section>

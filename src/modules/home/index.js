@@ -7,6 +7,8 @@ import FooterSection from '@/components/new/FooterSection'
 import HeroSection from '@/components/new/HeroSection';
 import ServicesSection from '@/components/new/ServicesSection';
 import LetContact from '@/components/new/LetContact';
+import FAQSection from '@/components/new/FAQSection';
+import PartnersSection from '@/components/new/PartnersSection';
 
 
 
@@ -44,10 +46,11 @@ function Home() {
       <HomePageStyled id="homepage" ref={scrollerRef}>
        
         <HeroSection scrollerRef={scrollerRef.current} backgroundImage={"/home/banner.png"} backgroundSize={{ width: "auto", height: "100%" }} />
-       
-        <div style={{ height: "350vh" }}> {/* lazy load and get exacly height dom for lenis */}
+        <div className="white_bg" style={{ height: "200vw" }}> {/* lazy load and get exacly height dom for lenis */}
           <ServicesSection />
         </div>
+        <FAQSection/>
+        <PartnersSection/>
         <LetContact />
         <FooterSection scrollerRef={scrollerRef.current}/>
       </HomePageStyled>

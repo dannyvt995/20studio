@@ -85,6 +85,14 @@ export default function RouterControls({ children }) {
     const button_menuRef = useRef(null)
     const navbarRef = useRef(null)
 
+    
+    const menuAnimRuning = useRef(false)
+    const menuActive = useRef(false)
+
+    const timeTransition = 1
+    const easeOpen = "power3.out"
+    const easeClose = "power3.out"
+
     useEffect(() => {
         navbarRef.current = document.getElementById(`navbar`)
         button_menuRef.current = document.getElementById(`button_menu`)
@@ -93,12 +101,10 @@ export default function RouterControls({ children }) {
     }, [pathName])
 
 
-    const menuAnimRuning = useRef(false)
-    const menuActive = useRef(false)
 
     const openMenu = (elMenuWrapper, elMenu, elContent) => {
         menuAnimRuning.current = true
-        const duration = 1
+     
         if (menuActive.current == true) {
 
             gsap.timeline({
@@ -110,23 +116,23 @@ export default function RouterControls({ children }) {
             })
                 .to(button_menuRef.current.children[1], {
                     rotate: 45,
-                    duration: duration,
-                    ease: "power2.out",
+                    duration: timeTransition,
+                    ease: easeClose,
                 }, '<')
                 .to(elMenuWrapper, {
                     clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
 
-                    duration: duration,
-                    ease: "power2.out",
+                    duration: timeTransition,
+                    ease: easeClose,
                 }, '<')
                 .to(elMenu, {
-                    rotate: -4,
-                    scale: 1.7,
-                    y: -600,
-                    '-webkit-filter': 'brightness(42%)',
-                    filter: 'brightness(42%)',
-                    duration: duration,
-                    ease: "power2.out",
+                    rotate: -7,
+                    scale: 1.2,
+                    y: -window.innerHeight/2,
+                    '-webkit-filter': 'brightness(16%)',
+                    filter: 'brightness(16%)',
+                    duration: timeTransition,
+                    ease:easeClose,
                 }, '<')
                 .to(elContent, {
                     rotate: 0,
@@ -134,8 +140,8 @@ export default function RouterControls({ children }) {
                     y: 0,
                     '-webkit-filter': 'brightness(100%)',
                     filter: 'brightness(100%)',
-                    duration: duration,
-                    ease: "power2.out",
+                    duration: timeTransition,
+                    ease: easeClose,
                 }, "<")
         } else {
             // console.log("???",elMenuWrapper.parentNode)
@@ -153,23 +159,23 @@ export default function RouterControls({ children }) {
                 .set(elMenuWrapper.parentNode, { zIndex: 500 })
                 .set(elMenuWrapper, { opacity: 1, clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)' })
                 .set(elMenu, {
-                    rotate: -4,
-                    scale: 1.7,
-                    y: -600,
+                    rotate: -7,
+                    scale: 1.2,
+                    y: -window.innerHeight/2,
                 })
                 .to(elContent, {
                     rotate: 7,
-                    scale: 1.3,
-                    y: 600,
-                    '-webkit-filter': 'brightness(42%)',
-                    filter: 'brightness(42%)',
-                    duration: duration,
-                    ease: "power4.out",
+                    scale: 1.2,
+                    y: window.innerHeight/2,
+                    '-webkit-filter': 'brightness(16%)',
+                    filter: 'brightness(16%)',
+                    duration: timeTransition,
+                    ease: easeOpen,
                 }, '<')
                 .to(elMenuWrapper, {
-                    clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-                    duration: duration,
-                    ease: "power4.out",
+                    clipPath: 'polygon(0% 0%, 100% 0%, 100% 105%, 0% 100%)',
+                    duration: timeTransition,
+                    ease: easeOpen,
                 }, '<')
                 .to(elMenu, {
                     rotate: 0,
@@ -177,13 +183,13 @@ export default function RouterControls({ children }) {
                     y: 0,
                     '-webkit-filter': 'brightness(100%)',
                     filter: 'brightness(100%)',
-                    duration: duration,
-                    ease: "power4.out",
+                    duration: timeTransition,
+                    ease: easeOpen,
                 }, '<')
                 .to(button_menuRef.current.children[1], {
                     rotate: 0,
-                    duration: duration,
-                    ease: "power2.out",
+                    duration: timeTransition,
+                    ease: easeOpen,
                 }, '<')
         }
 
@@ -207,7 +213,7 @@ export default function RouterControls({ children }) {
         let elContent = document.getElementById(`${pathNameFormat}page`)
 
         router.push(e.target.getAttribute('data_link'))
-        let duration = 1
+        console.log('runnnnnn',elContent)
         gsap.timeline({
             onComplete: () => {
                 menuActive.current = false
@@ -218,17 +224,17 @@ export default function RouterControls({ children }) {
             .to(elMenuWrapper, {
                 clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
 
-                duration: duration,
-                ease: "power2.out",
+                duration: timeTransition,
+                ease: easeOpen,
             }, '<')
             .to(elMenu, {
-                rotate: -4,
-                scale: 1.7,
-                y: -600,
-                '-webkit-filter': 'brightness(42%)',
-                filter: 'brightness(42%)',
-                duration: duration,
-                ease: "power2.out",
+                rotate: -7,
+                scale: 1.2,
+                y: -window.innerHeight/2,
+                '-webkit-filter': 'brightness(16%)',
+                filter: 'brightness(16%)',
+                duration: timeTransition,  
+                ease: easeOpen
             }, '<')
             .to(elContent, {
                 rotate: 0,
@@ -236,8 +242,8 @@ export default function RouterControls({ children }) {
                 y: 0,
                 '-webkit-filter': 'grayscale(0%) ',
                 filter: 'grayscale(0%)',
-                duration: duration,
-                ease: "power2.out",
+                duration: timeTransition,  
+                ease: easeOpen
             }, "<")
 
     }
