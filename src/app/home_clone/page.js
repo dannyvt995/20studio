@@ -12,21 +12,23 @@ import DetailWorkPage from '@/components/new/modules/DetailWorkPage'
 import ProjectText from '@/components/new/ProjectText'
 import Banner_DetailWorkPage from '@/components/new/DetailWorkPage/components/Banner_DetailWorkPage'
 import ContactPageIntro from '@/components/new/ContactPageIntro'
+import Home from '@/modules/home'
 export default function page() {
     return (
         <>  
-            <DetailWorkPage/>
+      {/*       <DetailWorkPage/>
             <ContactPageIntro/>
             <Banner_DetailWorkPage/>
-            <ProjectText/>
+            
             <WorkPage/>
-            <LetContact/>
-            <ButtonMenu/>
-            <NavbarModalSection/>
+            <LetContact/> */}
+          
+        <Home/>
+           {/*  <NavbarModalSection/>
             <NavbarSectionDeskop/>
             <HeroSection/>
-            <ServicesSection/>
-            <FooterSection/>
+        
+            <FooterSection/> */}
         </>
     )
 }

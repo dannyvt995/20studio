@@ -73,7 +73,7 @@ function PageTransition({
   transitionKey,
   ...rest
 }) {
-  //console.log("PageTransition render............")
+  console.log("PageTransition render.....^^^....")
   const pathName = usePathname(null)
   const pathNameFormat = removeSplash(pathName)
   const lenisRef = useRef(null)
@@ -85,7 +85,9 @@ function PageTransition({
     ...listPathAndIdDom.pagesWork,
   ];
   const matches = allPaths.filter(path => path === pathName);
+
   function reloadLenis(pathName) {
+   
     if (pathName == '/work') return
     console.log("useLenis hooks----", pathName, pathNameFormat)
     gsap.registerPlugin(ScrollTrigger)
@@ -104,7 +106,6 @@ function PageTransition({
     window.lenis = lenis;
     lenisRef.current.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
 
-      ScrollTrigger.refresh()
       if (scroll > target && scroll < target * 2) { // tổng 3 target là kill raf này
         navbarModal.style.display = 'none';
         buttonNavbar.style.display = 'flex';
@@ -115,10 +116,10 @@ function PageTransition({
     })
 
     ScrollTrigger.defaults({ scroller: domScroll });
+   
 
-    ScrollTrigger.refresh()
     gsap.ticker.add(update)
-
+    //setStateEntered("=>>>Đã vào")
     function update(time) {
       if (window.lenis) window.lenis.raf(time * 1300);
 
@@ -132,24 +133,22 @@ function PageTransition({
     }
   }
 
+  
   useEffect(() => {
-
+ 
    // console.log("init lenis and fire anim on FIRST LOAD", pathName, pathNameFormat)
     reloadLenis(pathName)
     if (matches.length > 0) {
       let targetId = removeSplash(pathName)
       const targetDom = document.getElementById(`${targetId}page`)
       const targetParentDom = targetDom.parentNode
-      setTimeout(() => {
-        enterAnim(targetParentDom)
-      }, 500);
+      enterAnim(targetParentDom)
     } else {
       console.log('No matches found');
     }
   }, [])
 
-
-  
+ 
 
   const enterAnimForWorkPageDetail = (dom) => {
     // because wrapper_this warp all compoent , so activv this if need diffrence eefect
@@ -261,7 +260,6 @@ function PageTransition({
 
   return (
     <ReactLenis root ref={lenisRef} autoRaf={false}>
-
       <PageTransitionGroup {...rest}>
         <TransitionGroup component={null}>
 
@@ -269,12 +267,13 @@ function PageTransition({
 
             key={transitionKey}
             timeout={timeTransition * 1000}
+            mountOnEnter
             unmountOnExit
             onEnter={node => {
               let targetPath = transitionKey
               setValStore(false, "truyentam")
               setValStore(targetPath, "currentPath") // save it to cahnge anim type when on work page
-
+         
               console.log("onEnter")
               if (listPathAndIdDom.pagesWork.includes(transitionKey)) {
 
@@ -286,16 +285,17 @@ function PageTransition({
 
             }}
             onEntered={node => {
-
               console.log("onEntered")
               // this need to use to toggle lenis when page entered with smoething like redux/zustand
               setValStore(true, "truyentam")
               reloadLenis(pathName)
+      
               // console.log("transitionKey === onEntered FOR LLENIS SET", transitionKey)
             }}
 
 
             onExit={node => {
+              console.log("onExit")
               let target__from_work = localStorage.getItem('currentPath')
 
               if (listPathAndIdDom.pagesWork.includes(target__from_work)) {
@@ -309,19 +309,20 @@ function PageTransition({
             }}
           >
             {state => {
+             // console.log(state,"======================================================")
               let content;
               switch (pathName) {
                 case '/':
-                  content = <Home />;
+                  content = <Home wftState={state}/>;
                   break;
                 case '/home':
-                  content = <Home />;
+                  content = <Home wftState={state} />;
                   break;
                 case '/about':
-                  content = <About />;
+                  content = <About wftState={state} />;
                   break;
                 case '/contact':
-                  content = <Contact />;
+                  content = <Contact wftState={state}/>;
                   break;
                 case '/work':
                   content = <Work />;

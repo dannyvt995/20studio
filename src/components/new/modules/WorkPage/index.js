@@ -125,6 +125,7 @@ function setValStore(val, nameVal) {
 }
 
 export default function WorkPage() {
+  
   const observeRefPageWheel = useRef(null)
   const work_page_ref = useRef(null)
   const stopNow = useRef(false)
@@ -170,7 +171,19 @@ export default function WorkPage() {
 
     loadAnimationEnterPage(ListChildTitleRef.current, ListChildSubtitleRef.current, ListThumbnailRef.current);
   }, []);
+  useEffect(() => {
+    gsap.registerPlugin(Observer)
+    observeRefPageWheel.current = Observer.create({
+      target: work_page_ref.current,
+      type: "wheel,touch,pointer",
+      wheelSpeed: -1,
+      onDown: () => handleMouseDown(),
+      onUp: () => handleMouseUp(),
 
+      preventDefault: false
+    });
+    observeRefPageWheel.current.enable()
+  }, [work_page_ref])
 
 
 
@@ -247,19 +260,7 @@ export default function WorkPage() {
   }
 
 
-  useEffect(() => {
-    gsap.registerPlugin(Observer)
-    observeRefPageWheel.current = Observer.create({
-      target: work_page_ref.current,
-      type: "wheel,touch,pointer",
-      wheelSpeed: -1,
-      onDown: () => handleMouseDown(),
-      onUp: () => handleMouseUp(),
 
-      preventDefault: false
-    });
-    observeRefPageWheel.current.enable()
-  }, [work_page_ref])
 
   function handleOpenProject(e) {
     if (stopNow.current === true) return

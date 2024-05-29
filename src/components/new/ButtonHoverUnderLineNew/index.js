@@ -4,12 +4,15 @@ import React from "react"
 import gsap from 'gsap'
 import Link from "next/link"
 import './style.css' 
+
+
 export default function ButtonHoverUnderLineNew({ noName,autoLink,eventPass,data_link,data_type,children, color , classStyle }) {
     const aRef = React.useRef(null)
     const aUnderlineRef = React.useRef(null)
     const handleClick = (e) => {
         if (eventPass) {
             eventPass(e);
+    
         }
     };
     
@@ -60,12 +63,13 @@ export default function ButtonHoverUnderLineNew({ noName,autoLink,eventPass,data
         // Cleanup event listeners on component unmount
         return () => {
             if (aRef.current) {
+                aRef.current.tl.kill()
                 aRef.current.removeEventListener("mouseenter", enterAnimation);
                 aRef.current.removeEventListener("mouseleave", leaveAnimation);
             }
         };
 
-    }, [aRef,aUnderlineRef]);
+    }, []);
 
 
 

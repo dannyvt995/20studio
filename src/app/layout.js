@@ -17,16 +17,16 @@ import LenisScrolling from "@/components/LenisScrolling";
 import CacheImageGroup from "@/components/new/CacheImageGroup";
 
 
-
 export default function RootLayout({ children }) {
- 
+
   return (
     <html lang="vi">
       <body >
-     {/*  <LenisScrolling>
+      <CacheImageGroup />
+{/*       <LenisScrolling>
       { children }
       </LenisScrolling> */}
-      <CacheImageGroup />
+    
       <RouterControls>
       { children }
       </RouterControls>

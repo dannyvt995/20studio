@@ -1,39 +1,45 @@
 
 "use client"
 
-import {useEffect,useRef} from 'react'
+import { useEffect, useRef } from 'react'
 import './style.css'
 
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ButtonHoverUnderLineNew from '../ButtonHoverUnderLineNew';
-import Link from 'next/link';
 
 
-export default function FooterSection({scrollerRef}) {
+export default function FooterSection({ wftState, scrollerRef }) {
     const triggleSection = useRef(null)
     const domEffect = useRef(null)
+    const timelineRef = useRef(null)
+
     useEffect(() => {
-    
-        gsap.registerPlugin(ScrollTrigger)
-        console.log("Reinit/init scrolltriggle on component tổng FROM HeroSection",scrollerRef)
-        const timeline = gsap.timeline({
-            scrollTrigger: {
-                scroller: scrollerRef,
-                trigger: triggleSection.current,
-                start: "top bottom",
-                end: "bottom bottom",
-                scrub: true
-              }
-        })
-        const ctx = gsap.context(() => {
-            timeline.set(domEffect.current,{ y: -window.innerHeight * .5}).fromTo(domEffect.current, {
-            y: -window.innerHeight * .5, // calc(100vh * -1.2)
-           
-          },{y:0})
-          return () => ctx.revert();
-        });
-      }, [])
+        if (wftState == 'entered') {
+            gsap.registerPlugin(ScrollTrigger)
+            console.log("Reinit/init scrolltriggle on component tổng FROM FooterSection")
+
+            const ctx = gsap.context(() => {
+                timelineRef.current = gsap.timeline({
+                    scrollTrigger: {
+                        scroller: scrollerRef,
+                        trigger: triggleSection.current,
+                        start: "top bottom",
+                        end: "bottom bottom",
+                        scrub: true
+                    }
+                })
+                timelineRef.current.set(domEffect.current, { y: -window.innerHeight * .5 }).fromTo(domEffect.current, {
+                    y: -window.innerHeight * .5, // calc(100vh * -1.2)
+
+                }, { y: 0 })
+                return () => ctx.revert();
+            });
+
+        }
+
+        return () => timelineRef.current?.kill()
+    }, [wftState])
     return (
         <section className='footer_section' id="footer_section" ref={triggleSection}>
             <div className='container' ref={domEffect}>
@@ -49,7 +55,7 @@ export default function FooterSection({scrollerRef}) {
                             30 Lý Chính Thắng<br />
                             P. Võ Thị Sáu<br />
                             Quận 3, HCM.
-                            
+
                         </a>
                     </li>
                     <li className='item'>
@@ -60,16 +66,16 @@ export default function FooterSection({scrollerRef}) {
                 </ul>
                 <ul className='nav_footer'>
                     <li className="item">
-                    <ButtonHoverUnderLineNew noName="var(--font-lh-p)" autoLink="/work" >Dự án</ButtonHoverUnderLineNew>
+                        <ButtonHoverUnderLineNew noName="var(--font-lh-p)" autoLink="/work" >Dự án</ButtonHoverUnderLineNew>
                     </li>
                     <li className='item'>
-                    <ButtonHoverUnderLineNew noName="var(--font-lh-p)" autoLink="/about" classStyle="list-link">20 Studio</ButtonHoverUnderLineNew>
+                        <ButtonHoverUnderLineNew noName="var(--font-lh-p)" autoLink="/about" classStyle="list-link">20 Studio</ButtonHoverUnderLineNew>
                     </li>
                     <li className='item'>
-                    <ButtonHoverUnderLineNew  noName="var(--font-lh-p)" autoLink="/" classStyle="list-link">Dịch vụ</ButtonHoverUnderLineNew>
+                        <ButtonHoverUnderLineNew noName="var(--font-lh-p)" autoLink="/" classStyle="list-link">Dịch vụ</ButtonHoverUnderLineNew>
                     </li>
                     <li className='item'>
-                    <ButtonHoverUnderLineNew noName="var(--font-lh-p)" autoLink="/contact" classStyle="list-link">Liên hệ</ButtonHoverUnderLineNew>
+                        <ButtonHoverUnderLineNew noName="var(--font-lh-p)" autoLink="/contact" classStyle="list-link">Liên hệ</ButtonHoverUnderLineNew>
                     </li>
                 </ul>
                 <ul className='social'>
@@ -88,7 +94,7 @@ export default function FooterSection({scrollerRef}) {
                     <div className="wrap">
                         <div className="circle" >
                             Về chúng tôi
-                         </div>
+                        </div>
                     </div>
                 </a>
             </div>
