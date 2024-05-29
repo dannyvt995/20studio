@@ -3,7 +3,6 @@ import { memo } from 'react';
 import React from 'react'
 import styled from 'styled-components';
 import WorkPage from '@/components/new/modules/WorkPage';
-
 const WorkPageStyled = styled.div`
 width: 100vw;
 height: 100vh;
@@ -22,7 +21,7 @@ function Work() {
     <>
     <WorkPageStyled id="workpage" >
    {/*    <ProjectsSection /> */}
-
+  
       <WorkPage/>
     </WorkPageStyled>
     </>

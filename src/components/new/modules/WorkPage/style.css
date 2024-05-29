@@ -132,6 +132,25 @@
     top: 0;
     width: 100%;
 }
+@media (max-width: 620px) {
+    #work_page .project-wrap img{
+        width: auto !important;
+        height: 100% !important;
+        transform: translateX(-50%) !important;
+        left: 50% !important;
+        position: relative !important;
+    }
+    #work_page .thumbnails {
+        height: 70vw!important;
+        width: 50vw!important;
+    }
+    #work_page .heading {
+        width:50% !important;
+        left: 8vw!important;
+    top: 50vh!important;
+    transform: translateY(-50%)!important;
+    }
+}
 @media (min-width: 601px) {
     #work_page .current {
         will-change: transform;

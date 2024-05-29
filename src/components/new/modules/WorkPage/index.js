@@ -183,6 +183,9 @@ export default function WorkPage() {
       preventDefault: false
     });
     observeRefPageWheel.current.enable()
+    return () => {
+      observeRefPageWheel.current = null
+    }
   }, [work_page_ref])
 
 

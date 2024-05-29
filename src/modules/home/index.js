@@ -8,7 +8,6 @@ import HeroSection from '@/components/new/HeroSection';
 import ServicesSection from '@/components/new/ServicesSection';
 import LetContact from '@/components/new/LetContact';
 import FAQSection from '@/components/new/FAQSection';
-import PartnersSection from '@/components/new/PartnersSection';
 
 
 
@@ -36,12 +35,10 @@ function Home({ wftState }) {
       <HomePageStyled id="homepage" ref={scrollerRef}>
     
         <HeroSection wftState={wftState} scrollerRef={"#homepage"} backgroundImage={"/home/banner.png"} backgroundSize={{ width: "auto", height: "100%" }} />
-        <div className="white_bg" style={{ height: "200vw" }}>
-          <ServicesSection />
-        </div>
+        <ServicesSection />
 
         <FAQSection/>
-        <PartnersSection/>
+     
         <LetContact />
         <FooterSection wftState={wftState} scrollerRef={"#homepage"}/>
       </HomePageStyled>
@@ -54,4 +51,4 @@ function Home({ wftState }) {
 
 
 
-export default memo(Home);
+export default Home;

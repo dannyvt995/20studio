@@ -39,3 +39,9 @@ a {
 :root {
     --greendam:rgb(134, 143, 138);
 }
+
+@media (max-width:620px) {
+    .container {
+        margin: 0 8vw !important;
+    }
+}

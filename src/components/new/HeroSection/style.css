@@ -98,3 +98,17 @@
     grid-column: 1 / 6;
     pointer-events: all;
 }
+
+
+@media (max-width:620px) {
+    .hero_section {
+        height:130vh !important;
+    }
+    .hero_section > .background > img {
+        width:auto!important;
+        height:100%!important;
+        position:relative!important;
+        left:50%!important;
+        transform:translateX(-50%)!important;
+    }
+}

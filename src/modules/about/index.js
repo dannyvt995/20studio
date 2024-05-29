@@ -45,4 +45,4 @@ function About({wftState}) {
 }
 
 
-export default memo(About);
+export default About

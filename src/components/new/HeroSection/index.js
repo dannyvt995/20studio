@@ -13,14 +13,15 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 
-export default function HeroSection({ wftState, scrollerRef, backgroundImage, backgroundSize }) {
+export default function  HeroSection({ wftState, scrollerRef, backgroundImage, backgroundSize }) {
     const triggleSection = useRef(null)
     const backgroundImg = useRef(null)
     const timelineRef = useRef(null)
-
+   
 
     useEffect(() => {
-        if (wftState == 'entered') {
+        if (wftState === 'entered') {
+            if(window.innerWidth < 620) return
             gsap.registerPlugin(ScrollTrigger)
 
             console.log("Reinit/init scrolltriggle on component tổng FROM HeroSection")
@@ -38,10 +39,14 @@ export default function HeroSection({ wftState, scrollerRef, backgroundImage, ba
 
                     }
                 });
-                return () => ctx.revert();
+                return () => {
+                    ctx.revert();
+                }
             });
         }
-        return () => timelineRef.current?.kill()
+        return () => {
+            timelineRef.current = null
+        }
     }, [wftState])
     return (
         <section className='hero_section dark_bg' id="hero_section" ref={triggleSection}>
@@ -103,3 +108,4 @@ export default function HeroSection({ wftState, scrollerRef, backgroundImage, ba
         </section>
     )
 }
+

@@ -14,6 +14,9 @@ import About from "@/modules/about/index.js";
 import Contact from "@/modules/contact/index.js";
 import Work from "@/modules/work/index.js";
 
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(useGSAP);
 
 import { usePathname } from 'next/navigation';
 
@@ -84,17 +87,27 @@ function PageTransition({
     ...listPathAndIdDom.pages,
     ...listPathAndIdDom.pagesWork,
   ];
+
   const matches = allPaths.filter(path => path === pathName);
+  const scopeRef = useRef(null)
+  const { contextSafe } = useGSAP({ scope: scopeRef.current });
+
+
+  
+
+  let navbarModal
+  let buttonNavbar
+  let domScroll
 
   function reloadLenis(pathName) {
-   
+
     if (pathName == '/work') return
     console.log("useLenis hooks----", pathName, pathNameFormat)
     gsap.registerPlugin(ScrollTrigger)
-    const navbarModal = document.getElementById(`navbar`)
-    const buttonNavbar = document.getElementById(`button_menu`)
-    const target = window.innerHeight * 1.5
-    const domScroll = document.getElementById(`${pathNameFormat}page`)
+    navbarModal = document.getElementById(`navbar`)
+    buttonNavbar = document.getElementById(`button_menu`)
+    let target = window.innerHeight * 1.5
+    domScroll = document.getElementById(`${pathNameFormat}page`)
    // console.log(domScroll)
     const lenis = new Lenis({
       syncTouch: true,
@@ -105,8 +118,8 @@ function PageTransition({
     lenisRef.current = lenis;
     window.lenis = lenis;
     lenisRef.current.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
-
-      if (scroll > target && scroll < target * 2) { // tổng 3 target là kill raf này
+  
+      if (scroll > target && scroll < target * 2 && velocity > 0) { // tổng 3 target là kill raf này
         navbarModal.style.display = 'none';
         buttonNavbar.style.display = 'flex';
       } else if (scroll < target) {
@@ -116,13 +129,10 @@ function PageTransition({
     })
 
     ScrollTrigger.defaults({ scroller: domScroll });
-   
-
     gsap.ticker.add(update)
-    //setStateEntered("=>>>Đã vào")
+
     function update(time) {
       if (window.lenis) window.lenis.raf(time * 1300);
-
     }
     return () => {
       if (lenisRef.current) {
@@ -130,34 +140,44 @@ function PageTransition({
         lenisRef.current.destroy()
         gsap.ticker.remove(update)
       }
+      navbarModal = null
+      buttonNavbar = null
+      domScroll = null
     }
   }
 
   
   useEffect(() => {
- 
+    let targetParentDom; // Đặt targetParentDom ở phạm vi lớn hơn
+    let targetDom; 
    // console.log("init lenis and fire anim on FIRST LOAD", pathName, pathNameFormat)
-    reloadLenis(pathName)
+    if(window.innerWidth > 620) reloadLenis(pathName)
     if (matches.length > 0) {
       let targetId = removeSplash(pathName)
-      const targetDom = document.getElementById(`${targetId}page`)
-      const targetParentDom = targetDom.parentNode
+      targetDom = document.getElementById(`${targetId}page`)
+       targetParentDom = targetDom.parentNode
       enterAnim(targetParentDom)
+   
     } else {
       console.log('No matches found');
     }
+
+    return () => {
+      targetParentDom= null
+      targetDom= null
+    }
   }, [])
 
- 
 
-  const enterAnimForWorkPageDetail = (dom) => {
+
+  const enterAnimForWorkPageDetail = contextSafe((dom) => {
     // because wrapper_this warp all compoent , so activv this if need diffrence eefect
     gsap.set(dom, {
       clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
     })
-  }
+  })
 
-  const exitAnimForWorkPage = (dom, item_project_active) => {
+  const exitAnimForWorkPage = contextSafe((dom, item_project_active) => {
     // always is #work page
     // Now we have 4 item dom
     // .heading , .indicator, .thumbnail , .projects // 0,1,2,3
@@ -196,48 +216,53 @@ function PageTransition({
       }
         , "<")
 
-  }
+  })
 
 
-  const enterAnim = (dom) => {
-    gsap.timeline()
-    .set(dom.parentNode, { zIndex: indexRef.current++ })
-      .set(dom, { clipPath: 'polygon(0% 100%, 100% 110%, 100% 100%, 0% 100%)' })
-      .set(dom.children[0], { 
-        '-webkit-filter': 'brightness(100%)',
-        filter: 'brightness(100%)',
-        rotate: 0,
-        y: 0,
-        x: 0,
-        scale: 1,
-       })
-      .set(dom.children[0], {
-        '-webkit-filter': 'brightness(100%)',
-        filter: 'brightness(100%)',
-        rotate: 7,
-        y: window.innerHeight / 2,
-        scale: 1.2
-      })
 
 
-      .to(dom, {
-        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-        duration: timeTransition,
-        ease: easeTransition
-      })
-      .to(dom.children[0], {
-        '-webkit-filter': 'brightness(100%)',
-        filter: 'brightness(100%)',
-        rotate: 0,
-        y: 0,
-        x: 0,
-        scale: 1,
-        duration: timeTransition,
-        ease: easeTransition
-      }, '<');
-  };
+  const enterAnim = contextSafe(
+    (dom) => {
+    
+      gsap.timeline()
+      .set(dom.parentNode, { zIndex: indexRef.current++ })
+        .set(dom, { clipPath: 'polygon(0% 100%, 100% 110%, 100% 100%, 0% 100%)' })
+        .set(dom.children[0], { 
+          '-webkit-filter': 'brightness(100%)',
+          filter: 'brightness(100%)',
+          rotate: 0,
+          y: 0,
+          x: 0,
+          scale: 1,
+         })
+        .set(dom.children[0], {
+          '-webkit-filter': 'brightness(100%)',
+          filter: 'brightness(100%)',
+          rotate: 7,
+          y: window.innerHeight / 2,
+          scale: 1.2
+        })
+  
+  
+        .to(dom, {
+          clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+          duration: timeTransition,
+          ease: easeTransition
+        })
+        .to(dom.children[0], {
+          '-webkit-filter': 'brightness(100%)',
+          filter: 'brightness(100%)',
+          rotate: 0,
+          y: 0,
+          x: 0,
+          scale: 1,
+          duration: timeTransition,
+          ease: easeTransition
+        }, '<');
+    }
+  )
 
-  const exitAnim = (dom) => {
+  const exitAnim = contextSafe((dom) => {
   
 
     gsap.timeline()
@@ -256,8 +281,9 @@ function PageTransition({
         duration: timeTransition,
         ease: easeTransition
       });
-  };
+  })
 
+ 
   return (
     <ReactLenis root ref={lenisRef} autoRaf={false}>
       <PageTransitionGroup {...rest}>
@@ -288,7 +314,7 @@ function PageTransition({
               console.log("onEntered")
               // this need to use to toggle lenis when page entered with smoething like redux/zustand
               setValStore(true, "truyentam")
-              reloadLenis(pathName)
+              if(window.innerWidth > 620) reloadLenis(pathName)
       
               // console.log("transitionKey === onEntered FOR LLENIS SET", transitionKey)
             }}
@@ -309,45 +335,41 @@ function PageTransition({
             }}
           >
             {state => {
-             // console.log(state,"======================================================")
-              let content;
+              let contentDomReference = null;
               switch (pathName) {
                 case '/':
-                  content = <Home wftState={state}/>;
-                  break;
                 case '/home':
-                  content = <Home wftState={state} />;
+                  contentDomReference = <Home wftState={state} />;
                   break;
                 case '/about':
-                  content = <About wftState={state} />;
+                  contentDomReference = <About wftState={state} />;
                   break;
                 case '/contact':
-                  content = <Contact wftState={state}/>;
+                  contentDomReference = <Contact wftState={state} />;
                   break;
                 case '/work':
-                  content = <Work />;
+                  contentDomReference = <Work />;
                   break;
                 case '/work/work1':
-                  content = <Work1 />;
+                  contentDomReference = <Work1 />;
                   break;
                 case '/work/work2':
-                  content = <Work2 />;
+                  contentDomReference = <Work2 />;
                   break;
                 case '/work/work3':
-                  content = <Work3 />;
+                  contentDomReference = <Work3 />;
                   break;
                 case '/work/work4':
-                  content = <Work4 />;
+                  contentDomReference = <Work4 />;
                   break;
                 default:
-
                   return <h1>404 Page , lenis will err</h1>;
               }
-
+            
               return (
                 <PageTransitionWrapper state={state} data={`${state}DOM_ID`}>
-                  <div id='wrapper_this'>
-                    {content}
+                  <div id='wrapper_this' ref={scopeRef}>
+                    {contentDomReference}
                   </div>
                 </PageTransitionWrapper>
               );

@@ -4,35 +4,23 @@ import './style.css'
 import Image from 'next/image'
 export default function LetContact() {
   return (
-    <section className='letcontact_section' id="letcontact_section">
+    <section className='letcontact_section light_background' id="letcontact_section">
       <div className='container'>
       <ul className="media-wrapper">
         <li className="media">
-          <Image alt="d" src="/clone/media3.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
+          <Image alt="d" src="/clone/letcontact_center.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} quality={42} />
         </li>
         <li className="media">
-        <Image alt="d" src="/aboutuslargesection/1.png" width={0} height={0} sizes="100vw" style={{ width: "auto", height: "100%" }} />
+        <Image alt="d" src="/clone/letcontact_top-left.webp" width={0} height={0} sizes="100vw" style={{ width: "auto", height: "100%" }} quality={42}/>
         </li>
 
         <li className="media">
-          <Image alt="d"  src="/clone/media1.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
+          <Image alt="d"  src="/clone/media1_n.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} quality={42}/>
         </li>
         <li className="media"> 
-        <Image alt="d"  src="/clone/media2.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} /></li>
+        <Image alt="d"  src="/clone/letcontact_bottom-right.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} quality={42}/></li>
         <li className="media">
-          <video
-            autoPlay
-            playsInline
-            loop
-            muted
-            disablePictureInPicture
-            disableRemotePlayback
-          >
-            <source
-              src="https://a.storyblok.com/f/133769/x/88b4bf7989/news-rino-pelle.mp4"
-              type="video/mp4"
-            />
-          </video>
+        <Image alt="d"  src="/clone/letcontact_bottom-left.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} quality={42}/>
         </li>
       </ul>
       <div className='text'>

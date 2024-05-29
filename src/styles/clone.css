@@ -15,6 +15,29 @@ blockquote, body, dd, dl, figcaption, figure, h1, h2, h3, h4, input, li, ol, p, 
     display: grid;
     align-items: flex-start;
 }
+@media (max-width: 601px) {
+    .hero_section {
+        height:130vh !important;
+    }
+    #hero_section .intro {
+        grid-column: 1 / 13 !important;
+        margin-top:90vw !important;
+    }
+    #hero_section .intro > span,
+    #hero_section .body > p > span {
+        font-size: var(--font-s-p)!important;
+        letter-spacing: var(--font-ls-p)!important;
+        line-height: var(--font-lh-p)!important;
+    }
+    .hero_section .text-2 .body {
+        width:70vw !important;
+    }
+    #hero_section .link,#hero_section .list1,#hero_section .list2 {
+        display:none !important;
+    }
+
+    
+}
 @media (min-width: 601px) {
     .hero_section .container {
         padding: 0 8.3333333333vw;  /* from margin */

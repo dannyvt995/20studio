@@ -1,14 +1,10 @@
 "use client"
 import React from 'react'
 import './style.css'
-export default function ButtonMenu({handleOpenMenu}) {
-  const handleClick = (e) => {
-    if (handleOpenMenu) {
-        handleOpenMenu(e);
-    }
-};
+export default function ButtonMenu() {
+
   return (
-    <button onClick={handleClick}  className='button_menu' id="button_menu" >
+    <button   className='button_menu' id="button_menu" >
         <div className='lable'>
             Menu
         </div>

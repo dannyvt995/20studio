@@ -37,7 +37,14 @@
     transform: scale(1.2) rotate(7deg) translateY(50%);
    
 }
-
+@media (max-width: 601px) {
+    #aboutpage, #contactpage, #homepage, #workpage,#work1page,
+    #work2page,
+    #work3page,
+    #work4page {
+        overflow-y: scroll !important;
+    }
+}
 #wrapper_this {
     overflow:hidden;
     position:absolute;

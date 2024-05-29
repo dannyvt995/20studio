@@ -47,7 +47,7 @@
     overflow: hidden;
     position: absolute;
     right: 0;
-   
+    top:0;
 }
 .IntroWorkPage .subtitle {
     opacity: .8;
@@ -120,6 +120,32 @@
         height:var(--font-lh-p-small);
         width:100%;
         overflow:hidden;
+}
+
+@media (max-width: 601px) {
+    .IntroWorkPage .intro {
+        display:none !important;
+
+    }
+    .IntroWorkPage .text-1 {
+        height:fit-content !important;
+        margin-top: 42vh!important;
+    }
+    .IntroWorkPage {
+        height:100vh !important;
+    }
+    .IntroWorkPage .background > img{
+        width: auto !important;
+        height: 100% !important;
+        transform: translateX(-50%) !important;
+        left: 50% !important;
+        position: relative !important;
+    }
+    .IntroWorkPage .text-2 .info {
+        display: flex!important;
+    justify-content: space-between!important;
+    grid-column: 1 / 11!important;
+    }
 }
 @media (min-width: 601px) {
     .IntroWorkPage  {

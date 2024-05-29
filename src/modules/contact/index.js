@@ -34,4 +34,4 @@ function Contact({wftState}) {
   )
 }
 
-export default memo(Contact);
+export default Contact;

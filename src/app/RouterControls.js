@@ -77,6 +77,8 @@ function removeSplash(target) {
 
 
 export default function RouterControls({ children }) {
+
+
     console.log("RouterControls render )))))))))))))))))")
     const pathName = usePathname()
     const router = useRouter()
@@ -85,7 +87,7 @@ export default function RouterControls({ children }) {
     const button_menuRef = useRef(null)
     const navbarRef = useRef(null)
 
-    
+
     const menuAnimRuning = useRef(false)
     const menuActive = useRef(false)
 
@@ -98,13 +100,17 @@ export default function RouterControls({ children }) {
         button_menuRef.current = document.getElementById(`button_menu`)
         navbarRef.current.style.display = 'flex';
         button_menuRef.current.style.display = 'none';
+        return () => {
+            navbarRef.current = null
+            button_menuRef.current = null
+        }
     }, [pathName])
 
 
 
-    const openMenu = (elMenuWrapper, elMenu, elContent) => {
+    const openMenu = ({elMenuWrapper, elMenu, elContent}) => {
         menuAnimRuning.current = true
-     
+
         if (menuActive.current == true) {
 
             gsap.timeline({
@@ -128,11 +134,11 @@ export default function RouterControls({ children }) {
                 .to(elMenu, {
                     rotate: -7,
                     scale: 1.2,
-                    y: -window.innerHeight/2,
+                    y: -window.innerHeight / 2,
                     '-webkit-filter': 'brightness(16%)',
                     filter: 'brightness(16%)',
                     duration: timeTransition,
-                    ease:easeClose,
+                    ease: easeClose,
                 }, '<')
                 .to(elContent, {
                     rotate: 0,
@@ -161,12 +167,12 @@ export default function RouterControls({ children }) {
                 .set(elMenu, {
                     rotate: -7,
                     scale: 1.2,
-                    y: -window.innerHeight/2,
+                    y: -window.innerHeight / 2,
                 })
                 .to(elContent, {
                     rotate: 7,
                     scale: 1.2,
-                    y: window.innerHeight/2,
+                    y: window.innerHeight / 2,
                     '-webkit-filter': 'brightness(16%)',
                     filter: 'brightness(16%)',
                     duration: timeTransition,
@@ -194,18 +200,35 @@ export default function RouterControls({ children }) {
         }
 
     }
-    function handleCickMenu() {
 
-        const targetDomMenu = document.getElementById("navbarModal")
-        const targetDomMenuWrapper = document.getElementById("w_navbarModal")
-        const targetDomContent = document.getElementById(`${pathNameFormat}page`)
-        if (!menuAnimRuning.current) {
-            // console.log("Menu is opening...")
-            openMenu(targetDomMenuWrapper, targetDomMenu, targetDomContent)
+    useEffect(() => {
+        let targetButton = document.getElementById("button_menu");
+        let targetDomMenu = document.getElementById("navbarModal")
+        let targetDomMenuWrapper = document.getElementById("w_navbarModal")
+        let targetDomContent = document.getElementById(`${pathNameFormat}page`)
+        function handleClickMenu() {
+            if (!menuAnimRuning.current) {
+                // console.log("Menu is opening...")
+                openMenu({
+                    elMenuWrapper:targetDomMenuWrapper,
+                    elMenu: targetDomMenu, 
+                    elContent:targetDomContent
+                });
+            }
         }
 
+        targetButton.addEventListener("click", handleClickMenu);
 
-    }
+        return () => {
+            document.removeEventListener("click", handleClickMenu);
+            // Dọn dẹp tham chiếu sau khi không cần thiết nữa
+            targetButton = null;
+            targetDomMenu = null;
+            targetDomMenuWrapper = null;
+            targetDomContent = null;
+        };
+    }, [menuAnimRuning]);
+
     function handleRedirectBaseHistory(e) {
         e.preventDefault()
         let elMenu = document.getElementById("navbarModal")
@@ -213,12 +236,15 @@ export default function RouterControls({ children }) {
         let elContent = document.getElementById(`${pathNameFormat}page`)
 
         router.push(e.target.getAttribute('data_link'))
-        console.log('runnnnnn',elContent)
+
         gsap.timeline({
             onComplete: () => {
                 menuActive.current = false
                 menuAnimRuning.current = false
                 gsap.set([elMenuWrapper, elMenuWrapper.parentNode], { zIndex: -1 })
+                elContent = null
+                elMenuWrapper = null
+                elMenu = null
             }
         })
             .to(elMenuWrapper, {
@@ -230,10 +256,10 @@ export default function RouterControls({ children }) {
             .to(elMenu, {
                 rotate: -7,
                 scale: 1.2,
-                y: -window.innerHeight/2,
+                y: -window.innerHeight / 2,
                 '-webkit-filter': 'brightness(16%)',
                 filter: 'brightness(16%)',
-                duration: timeTransition,  
+                duration: timeTransition,
                 ease: easeOpen
             }, '<')
             .to(elContent, {
@@ -242,7 +268,7 @@ export default function RouterControls({ children }) {
                 y: 0,
                 '-webkit-filter': 'grayscale(0%) ',
                 filter: 'grayscale(0%)',
-                duration: timeTransition,  
+                duration: timeTransition,
                 ease: easeOpen
             }, "<")
 
@@ -252,7 +278,7 @@ export default function RouterControls({ children }) {
 
 
 
-            <ButtonMenu handleOpenMenu={handleCickMenu} />
+            <ButtonMenu />
             <NavbarSectionDeskop handleRedirect={handleRedirectBaseHistory} />
             <NavbarModalSection handleRedirect={handleRedirectBaseHistory} />
             <PageTransition

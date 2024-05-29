@@ -15,7 +15,8 @@ export default function FooterSection({ wftState, scrollerRef }) {
     const timelineRef = useRef(null)
 
     useEffect(() => {
-        if (wftState == 'entered') {
+        if (wftState === 'entered') {
+            if(window.innerWidth < 620) return
             gsap.registerPlugin(ScrollTrigger)
             console.log("Reinit/init scrolltriggle on component tổng FROM FooterSection")
 
@@ -33,12 +34,14 @@ export default function FooterSection({ wftState, scrollerRef }) {
                     y: -window.innerHeight * .5, // calc(100vh * -1.2)
 
                 }, { y: 0 })
-                return () => ctx.revert();
+                return () => {
+                    ctx.revert();
+                    timelineRef.current?.kill()
+                    timelineRef.current = null
+                }
             });
 
         }
-
-        return () => timelineRef.current?.kill()
     }, [wftState])
     return (
         <section className='footer_section' id="footer_section" ref={triggleSection}>
