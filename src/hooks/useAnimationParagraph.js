@@ -1,6 +1,7 @@
-
+"use client"
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import { useEffect } from 'react';
 
 // Initialize ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
@@ -11,8 +12,7 @@ const useAnimationParagraph = () => {
   let Triggle
   let ListDom
   let Timeline
-
-  const animateParagraph = () => {
+  useEffect(() => {
     Scope = Array.from(document.querySelectorAll(".project_text"));
 
     Scope.forEach((element) => {
@@ -36,16 +36,15 @@ const useAnimationParagraph = () => {
 
 
     })
-  }
-  const cleanupAnimateParagraph = () => {
-    Scope = null
-    Triggle = null
-    ListDom = null
-    Timeline.kill()
-    Timeline = null
-  };
-
-  return { animateParagraph, cleanupAnimateParagraph };
+    return () => {
+      Scope = null
+      Triggle = null
+      ListDom = null
+      
+      Timeline = null
+    }
+  },[])
+ 
 };
 export default useAnimationParagraph
 

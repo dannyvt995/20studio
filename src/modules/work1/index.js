@@ -11,28 +11,18 @@ import useAnimationParagraph from '@/hooks/useAnimationParagraph';
 import useAnimationHeading from '@/hooks/useAnimationHeading';
 import useAnimationHeadingTag from '@/hooks/useAnimationHeadingTag';
 const Work1 = ({wftState}) => {
-    const { animateHeading, cleanupAnimateHeading } = useAnimationHeading();
-    const { animateHeadingTag, cleanupAnimateHeadingTag } = useAnimationHeadingTag();
-    const { animateParagraph, cleanupAnimateParagraph } = useAnimationParagraph();
     const propsForGsap = {
         wftState: wftState,
         scrollerRef: "#work1page"
       }
-      useEffect(() => {
-        if(wftState === 'entered') {
+      if(wftState === 'entered') {
   
      
-            animateHeading()
-            animateHeadingTag()
-            animateParagraph()
-       
-        }
-        return () => {
-            cleanupAnimateHeading()
-            cleanupAnimateHeadingTag()
-            cleanupAnimateParagraph()
-        }
-      },[wftState])
+        useAnimationHeading()
+        useAnimationHeadingTag()
+        useAnimationParagraph()
+   
+    }
     
       
     return (
