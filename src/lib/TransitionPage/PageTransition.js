@@ -113,7 +113,7 @@ function PageTransition({
       syncTouch: true,
       wrapper: domScroll,
       duration: 1.2,
-      easing: (t) => 1 - Math.pow(1 - t, 3.5)
+      easing: (t) => 1 - Math.pow(1 - t, 3.6)
     })
     lenisRef.current = lenis;
     window.lenis = lenis;
@@ -129,10 +129,12 @@ function PageTransition({
     })
 
     ScrollTrigger.defaults({ scroller: domScroll });
+    ScrollTrigger.refresh()
+  
     gsap.ticker.add(update)
 
     function update(time) {
-      if (window.lenis) window.lenis.raf(time * 1300);
+      if (window.lenis) window.lenis.raf(time * 1420);
     }
     return () => {
       if (lenisRef.current) {
@@ -336,6 +338,7 @@ function PageTransition({
           >
             {state => {
               let contentDomReference = null;
+
               switch (pathName) {
                 case '/':
                 case '/home':
@@ -351,7 +354,7 @@ function PageTransition({
                   contentDomReference = <Work />;
                   break;
                 case '/work/work1':
-                  contentDomReference = <Work1 />;
+                  contentDomReference = <Work1 wftState={state}/>;
                   break;
                 case '/work/work2':
                   contentDomReference = <Work2 />;

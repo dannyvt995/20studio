@@ -10,6 +10,7 @@ import Intro from '@/components/new/Aboutus/Intro';
 import Advantage from '@/components/new/Aboutus/Advantage';
 import Minded from '@/components/new/Aboutus/Minded';
 import Us from '@/components/new/Aboutus/Us';
+import SectionTitleBlend from '@/components/new/SectionIntractive/SectionTitleBlend';
 
 
 const AboutPageStyled = styled.div`
@@ -25,17 +26,23 @@ left:0;
 
 function About({wftState}) {
   console.log('============== ABOUT PAGE')
-
+  const propsForGsap = {
+    wftState: wftState,
+    scrollerRef: "#aboutpage"
+  }
   return (
     <>
       <AboutPageStyled id="aboutpage">
-        <HeroSection wftState={wftState} scrollerRef={"#aboutpage"} backgroundImage={"/about/banner.webp"} backgroundSize={{ width: "130%", height: "auto" }}/> 
+        <HeroSection 
+          propsForGsap={propsForGsap}
+        backgroundImage={"/about/banner.webp"} backgroundSize={{ width: "130%", height: "auto" }}/> 
        
         <Intro/>
-        <Advantage/>
+        <Advantage />
+        <SectionTitleBlend   propsForGsap={propsForGsap}/>
         <Minded/>
         <Us/>
-        <FooterSection wftState={wftState} scrollerRef={"#aboutpage"}/>
+        <FooterSection  propsForGsap={propsForGsap} />
 
       </AboutPageStyled>
 

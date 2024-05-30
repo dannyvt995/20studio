@@ -3,7 +3,7 @@ import './style.css'
 import Image from 'next/image'
 export default function Minded() {
     return (
-        <section className='aboutus_minded'>
+        <section className='aboutus_minded light_background'>
             <div  className="container">
                 <h2   className="label">
                     <svg  viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon">

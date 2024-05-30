@@ -26,21 +26,24 @@ const HomePageStyled = styled.div`
 
 function Home({ wftState }) {
   console.log('============== HOME PAGE')
-  const scrollerRef = useRef(null)
 
- console.log("{}{}{}{}",wftState)
-
+  const propsForGsap = {
+    wftState: wftState,
+    scrollerRef: "#homepage"
+  }
   return (
     <>
-      <HomePageStyled id="homepage" ref={scrollerRef}>
-    
-        <HeroSection wftState={wftState} scrollerRef={"#homepage"} backgroundImage={"/home/banner.png"} backgroundSize={{ width: "auto", height: "100%" }} />
+      <HomePageStyled id="homepage" >
+
+        <HeroSection
+          propsForGsap={propsForGsap}
+          backgroundImage={"/home/banner.png"} backgroundSize={{ width: "auto", height: "100%" }} />
         <ServicesSection />
 
-        <FAQSection/>
-     
-        <LetContact />
-        <FooterSection wftState={wftState} scrollerRef={"#homepage"}/>
+        <FAQSection />
+
+        <LetContact  propsForGsap={propsForGsap} />
+        <FooterSection   propsForGsap={propsForGsap} />
       </HomePageStyled>
 
     </>

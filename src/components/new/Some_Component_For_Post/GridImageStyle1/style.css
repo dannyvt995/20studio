@@ -12,6 +12,14 @@
     align-items: flex-end;
     display: inline-flex;
 }
+.GridImage1 .row:nth-child(1),
+.GridImage1 .row:nth-child(2) {
+
+    will-change:transform;
+}
+.GridImage1 .row:nth-child(2) {
+    left:-500px;
+}
 .GridImage1 .row:nth-child(2) {
     align-items: flex-start;
 }

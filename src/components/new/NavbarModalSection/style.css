@@ -36,6 +36,20 @@
 #navbar_modal_section .images {
     overflow: hidden;
 }
+#navbar_modal_section .images li {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left:0;
+    bottom:0;
+    right:0;
+        will-change:tranform,opacity;
+        opacity: 0 ;
+}
+#navbar_modal_section .images li:first-child {
+    opacity:1;
+}
 #navbar_modal_section .main {
     grid-column: 2 / 11;
     position: relative;

@@ -20,17 +20,20 @@ const ContactPageStyled = styled.div`
 `;
 
 
-function Contact({wftState}) {
+function Contact({ wftState }) {
   console.log('============== CONTACT PAGE')
-
+  const propsForGsap = {
+    wftState: wftState,
+    scrollerRef: "#contactpage"
+  }
   return (
     <>
-    <ContactPageStyled id="contactpage">
-      <ContactPageIntro/>
-      <FooterSection wftState={wftState} scrollerRef={"#contactpage"}/>
-    </ContactPageStyled>
+      <ContactPageStyled id="contactpage">
+        <ContactPageIntro />
+        <FooterSection propsForGsap={propsForGsap } />
+      </ContactPageStyled>
     </>
-   
+
   )
 }
 

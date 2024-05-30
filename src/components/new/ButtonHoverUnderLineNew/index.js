@@ -1,32 +1,64 @@
 "use client"
-import React, { useEffect, useRef ,memo} from "react";
+import React, { useEffect, useRef, memo } from "react";
 import gsap from "gsap";
 import Link from "next/link";
 import PropTypes from "prop-types";
 import './style.css';
+import { usePathname } from "next/navigation";
+import useStoreZustand from "@/hooks/useStoreZustand";
 
- function ButtonHoverUnderLineNew({
+
+function ConvertPach(target) {
+  let value
+  if (target === '/') {
+    value = "/home"
+  }else{
+    value = target
+  }
+  return value
+}
+
+function ButtonHoverUnderLineNew({
   noName,
-  autoLink,
+  auto_link,
   eventPass,
   data_link,
   data_type,
+  data_slider,
   children,
   color,
-  classStyle,
+  classStyle
 }) {
-    
+
   const aRef = useRef(null);
   const aUnderlineRef = useRef(null);
-    const timelineRef = useRef(null)
+  const timelineRef = useRef(null);
+  const pathName = usePathname()
+  const easeOps = "power4.inOut"
+  const durationOps = 0.5
+  const auto_linkConvert = ConvertPach(auto_link)
+
+  const { selectedItemNavbar } = useStoreZustand();
+
+
+  let activeTab = null
+  if (auto_linkConvert !== "empty") {
+    activeTab = pathName === auto_link;
+  } else {
+    console.log(data_link)
+    activeTab = pathName === data_link;
+  }
+
+
+
   const handleClick = (e) => {
+
     if (eventPass) {
       eventPass(e);
     }
   };
 
   useEffect(() => {
-    if (aRef.current.tl) return;
     console.log("Just One Time~~~~~~~~~~")
     // Set props for DOM
     const appliedColor = color || "#fffcf5";
@@ -40,7 +72,8 @@ import './style.css';
       left: "0%",
     }, {
       width: "100%",
-      duration: 0.5,
+      duration: durationOps,
+      ease:easeOps,
     });
 
     timelineRef.current.add("midway");
@@ -50,75 +83,81 @@ import './style.css';
     }, {
       width: "0%",
       left: "100%",
-      duration: 0.5,
+      duration: durationOps,
+      ease:easeOps,
       immediateRender: false,
     });
-
-  
-
-    const enterAnimation = () => {
-        timelineRef.current.tweenFromTo(0, "midway");
+    console.log("re-render")
+    const enterAnimation = (e) => {
+      let targetIndex = e.target.getAttribute("data_slider")
+      timelineRef.current.tweenFromTo(0, "midway");
+    
+      if(targetIndex !== "empty") {
+    
+        useForNavbarModal(targetIndex)
+      
+      }
     };
-
+    function useForNavbarModal(targetIndex) {
+      selectedItemNavbar(targetIndex)
+ 
+    }
     const leaveAnimation = () => {
-        timelineRef.current.play();
+      timelineRef.current.play();
     };
 
-    // Mouse enter
+    // MouseListener
     aRef.current.addEventListener("mouseenter", enterAnimation);
-
-    // Mouse leave
     aRef.current.addEventListener("mouseleave", leaveAnimation);
-
-    // Cleanup event listeners and GSAP timeline on component unmount
     return () => {
-        timelineRef.current.kill();
-        timelineRef.current = null
-
-        aRef.current?.removeEventListener("mouseenter", enterAnimation);
-        aRef.current?.removeEventListener("mouseleave", leaveAnimation);
+      timelineRef.current.kill();
+      timelineRef.current = null
+      aUnderlineRef.current = null
+      aRef.current?.removeEventListener("mouseenter", enterAnimation);
+      aRef.current?.removeEventListener("mouseleave", leaveAnimation);
+      aRef.current = null
     };
   }, []);
 
   return (
     <div
-      className="custom_noname"
-      data_link={data_link || "empty"}
+      className={`BtnHoverUnderLine ${(pathName === auto_link || pathName === data_link) ? 'activeTab' : ''}`}
+      data_slider={data_slider || "empty"}
       data_type={data_type || "empty"}
+      auto_link={auto_link || "empty"}
       onClick={eventPass ? handleClick : null}
       ref={aRef}
     >
+      {/* <span className="IconBtn">
+        <svg viewBox="0 0 11 10" fill="#fffff" xmlns="http://www.w3.org/2000/svg" className="icon-arrow" ><path d="M0 5.65612V4.30388L8.41874 4.31842L5.05997 0.95965L5.99054 0L10.9923 4.97273L6.00508 9.96L5.07451 9.00035L8.43328 5.64158L0 5.65612Z" fill="currentColor" ></path></svg>
+      </span> */}
       {eventPass ? (
-        <a
-          data_link={data_link || "empty"}
-          data_type={data_type || "empty"}
-          className={classStyle}
-        >
-          {children}
-        </a>
+        // tạo thêm 1 eff trans cho trường hợp modal > page
+        <a  data_link={data_link || "empty"}  className={classStyle}>{children}</a>
       ) : (
-        <Link href={autoLink} className={classStyle}>
-          {children}
-        </Link>
+        <Link href={auto_link} className={classStyle}>{children}</Link>
       )}
+
       <span
         ref={aUnderlineRef}
         style={{ top: noName }}
-        className="underline-effect-styles"
+        className="underline_Dom_Effect"
       ></span>
+
     </div>
   );
 }
 
 ButtonHoverUnderLineNew.propTypes = {
   noName: PropTypes.string,
-  autoLink: PropTypes.string,
+  auto_link: PropTypes.string,
   eventPass: PropTypes.func,
   data_link: PropTypes.string,
   data_type: PropTypes.string,
+  data_slider: PropTypes.number,
   children: PropTypes.node.isRequired,
   color: PropTypes.string,
-  classStyle: PropTypes.string,
+  classStyle: PropTypes.string
 };
 
 export default memo(ButtonHoverUnderLineNew)

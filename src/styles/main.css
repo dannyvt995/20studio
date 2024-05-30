@@ -27,7 +27,7 @@
   
 }
 #aboutpage,#contactpage,#homepage,#workpage {
-    overflow:hidden;
+  
     position:fixed;
     top:0;
     left:0;
@@ -37,13 +37,14 @@
     transform: scale(1.2) rotate(7deg) translateY(50%);
    
 }
+#aboutpage, #contactpage, #homepage, #workpage,#work1page,
+#work2page,
+#work3page,
+#work4page {
+    overflow-y: scroll !important;
+}
 @media (max-width: 601px) {
-    #aboutpage, #contactpage, #homepage, #workpage,#work1page,
-    #work2page,
-    #work3page,
-    #work4page {
-        overflow-y: scroll !important;
-    }
+   
 }
 #wrapper_this {
     overflow:hidden;
@@ -220,7 +221,7 @@ main {
 
 
 /* another eff */
-.underline-effect-styles {
+.underline_Dom_Effect {
     position: absolute;
     filter: blur(0.1px);
     left: 0;

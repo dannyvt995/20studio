@@ -85,7 +85,7 @@ export default function ButtonHoverUnderLine({ eventPass,data_link,data_type,chi
             onClick={eventPass ? handleClick : null} 
             ref={aRef} >
                 {children}
-                <span ref={aUnderlineRef} className="underline-effect-styles"></span>
+                <span ref={aUnderlineRef} className="underline_Dom_Effect"></span>
         </a>
     )
 }

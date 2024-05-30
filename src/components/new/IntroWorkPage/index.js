@@ -1,23 +1,30 @@
 "use client"
-import { useRef } from 'react'
+import { useEffect, memo } from 'react'
 import gsap from 'gsap'
-import { useGSAP } from '@gsap/react';
 import './style.css'
 import Image from 'next/image'
-export default function IntroWorkPage({ dataBanner, backgroundImage }) {
-    gsap.registerPlugin(useGSAP);
-    const container = useRef();
+function IntroWorkPage({ propsForGsap, backgroundImage }) {
 
-    useGSAP(
-        () => {
-            console.log('runing anim load work detail')
-            // delay fow wait until transition page load complete
-            gsap.to('.iii', { delay: 1.5, y: 0, duration: 1, ease: "power3.out" });
-        },
-        { scope: container }
-    );
+    useEffect(() => {
+        if (propsForGsap.wftState && propsForGsap.scrollerRef && propsForGsap.wftState === 'entered') {
+            if(window.innerWidth < 620) return
+ 
+            console.log("Reinit/init scrolltriggle on component Work 1")
+
+            const ctx = gsap.context(() => {
+                gsap.to('.iii', { y: 0, duration: 1, ease: "power3.out" });
+                return () => {
+                    ctx.revert();
+                    timelineRef.current?.kill()
+                    timelineRef.current = null
+                }
+            });
+
+        }
+    }, [propsForGsap])
+
     return (
-        <section className='IntroWorkPage' ref={container}>
+        <section className='IntroWorkPage' >
             <div className="background">
                 <Image alt="d" src={backgroundImage} width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} className="project-image" />
             </div>
@@ -51,3 +58,4 @@ export default function IntroWorkPage({ dataBanner, backgroundImage }) {
         </section>
     )
 }
+export default memo(IntroWorkPage)

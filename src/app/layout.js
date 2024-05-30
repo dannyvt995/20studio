@@ -18,7 +18,6 @@ import CacheImageGroup from "@/components/new/CacheImageGroup";
 
 
 export default function RootLayout({ children }) {
-
   return (
     <html lang="vi">
       <body >

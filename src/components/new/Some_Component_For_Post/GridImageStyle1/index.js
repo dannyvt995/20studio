@@ -1,12 +1,54 @@
-import React from 'react'
-
+"use client"
+import {useEffect,useRef} from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './style.css'
 import Image from 'next/image'
-export default function GridImage1() {
+export default function GridImage1({ propsForGsap }) {
+    const triggleSection = useRef(null)
+    const domEffectTop = useRef(null)
+    const domEffectBot = useRef(null)
+    const timelineRef = useRef(null)
+
+    useEffect(() => {
+        if (propsForGsap.wftState && propsForGsap.scrollerRef && propsForGsap.wftState === 'entered') {
+            if(window.innerWidth < 620) return
+            gsap.registerPlugin(ScrollTrigger)
+            console.log("Reinit/init scrolltriggle on component tổng FROM FooterSection")
+
+            const ctx = gsap.context(() => {
+                timelineRef.current = gsap.timeline({
+                    scrollTrigger: {
+                        scroller: propsForGsap.scrollerRef,
+                        trigger: triggleSection.current,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true
+                    }
+                })
+                timelineRef.current
+                .set(domEffectBot.current,{x:-500})
+                .to(domEffectTop.current,{
+                    x: -200
+                }).to(domEffectBot.current,{
+                    x: 0
+                },"<")
+                return () => {
+                    ctx.revert();
+                    timelineRef.current?.kill()
+                    timelineRef.current = null
+                    triggleSection.current = null
+                    domEffectBot.current = null
+                    domEffectTop.current = null
+                }
+            });
+
+        }
+    }, [propsForGsap])
     return (
-        <section className='GridImage1'>
+        <section className='GridImage1' ref={triggleSection}>
             <div className='container'>
-                <div className='row'>
+                <div className='row' ref={domEffectTop}>
                     <div className='media'>
                         <Image alt="alt" src="/clone/detail-work-page/grid11.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
                     </div>
@@ -32,7 +74,7 @@ export default function GridImage1() {
                         <Image alt="alt" src="/clone/detail-work-page/grid14.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
                     </div>
                 </div>
-                <div className='row'>
+                <div className='row' ref={domEffectBot}>
                     <div className='media'>
                         <Image alt="alt" src="/clone/detail-work-page/grid15.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
                     </div>

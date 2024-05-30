@@ -84,27 +84,31 @@ export default function RouterControls({ children }) {
     const router = useRouter()
     const pathNameFormat = removeSplash(pathName)
 
-    const button_menuRef = useRef(null)
-    const navbarRef = useRef(null)
-
-
+    const buttonOpenMenu = useRef(null)
+    const navbarDeskopRef = useRef(null)
+    const navbarModalRef = useRef(null)
+    const domContent = useRef(null)
     const menuAnimRuning = useRef(false)
     const menuActive = useRef(false)
 
-    const timeTransition = 1
-    const easeOpen = "power3.out"
+    const timeTransition = .72
+    const easeOpen = "power3.inOut"
     const easeClose = "power3.out"
 
     useEffect(() => {
-        navbarRef.current = document.getElementById(`navbar`)
-        button_menuRef.current = document.getElementById(`button_menu`)
-        navbarRef.current.style.display = 'flex';
-        button_menuRef.current.style.display = 'none';
+        navbarDeskopRef.current = document.getElementById(`navbar`)
+        buttonOpenMenu.current = document.getElementById(`button_menu`)
+        navbarModalRef.current = document.getElementById(`w_navbarModal`)
+        domContent.current = document.getElementById(`${pathNameFormat}page`)
+        if (navbarDeskopRef.current) navbarDeskopRef.current.style.display = 'flex';
+        if (buttonOpenMenu.current) buttonOpenMenu.current.style.display = 'none';
         return () => {
-            navbarRef.current = null
-            button_menuRef.current = null
+            navbarDeskopRef.current = null
+            buttonOpenMenu.current = null
+            navbarModalRef.current = null
+            domContent.current = null
         }
-    }, [pathName])
+    }, [pathName,pathNameFormat])
 
 
 
@@ -120,7 +124,7 @@ export default function RouterControls({ children }) {
                     gsap.set([elMenuWrapper, elMenuWrapper.parentNode], { zIndex: -1 })
                 }
             })
-                .to(button_menuRef.current.children[1], {
+                .to(buttonOpenMenu.current.children[1], {
                     rotate: 45,
                     duration: timeTransition,
                     ease: easeClose,
@@ -192,7 +196,7 @@ export default function RouterControls({ children }) {
                     duration: timeTransition,
                     ease: easeOpen,
                 }, '<')
-                .to(button_menuRef.current.children[1], {
+                .to(buttonOpenMenu.current.children[1], {
                     rotate: 0,
                     duration: timeTransition,
                     ease: easeOpen,
@@ -200,51 +204,14 @@ export default function RouterControls({ children }) {
         }
 
     }
-
-    useEffect(() => {
-        let targetButton = document.getElementById("button_menu");
-        let targetDomMenu = document.getElementById("navbarModal")
-        let targetDomMenuWrapper = document.getElementById("w_navbarModal")
-        let targetDomContent = document.getElementById(`${pathNameFormat}page`)
-        function handleClickMenu() {
-            if (!menuAnimRuning.current) {
-                // console.log("Menu is opening...")
-                openMenu({
-                    elMenuWrapper:targetDomMenuWrapper,
-                    elMenu: targetDomMenu, 
-                    elContent:targetDomContent
-                });
-            }
-        }
-
-        targetButton.addEventListener("click", handleClickMenu);
-
-        return () => {
-            document.removeEventListener("click", handleClickMenu);
-            // Dọn dẹp tham chiếu sau khi không cần thiết nữa
-            targetButton = null;
-            targetDomMenu = null;
-            targetDomMenuWrapper = null;
-            targetDomContent = null;
-        };
-    }, [menuAnimRuning]);
-
-    function handleRedirectBaseHistory(e) {
-        e.preventDefault()
-        let elMenu = document.getElementById("navbarModal")
-        let elMenuWrapper = document.getElementById("w_navbarModal")
-        let elContent = document.getElementById(`${pathNameFormat}page`)
-
-        router.push(e.target.getAttribute('data_link'))
-
+    const redirectPageOnModalMenu = ({elMenuWrapper, elMenu,targetUrl}) => {
+     
+        router.push(targetUrl)  
         gsap.timeline({
             onComplete: () => {
                 menuActive.current = false
                 menuAnimRuning.current = false
                 gsap.set([elMenuWrapper, elMenuWrapper.parentNode], { zIndex: -1 })
-                elContent = null
-                elMenuWrapper = null
-                elMenu = null
             }
         })
             .to(elMenuWrapper, {
@@ -262,16 +229,40 @@ export default function RouterControls({ children }) {
                 duration: timeTransition,
                 ease: easeOpen
             }, '<')
-            .to(elContent, {
-                rotate: 0,
-                scale: 1,
-                y: 0,
-                '-webkit-filter': 'grayscale(0%) ',
-                filter: 'grayscale(0%)',
-                duration: timeTransition,
-                ease: easeOpen
-            }, "<")
+    }
+    useEffect(() => {
+        console.log("render 1 lần thui nha")
+        const handleClickMenu = () => {
+            if (!menuAnimRuning.current) {
+                openMenu({
+                    elMenuWrapper: navbarModalRef.current,
+                    elMenu: navbarModalRef.current.children[0],
+                    elContent: domContent.current,
+                });
+            }
+        };
+       
 
+       if(buttonOpenMenu.current) buttonOpenMenu.current.addEventListener("click", handleClickMenu);
+
+        return () => {
+            if(buttonOpenMenu.current) {
+                buttonOpenMenu.current.removeEventListener("click", handleClickMenu);
+            }
+        };
+    }, [menuAnimRuning]);
+
+   
+    function handleRedirectBaseHistory(e) {
+        e.preventDefault()
+        let data_link = e.target.getAttribute('data_link')
+        if(data_link === pathName) return
+        console.log(  data_link)
+        redirectPageOnModalMenu({
+            elMenuWrapper:navbarModalRef.current,
+            elMenu:navbarModalRef.current.children[0],
+            targetUrl:data_link
+        })
     }
     return (
         <>
@@ -279,7 +270,7 @@ export default function RouterControls({ children }) {
 
 
             <ButtonMenu />
-            <NavbarSectionDeskop handleRedirect={handleRedirectBaseHistory} />
+            <NavbarSectionDeskop />
             <NavbarModalSection handleRedirect={handleRedirectBaseHistory} />
             <PageTransition
                 preset={'roomToTop'}

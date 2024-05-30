@@ -1,12 +1,55 @@
-import React from 'react'
 
+"use client"
+
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './style.css'
 import Image from 'next/image'
-export default function LetContact() {
+export default function LetContact({propsForGsap}) {
+  const triggleSection = useRef(null)
+  const domEffect = useRef(null)
+  const timelineRef = useRef(null)
+
+  useEffect(() => {
+      if (propsForGsap.wftState && propsForGsap.scrollerRef && propsForGsap.wftState === 'entered') {
+          if(window.innerWidth < 620) return
+          gsap.registerPlugin(ScrollTrigger)
+          console.log("Reinit/init scrolltriggle on component tổng FROM FooterSection")
+
+          const ctx = gsap.context(() => {
+              timelineRef.current = gsap.timeline({
+                  scrollTrigger: {
+                      scroller: propsForGsap.scrollerRef,
+                      trigger: triggleSection.current,
+                      start: "top bottom",
+                      end: "bottom top",
+                      scrub: true
+                  }
+              })
+              timelineRef.current.to(
+                [triggleSection.current.children[1],triggleSection.current.children[3]],{
+                  x: -100
+                }
+              ).to(
+                [triggleSection.current.children[2],triggleSection.current.children[4]],{
+                  x: 100
+                }
+              ,"<")
+              return () => {
+                  ctx.revert();
+                  timelineRef.current?.kill()
+                  timelineRef.current = null
+                  triggleSection.current = null
+              }
+          });
+
+      }
+  }, [propsForGsap])
   return (
-    <section className='letcontact_section light_background' id="letcontact_section">
+    <section className='letcontact_section light_background' id="letcontact_section" >
       <div className='container'>
-      <ul className="media-wrapper">
+      <ul className="media-wrapper" ref={triggleSection}>
         <li className="media">
           <Image alt="d" src="/clone/letcontact_center.webp" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} quality={42} />
         </li>

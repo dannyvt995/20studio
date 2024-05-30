@@ -21,7 +21,7 @@ body {
 .navbar_item_colorblack  .icon-close{
     color:var(--black) !important;
 }
-.navbar_item_colorblack   .underline-effect-styles {
+.navbar_item_colorblack   .underline_Dom_Effect {
     background-color:var(--black) !important;
 }
 a {

@@ -1,6 +1,5 @@
 section {
     position:relative;
-    border: 1px solid red;
     box-sizing: border-box;
 }
 blockquote, body, dd, dl, figcaption, figure, h1, h2, h3, h4, input, li, ol, p, ul {

@@ -13,14 +13,14 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 
-export default function  HeroSection({ wftState, scrollerRef, backgroundImage, backgroundSize }) {
+export default function  HeroSection({ propsForGsap, backgroundImage, backgroundSize }) {
     const triggleSection = useRef(null)
     const backgroundImg = useRef(null)
     const timelineRef = useRef(null)
-   
+    console.log(propsForGsap)
 
     useEffect(() => {
-        if (wftState === 'entered') {
+        if (propsForGsap.wftState === 'entered') {
             if(window.innerWidth < 620) return
             gsap.registerPlugin(ScrollTrigger)
 
@@ -31,7 +31,7 @@ export default function  HeroSection({ wftState, scrollerRef, backgroundImage, b
                 timelineRef.current.to(backgroundImg.current, {
                     y: window.innerHeight * .64, // calc(100vh * -1.2)
                     scrollTrigger: {
-                        scroller: scrollerRef,
+                        scroller: propsForGsap.scrollerRef,
                         trigger: triggleSection.current,
                         start: "top top",
                         end: "bottom top",
@@ -47,7 +47,7 @@ export default function  HeroSection({ wftState, scrollerRef, backgroundImage, b
         return () => {
             timelineRef.current = null
         }
-    }, [wftState])
+    }, [propsForGsap.wftState,backgroundImg.current])
     return (
         <section className='hero_section dark_bg' id="hero_section" ref={triggleSection}>
             <div className='container'>
@@ -72,19 +72,19 @@ export default function  HeroSection({ wftState, scrollerRef, backgroundImage, b
                     <Link className='link' href="/about">Về 20 Studio</Link>
                     <ul className="list1">
                         <li className="list-item">
-                            <ButtonHoverUnderLineNew noName="var(--font-lh-p)" autoLink="/work" classStyle="list-link">Dự án</ButtonHoverUnderLineNew>
+                            <ButtonHoverUnderLineNew noName="var(--font-lh-p)" auto_link="/work" classStyle="list-link">Dự án</ButtonHoverUnderLineNew>
                         </li>
                         <li className="list-item">
-                            <ButtonHoverUnderLineNew noName="var(--font-lh-p)" autoLink="/about" classStyle="list-link">20 Studio</ButtonHoverUnderLineNew>
+                            <ButtonHoverUnderLineNew noName="var(--font-lh-p)" auto_link="/about" classStyle="list-link">20 Studio</ButtonHoverUnderLineNew>
 
                         </li>
                         <li className="list-item">
 
-                            <ButtonHoverUnderLineNew noName="var(--font-lh-p)" autoLink="/" classStyle="list-link">Tin tức</ButtonHoverUnderLineNew>
+                            <ButtonHoverUnderLineNew noName="var(--font-lh-p)" auto_link="/" classStyle="list-link">Tin tức</ButtonHoverUnderLineNew>
                         </li>
                         <li className="list-item">
 
-                            <ButtonHoverUnderLineNew noName="var(--font-lh-p)" autoLink="/contact" classStyle="list-link">Liên hệ</ButtonHoverUnderLineNew>
+                            <ButtonHoverUnderLineNew noName="var(--font-lh-p)" auto_link="/contact" classStyle="list-link">Liên hệ</ButtonHoverUnderLineNew>
                         </li>
                     </ul>
                     <ul className="list2">

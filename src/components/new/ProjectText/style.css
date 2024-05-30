@@ -8,18 +8,6 @@
 .project_text .title {
     margin: 0 0 6.4vw;
 }
-.project_text .title.is-normal .title-line{
-    font-family: "Lausanne-300";
-    font-family: var(--font-f-lausanne-300);
-    font-size: 7.7333333333vw;
-    font-size: var(--font-s-h2);
-    letter-spacing: -.2666666667vw;
-    letter-spacing: var(--font-ls-h2);
-    line-height: 9.0666666667vw;
-    line-height: var(--font-lh-h2);
-  
-}
-
 
 
 
@@ -68,7 +56,51 @@
     color: rgba(13, 14, 19, .6);
     color: var(--color-dark-grey-06);
 }
-.project_text .body p span {
+.project_text .body p {
+    display: flex;
+    flex-direction: column;
+}
+/* IMPORTANT */
+.project_text .label {
+    opacity:0;
+}
+/* IMPORTANT */
+
+
+
+/* IMPORTANT */
+.project_text .title > span {
+    position:relative;
+    height:var(--font-lh-h2);
+    overflow:hidden;
+}
+.project_text .title .title-line{
+    font-family: "Lausanne-300";
+    font-family: var(--font-f-lausanne-300);
+    font-size: 7.7333333333vw;
+    font-size: var(--font-s-h2);
+    letter-spacing: -.2666666667vw;
+    letter-spacing: var(--font-ls-h2);
+    line-height: 9.0666666667vw;
+    line-height: var(--font-lh-h2);
+
+    position:absolute;
+    will-change:tranform;
+}
+.project_text h2 > span > span:nth-child(n) {
+    transform:translateY(80px);
+}
+
+
+/* IMPORTANT */
+
+/* IMPORTANT */
+.project_text .body p > span {
+    position: relative;
+    height: var(--font-lh-p-small);
+    overflow:hidden;
+}
+.project_text .body p > span > span {
     font-family: "Lausanne-300";
     font-family: var(--font-f-lausanne-300);
     font-size: 3.7333333333vw;
@@ -77,7 +109,14 @@
     letter-spacing: var(--font-ls-p-small);
     line-height: 5.6vw;
     line-height: var(--font-lh-p-small);
+
+    position:absolute;
+    will-change:tranform;
 }
+.project_text .body p > span > span:nth-child(n) {
+    transform:translateY(50px);
+}
+/* IMPORTANT */
 @media (min-width: 601px) {
     .has-padding-bottom {
         padding-bottom: 10.4166666667vw;
@@ -97,7 +136,7 @@
         grid-column: 2 / 4;
     }
     .project_text .body {
-        grid-column: 4 / 8;
+        grid-column: 4 / 9;
     }
     .project_text .icon {
         height: .8333333333vw;
