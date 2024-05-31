@@ -12,7 +12,6 @@ import FAQSection from '@/components/new/FAQSection';
 
 
 
-
 const HomePageStyled = styled.div`
   width: 100vw;
   height: 100vh;
@@ -34,15 +33,15 @@ function Home({ wftState }) {
   return (
     <>
       <HomePageStyled id="homepage" >
-
+       
         <HeroSection
           propsForGsap={propsForGsap}
           backgroundImage={"/home/banner.png"} backgroundSize={{ width: "auto", height: "100%" }} />
-        <ServicesSection />
-
+      
+  <ServicesSection />
         <FAQSection />
-
         <LetContact  propsForGsap={propsForGsap} />
+        
         <FooterSection   propsForGsap={propsForGsap} />
       </HomePageStyled>
 

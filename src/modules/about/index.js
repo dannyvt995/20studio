@@ -35,7 +35,7 @@ function About({wftState}) {
       <AboutPageStyled id="aboutpage">
         <HeroSection 
           propsForGsap={propsForGsap}
-        backgroundImage={"/about/banner.webp"} backgroundSize={{ width: "130%", height: "auto" }}/> 
+        backgroundImage={"/about/banner.webp"} backgroundSize={{ width: "105%", height: "auto" }}/> 
        
         <Intro/>
         <Advantage />

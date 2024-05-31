@@ -80,6 +80,7 @@ function PageTransition({
   const pathName = usePathname(null)
   const pathNameFormat = removeSplash(pathName)
   const lenisRef = useRef(null)
+  const transitionKeyRef = useRef(null)
   const timeTransition = 1.5
   const indexRef = useRef(100)
   const easeTransition = "power4.out"
@@ -93,23 +94,23 @@ function PageTransition({
   const { contextSafe } = useGSAP({ scope: scopeRef.current });
 
 
-  
+
 
   let navbarModal
   let buttonNavbar
   let domScroll
 
   function reloadLenis(pathName) {
-
+    let lenis = null
     if (pathName == '/work') return
     console.log("useLenis hooks----", pathName, pathNameFormat)
     gsap.registerPlugin(ScrollTrigger)
     navbarModal = document.getElementById(`navbar`)
     buttonNavbar = document.getElementById(`button_menu`)
-    let target = window.innerHeight * 1.5
+    let target = window.innerHeight * 1.
     domScroll = document.getElementById(`${pathNameFormat}page`)
-   // console.log(domScroll)
-    const lenis = new Lenis({
+    // console.log(domScroll)
+    lenis = new Lenis({
       syncTouch: true,
       wrapper: domScroll,
       duration: 1.2,
@@ -118,19 +119,24 @@ function PageTransition({
     lenisRef.current = lenis;
     window.lenis = lenis;
     lenisRef.current.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
+      let menuAnimRuning = localStorage.getItem("menuAnimRuning")
   
-      if (scroll > target && scroll < target * 2 && velocity > 0) { // tổng 3 target là kill raf này
-        navbarModal.style.display = 'none';
-        buttonNavbar.style.display = 'flex';
-      } else if (scroll < target) {
-        navbarModal.style.display = 'block';
-        buttonNavbar.style.display = 'none';
+      if(menuAnimRuning === "false") {
+        if (scroll > target && scroll < target * 2) { // tổng 3 target là kill raf này
+          navbarModal.style.display = 'none';
+          buttonNavbar.style.display = 'flex';
+        } else if (scroll < target) {
+  
+          navbarModal.style.display = 'block';
+          buttonNavbar.style.display = 'none';
+        }
       }
+    
     })
 
     ScrollTrigger.defaults({ scroller: domScroll });
     ScrollTrigger.refresh()
-  
+
     gsap.ticker.add(update)
 
     function update(time) {
@@ -142,31 +148,32 @@ function PageTransition({
         lenisRef.current.destroy()
         gsap.ticker.remove(update)
       }
+      lenis = null
       navbarModal = null
       buttonNavbar = null
       domScroll = null
     }
   }
 
-  
+
   useEffect(() => {
     let targetParentDom; // Đặt targetParentDom ở phạm vi lớn hơn
-    let targetDom; 
-   // console.log("init lenis and fire anim on FIRST LOAD", pathName, pathNameFormat)
-    if(window.innerWidth > 620) reloadLenis(pathName)
+    let targetDom;
+    // console.log("init lenis and fire anim on FIRST LOAD", pathName, pathNameFormat)
+    if (window.innerWidth > 620) reloadLenis(pathName)
     if (matches.length > 0) {
       let targetId = removeSplash(pathName)
       targetDom = document.getElementById(`${targetId}page`)
-       targetParentDom = targetDom.parentNode
+      targetParentDom = targetDom.parentNode
       enterAnim(targetParentDom)
-   
+
     } else {
       console.log('No matches found');
     }
 
     return () => {
-      targetParentDom= null
-      targetDom= null
+      targetParentDom = null
+      targetDom = null
     }
   }, [])
 
@@ -188,10 +195,8 @@ function PageTransition({
     let thumbnailProject = dom.children[0].children[0].children[2]
     let backgroundProject = dom.children[0].children[0].children[3].children[Number(item_project_active)].children[0].children[0]
 
-    const tlexitAnim__FromWorkPage = gsap.timeline({
-      overwrite: true
-    })
-    tlexitAnim__FromWorkPage
+    
+    gsap.timeline()
       .set(thumbnailProject, {
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
 
@@ -223,69 +228,70 @@ function PageTransition({
 
 
 
-  const enterAnim = contextSafe(
-    (dom) => {
-    
-      gsap.timeline()
-      .set(dom.parentNode, { zIndex: indexRef.current++ })
-        .set(dom, { clipPath: 'polygon(0% 100%, 100% 110%, 100% 100%, 0% 100%)' })
-        .set(dom.children[0], { 
-          '-webkit-filter': 'brightness(100%)',
-          filter: 'brightness(100%)',
-          rotate: 0,
-          y: 0,
-          x: 0,
-          scale: 1,
-         })
-        .set(dom.children[0], {
-          '-webkit-filter': 'brightness(100%)',
-          filter: 'brightness(100%)',
-          rotate: 7,
-          y: window.innerHeight / 2,
-          scale: 1.2
-        })
-  
-  
-        .to(dom, {
-          clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-          duration: timeTransition,
-          ease: easeTransition
-        })
-        .to(dom.children[0], {
-          '-webkit-filter': 'brightness(100%)',
-          filter: 'brightness(100%)',
-          rotate: 0,
-          y: 0,
-          x: 0,
-          scale: 1,
-          duration: timeTransition,
-          ease: easeTransition
-        }, '<');
-    }
-  )
-
-  const exitAnim = contextSafe((dom) => {
-  
+  const enterAnim = contextSafe((dom) => {
 
     gsap.timeline()
-   
+      .set(dom.parentNode, { zIndex: indexRef.current++ })
+      .set(dom, { clipPath: 'polygon(0% 100%, 100% 110%, 100% 100%, 0% 100%)' })
       .set(dom.children[0], {
         '-webkit-filter': 'brightness(100%)',
         filter: 'brightness(100%)',
-      }
-      )
+        rotate: 0,
+        y: 0,
+        x: 0,
+        scale: 1
+
+      })
+      .set(dom.children[0], {
+        '-webkit-filter': 'brightness(100%)',
+        filter: 'brightness(100%)',
+        rotate: 7,
+        y: window.innerHeight / 2,
+
+        scale: 1.2
+      })
+
+
+      .to(dom, {
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+        duration: timeTransition,
+
+        ease: easeTransition
+      })
       .to(dom.children[0], {
-             '-webkit-filter': 'brightness(26%)',
-          filter: 'brightness(26%)',
+        '-webkit-filter': 'brightness(100%)',
+        filter: 'brightness(100%)',
+        rotate: 0,
+        y: 0,
+        x: 0,
+        scale: 1,
+
+        duration: timeTransition,
+        ease: easeTransition
+      }, '<');
+  })
+
+  const exitAnim = contextSafe((dom) => {
+
+
+    gsap.timeline().set(dom.children[0], {
+      '-webkit-filter': 'brightness(100%)',
+      filter: 'brightness(100%)',
+
+    }
+    )
+      .to(dom.children[0], {
+        '-webkit-filter': 'brightness(26%)',
+        filter: 'brightness(26%)',
         rotate: -7,
         y: -window.innerHeight / 2,
         scale: 1.2,
         duration: timeTransition,
+
         ease: easeTransition
       });
   })
 
- 
   return (
     <ReactLenis root ref={lenisRef} autoRaf={false}>
       <PageTransitionGroup {...rest}>
@@ -295,43 +301,33 @@ function PageTransition({
 
             key={transitionKey}
             timeout={timeTransition * 1000}
-            mountOnEnter
-            unmountOnExit
+
+            unmountOnExit={true}
             onEnter={node => {
-              let targetPath = transitionKey
-              setValStore(false, "truyentam")
-              setValStore(targetPath, "currentPath") // save it to cahnge anim type when on work page
-         
-              console.log("onEnter")
+
+              transitionKeyRef.current = transitionKey
               if (listPathAndIdDom.pagesWork.includes(transitionKey)) {
 
                 enterAnimForWorkPageDetail(node.children[0])
               } else {
-                enterAnim(node.children[0])
+                enterAnim(node.children[0]);
               }
 
 
             }}
             onEntered={node => {
               console.log("onEntered")
-              // this need to use to toggle lenis when page entered with smoething like redux/zustand
-              setValStore(true, "truyentam")
-              if(window.innerWidth > 620) reloadLenis(pathName)
-      
-              // console.log("transitionKey === onEntered FOR LLENIS SET", transitionKey)
+              if (window.innerWidth > 620) reloadLenis(pathName)
             }}
 
 
             onExit={node => {
-              console.log("onExit")
-              let target__from_work = localStorage.getItem('currentPath')
 
-              if (listPathAndIdDom.pagesWork.includes(target__from_work)) {
+              if (listPathAndIdDom.pagesWork.includes(transitionKeyRef.current)) {
                 let activeItemOnWorkPage = localStorage.getItem('activeItemOnWorkPage')
-
                 exitAnimForWorkPage(node.children[0], activeItemOnWorkPage)
               } else {
-                exitAnim(node.children[0])
+                exitAnim(node.children[0]);
               }
 
             }}
@@ -354,7 +350,7 @@ function PageTransition({
                   contentDomReference = <Work />;
                   break;
                 case '/work/work1':
-                  contentDomReference = <Work1 wftState={state}/>;
+                  contentDomReference = <Work1 wftState={state} />;
                   break;
                 case '/work/work2':
                   contentDomReference = <Work2 />;
@@ -368,7 +364,7 @@ function PageTransition({
                 default:
                   return <h1>404 Page , lenis will err</h1>;
               }
-            
+
               return (
                 <PageTransitionWrapper state={state} data={`${state}DOM_ID`}>
                   <div id='wrapper_this' ref={scopeRef}>

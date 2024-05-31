@@ -27,6 +27,7 @@ function gsapSlider({ nextState, prevState, navbarModalImages, indexOfSlider }) 
 
 }
 function NavbarModalSection({ handleRedirect }) {
+
     const indexOfSlider = useRef(5)
     const sliderImage = useRef(null)
     const { indexItemNavbar, prevIndexItemNavbar } = useStoreZustand();
@@ -38,13 +39,15 @@ function NavbarModalSection({ handleRedirect }) {
     };
     const navbarModalImages = useRef([])
     useEffect(() => {
+        console.log("this re-render!!!!!!!!!!!!!!!!!!!!!!")
         navbarModalImages.current = Array.from(sliderImage.current.querySelectorAll('li'))
         return () => {
-            navbarModalImages.current = null
+            navbarModalImages.current = []
+            sliderImage.current = null
         }
     }, [sliderImage])
     useEffect(() => {
-
+        console.log("this re-render!!!!!!!!!!!!!!!!!!!!!!")
         if (indexItemNavbar >= 0 && prevIndexItemNavbar >= 0) {
 
             

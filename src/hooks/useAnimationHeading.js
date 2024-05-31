@@ -29,7 +29,9 @@ const useAnimationHeading = () => {
   
         scrub: true
        }
-      }).to(ListDom, { y: 0, stagger: 0.1 }, 0);
+      })
+      .set(ListDom,{rotateZ: 10})
+      .to(ListDom, { y: 0, rotateZ:0,transformOrigin:"left 50%",stagger: 0.1 }, 0);
   
    
     })

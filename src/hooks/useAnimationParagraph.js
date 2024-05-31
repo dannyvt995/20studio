@@ -31,8 +31,13 @@ const useAnimationParagraph = () => {
           scrub: true
         }
       })
-
-        .to(ListDom, { y: 0, stagger: 0.1 }, 0);
+        .set(ListDom,{rotateZ: 4.2})
+        .to(ListDom, { 
+          y: 0, 
+          rotateZ: 0,
+          rotateX: 0,
+          stagger: 0.1
+         }, 0);
 
 
     })

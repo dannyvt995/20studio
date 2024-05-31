@@ -11,6 +11,7 @@ import ButtonHoverUnderLineNew from '../ButtonHoverUnderLineNew'
 
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ContentBanner_Clone from '@/intractive/ContentBanner_Clone'
 
 
 export default function  HeroSection({ propsForGsap, backgroundImage, backgroundSize }) {
@@ -51,6 +52,7 @@ export default function  HeroSection({ propsForGsap, backgroundImage, background
     return (
         <section className='hero_section dark_bg' id="hero_section" ref={triggleSection}>
             <div className='container'>
+                <ContentBanner_Clone>
                 <div className='text-1'>
                     <p className='intro'>
                         <span>20studio là một công ty thời trang toàn cầu</span>
@@ -63,6 +65,8 @@ export default function  HeroSection({ propsForGsap, backgroundImage, background
                         <span>Experience</span>
                     </h1>
                 </div>
+                </ContentBanner_Clone>
+               
                 <div className='text-2'>
                     <div className='body'>
                         <p><span className="">Tận dụng sự kết hợp giữa sự sáng tạo và kỹ thuật chuyên môn, chúng tôi cam kết mang đến những sản phẩm chất lượng cao và độc đáo, từ ý tưởng ban đầu đến sản phẩm hoàn thiện. Hãy để 20studio trở thành đối tác đáng tin cậy của bạn trong việc thúc đẩy sự thành công của thương hiệu thời trang của bạn.</span></p>

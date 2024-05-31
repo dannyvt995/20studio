@@ -71,6 +71,11 @@ function gsapSlider({ prevState, nextState, ListChildTitle, ListChildSub, ListCh
   })
     .set(ListChildTitle[nextState], { yPercent: -100 * dir })
     .set(ListChildSub[nextState], { opacity: 0 })
+    .set([ListBackgroundRef[prevState].children[0],ListBackgroundRef[nextState].children[0]],{
+      '-webkit-filter': 'brightness(100%)',
+      filter: 'brightness(100%)',
+    })
+    .set( ListBackgroundRef[nextState].children[0],{   yPercent: 20 * dir})
     .set(ListChildThumbnail[nextState], {
       opacity: 1,
       clipPath: pathResultBaseDirection1,
@@ -112,12 +117,34 @@ function gsapSlider({ prevState, nextState, ListChildTitle, ListChildSub, ListCh
         stagger: 0.1,
         ease: "power3.inOut"
       }, "<")
-    .to([ListChildThumbnail[nextState], ListBackgroundRef[nextState]], {
+    .to([ListChildThumbnail[nextState],ListBackgroundRef[nextState]], {
       clipPath: listPath[0],
       duration: durationAnimation,
       ease: "power3.inOut"
 
     }, "<")
+    .to( ListBackgroundRef[nextState].children[0],{
+
+      yPercent: 0,
+      duration: durationAnimation,
+      ease: "power3.inOut",
+    }, "<")
+    .to(
+      ListBackgroundRef[prevState].children[0],
+      {
+
+        yPercent: -42 * dir,
+        rotate: 10 * dir,
+        scale: 1.1,
+        
+        '-webkit-filter': 'brightness(16%)',
+        filter: 'brightness(16%)',
+        duration: durationAnimation,
+        ease: "power3.inOut",
+        clearProps: "yPercent,rotate,scale"
+      }, "<")
+
+
 
 }
 function setValStore(val, nameVal) {
@@ -170,7 +197,9 @@ export default function WorkPage() {
     );
 
     loadAnimationEnterPage(ListChildTitleRef.current, ListChildSubtitleRef.current, ListThumbnailRef.current);
+   
   }, []);
+  
   useEffect(() => {
     gsap.registerPlugin(Observer)
     observeRefPageWheel.current = Observer.create({
@@ -185,6 +214,7 @@ export default function WorkPage() {
     observeRefPageWheel.current.enable()
     return () => {
       observeRefPageWheel.current = null
+      work_page_ref.current = null
     }
   }, [work_page_ref])
 
@@ -267,6 +297,7 @@ export default function WorkPage() {
 
   function handleOpenProject(e) {
     if (stopNow.current === true) return
+    observeRefPageWheel.current.disable()
     let targetIndexProject = e.currentTarget.getAttribute("index_project")
     switch (targetIndexProject) {
       case "1":

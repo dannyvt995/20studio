@@ -131,7 +131,10 @@
     right: 0;
     top: 0;
     width: 100%;
+    will-change:transform;
 }
+
+
 @media (max-width: 620px) {
     #work_page .project-wrap img{
         width: auto !important;
