@@ -23,26 +23,33 @@ const HomePageStyled = styled.div`
 
 
 
-function Home({ wftState }) {
-  console.log('============== HOME PAGE')
+function Home({ stateTransitionPage }) {
+  console.log('============== HOME PAGE',stateTransitionPage)
 
   const propsForGsap = {
-    wftState: wftState,
+    stateTransitionPage: stateTransitionPage,
     scrollerRef: "#homepage"
+  }
+  const propsHeroSection = {
+    backgroundImage:"/home/banner.png",
+    backgroundSize:{ width: "auto", height: "100%" }
   }
   return (
     <>
       <HomePageStyled id="homepage" >
-       
+
         <HeroSection
           propsForGsap={propsForGsap}
-          backgroundImage={"/home/banner.png"} backgroundSize={{ width: "auto", height: "100%" }} />
-      
-  <ServicesSection />
+          propsHeroSection={propsHeroSection} />
+        <ServicesSection />
+
+       {/* lazy load from here */}
+       {/* lazy load from here */}
+       {/* lazy load from here */}
+
         <FAQSection />
-        <LetContact  propsForGsap={propsForGsap} />
-        
-        <FooterSection   propsForGsap={propsForGsap} />
+        <LetContact propsForGsap={propsForGsap} />
+        <FooterSection propsForGsap={propsForGsap} />
       </HomePageStyled>
 
     </>
@@ -53,4 +60,4 @@ function Home({ wftState }) {
 
 
 
-export default Home;
+export default memo(Home);

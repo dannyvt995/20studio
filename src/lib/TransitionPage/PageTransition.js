@@ -76,7 +76,8 @@ function PageTransition({
   transitionKey,
   ...rest
 }) {
-  console.log("PageTransition render.....^^^....")
+
+  console.log("##############   PageTransition render")
   const pathName = usePathname(null)
   const pathNameFormat = removeSplash(pathName)
   const lenisRef = useRef(null)
@@ -88,7 +89,9 @@ function PageTransition({
     ...listPathAndIdDom.pages,
     ...listPathAndIdDom.pagesWork,
   ];
-
+  let navbarModal
+  let buttonNavbar
+  let domScroll
   const matches = allPaths.filter(path => path === pathName);
   const scopeRef = useRef(null)
   const { contextSafe } = useGSAP({ scope: scopeRef.current });
@@ -96,14 +99,12 @@ function PageTransition({
 
 
 
-  let navbarModal
-  let buttonNavbar
-  let domScroll
+
 
   function reloadLenis(pathName) {
     let lenis = null
     if (pathName == '/work') return
-    console.log("useLenis hooks----", pathName, pathNameFormat)
+    console.log("\t\t=>INIT LENIS on", pathName)
     gsap.registerPlugin(ScrollTrigger)
     navbarModal = document.getElementById(`navbar`)
     buttonNavbar = document.getElementById(`button_menu`)
@@ -120,18 +121,18 @@ function PageTransition({
     window.lenis = lenis;
     lenisRef.current.on('scroll', ({ scroll, limit, velocity, direction, progress }) => {
       let menuAnimRuning = localStorage.getItem("menuAnimRuning")
-  
-      if(menuAnimRuning === "false") {
+
+      if (menuAnimRuning === "false") {
         if (scroll > target && scroll < target * 2) { // tổng 3 target là kill raf này
           navbarModal.style.display = 'none';
           buttonNavbar.style.display = 'flex';
         } else if (scroll < target) {
-  
+
           navbarModal.style.display = 'block';
           buttonNavbar.style.display = 'none';
         }
       }
-    
+
     })
 
     ScrollTrigger.defaults({ scroller: domScroll });
@@ -195,7 +196,7 @@ function PageTransition({
     let thumbnailProject = dom.children[0].children[0].children[2]
     let backgroundProject = dom.children[0].children[0].children[3].children[Number(item_project_active)].children[0].children[0]
 
-    
+
     gsap.timeline()
       .set(thumbnailProject, {
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
@@ -274,7 +275,9 @@ function PageTransition({
   const exitAnim = contextSafe((dom) => {
 
 
-    gsap.timeline().set(dom.children[0], {
+    gsap.timeline({
+      onComplete: localStorage.setItem("onEnter", "true")
+    }).set(dom.children[0], {
       '-webkit-filter': 'brightness(100%)',
       filter: 'brightness(100%)',
 
@@ -304,7 +307,7 @@ function PageTransition({
 
             unmountOnExit={true}
             onEnter={node => {
-
+              console.log("##############   onEnter")
               transitionKeyRef.current = transitionKey
               if (listPathAndIdDom.pagesWork.includes(transitionKey)) {
 
@@ -316,13 +319,14 @@ function PageTransition({
 
             }}
             onEntered={node => {
-              console.log("onEntered")
+              localStorage.setItem("onEnter", "false")
+              console.log("##############   onEntered")
               if (window.innerWidth > 620) reloadLenis(pathName)
             }}
 
 
             onExit={node => {
-
+              console.log("##############   onExit")
               if (listPathAndIdDom.pagesWork.includes(transitionKeyRef.current)) {
                 let activeItemOnWorkPage = localStorage.getItem('activeItemOnWorkPage')
                 exitAnimForWorkPage(node.children[0], activeItemOnWorkPage)
@@ -333,24 +337,28 @@ function PageTransition({
             }}
           >
             {state => {
-              let contentDomReference = null;
+              let contentDomReference = null
 
               switch (pathName) {
                 case '/':
                 case '/home':
-                  contentDomReference = <Home wftState={state} />;
+                  contentDomReference = <Home stateTransitionPage={state} />;
+
                   break;
                 case '/about':
-                  contentDomReference = <About wftState={state} />;
+                  contentDomReference = <About stateTransitionPage={state} />;
+
                   break;
                 case '/contact':
-                  contentDomReference = <Contact wftState={state} />;
+                  contentDomReference = <Contact stateTransitionPage={state} />;
+
                   break;
                 case '/work':
                   contentDomReference = <Work />;
+
                   break;
                 case '/work/work1':
-                  contentDomReference = <Work1 wftState={state} />;
+                  contentDomReference = <Work1 stateTransitionPage={state} />;
                   break;
                 case '/work/work2':
                   contentDomReference = <Work2 />;

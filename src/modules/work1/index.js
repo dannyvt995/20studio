@@ -10,12 +10,12 @@ import Layout_4 from '@/components/new/Some_Component_For_Post/Layout_4';
 import useAnimationParagraph from '@/hooks/useAnimationParagraph';
 import useAnimationHeading from '@/hooks/useAnimationHeading';
 import useAnimationHeadingTag from '@/hooks/useAnimationHeadingTag';
-const Work1 = ({wftState}) => {
+const Work1 = ({stateTransitionPage}) => {
     const propsForGsap = {
-        wftState: wftState,
+        stateTransitionPage: stateTransitionPage,
         scrollerRef: "#work1page"
       }
-      if(wftState === 'entered') {
+      if(stateTransitionPage === 'entered') {
   
      
         useAnimationHeading()

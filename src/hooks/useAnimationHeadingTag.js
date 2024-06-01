@@ -23,9 +23,6 @@ const useAnimationHeadingTag = () => {
       Icon = element.querySelector("h3 > svg")
       NameTag = element.querySelector("h3 > .text")
 
-
-
-
       Timeline = gsap.timeline({
         scrollTrigger: {
           scroller: "#work1page",
@@ -45,7 +42,6 @@ const useAnimationHeadingTag = () => {
       Scope = null
       Triggle = null
       ListDom = null
-      
       Timeline = null
     }
   },[])

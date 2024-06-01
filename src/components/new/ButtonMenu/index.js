@@ -1,7 +1,7 @@
 "use client"
-import React from 'react'
+import {memo} from 'react'
 import './style.css'
-export default function ButtonMenu() {
+function ButtonMenu() {
 
   return (
     <button   className='button_menu' id="button_menu" >
@@ -17,3 +17,4 @@ export default function ButtonMenu() {
     </button>
   )
 }
+export default  memo(ButtonMenu)

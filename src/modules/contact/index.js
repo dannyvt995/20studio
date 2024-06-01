@@ -20,10 +20,10 @@ const ContactPageStyled = styled.div`
 `;
 
 
-function Contact({ wftState }) {
+function Contact({ stateTransitionPage }) {
   console.log('============== CONTACT PAGE')
   const propsForGsap = {
-    wftState: wftState,
+    stateTransitionPage: stateTransitionPage,
     scrollerRef: "#contactpage"
   }
   return (
@@ -37,4 +37,4 @@ function Contact({ wftState }) {
   )
 }
 
-export default Contact;
+export default memo(Contact);

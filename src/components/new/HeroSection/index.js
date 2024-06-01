@@ -7,25 +7,21 @@ import Image from 'next/image'
 import Link from 'next/link'
 import ButtonHoverUnderLineNew from '../ButtonHoverUnderLineNew'
 
-
-
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import ContentBanner_Clone from '@/intractive/ContentBanner_Clone'
 
 
-export default function  HeroSection({ propsForGsap, backgroundImage, backgroundSize }) {
+export default function  HeroSection({ propsForGsap, propsHeroSection }) {
     const triggleSection = useRef(null)
     const backgroundImg = useRef(null)
     const timelineRef = useRef(null)
-    console.log(propsForGsap)
-
     useEffect(() => {
-        if (propsForGsap.wftState === 'entered') {
+        if (propsForGsap.stateTransitionPage === 'entered') {
+     
             if(window.innerWidth < 620) return
             gsap.registerPlugin(ScrollTrigger)
 
-            console.log("Reinit/init scrolltriggle on component tổng FROM HeroSection")
+            console.log("\t\t=>Reinit/init scrolltriggle on component HeroSection")
 
             const ctx = gsap.context(() => {
                 timelineRef.current = gsap.timeline()
@@ -40,19 +36,20 @@ export default function  HeroSection({ propsForGsap, backgroundImage, background
 
                     }
                 });
-                return () => {
-                    ctx.revert();
-                }
+                return () => ctx.revert()
             });
+        }else{
+         
+            console.log("\t\t=>Lock Gsap until onEnterd",propsForGsap.scrollerRef)
         }
         return () => {
+            timelineRef.current?.kill()
             timelineRef.current = null
         }
-    }, [propsForGsap.wftState,backgroundImg.current])
+    }, [propsForGsap])
     return (
         <section className='hero_section dark_bg' id="hero_section" ref={triggleSection}>
             <div className='container'>
-                <ContentBanner_Clone>
                 <div className='text-1'>
                     <p className='intro'>
                         <span>20studio là một công ty thời trang toàn cầu</span>
@@ -65,7 +62,7 @@ export default function  HeroSection({ propsForGsap, backgroundImage, background
                         <span>Experience</span>
                     </h1>
                 </div>
-                </ContentBanner_Clone>
+             
                
                 <div className='text-2'>
                     <div className='body'>
@@ -107,7 +104,7 @@ export default function  HeroSection({ propsForGsap, backgroundImage, background
                 </div>
             </div>
             <div className='background' ref={backgroundImg}>
-                <Image alt="d" src={`${backgroundImage}`} width={0} height={0} sizes="100vw" style={backgroundSize} />
+                <Image alt="d" src={`${propsHeroSection.backgroundImage}`} width={0} height={0} sizes="100vw" style={propsHeroSection.backgroundSize} />
             </div>
         </section>
     )

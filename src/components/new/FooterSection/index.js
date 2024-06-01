@@ -15,10 +15,11 @@ export default function FooterSection({ propsForGsap }) {
     const timelineRef = useRef(null)
 
     useEffect(() => {
-        if (propsForGsap.wftState && propsForGsap.scrollerRef && propsForGsap.wftState === 'entered') {
+        if ( propsForGsap.stateTransitionPage === 'entered') {
+          
             if(window.innerWidth < 620) return
             gsap.registerPlugin(ScrollTrigger)
-            console.log("Reinit/init scrolltriggle on component tổng FROM FooterSection")
+            console.log("\t\t=>Reinit/init scrolltriggle on component FooterSection")
 
             const ctx = gsap.context(() => {
                 timelineRef.current = gsap.timeline({
@@ -34,13 +35,16 @@ export default function FooterSection({ propsForGsap }) {
                     y: -window.innerHeight * .5, // calc(100vh * -1.2)
 
                 }, { y: 0 })
-                return () => {
-                    ctx.revert();
-                    timelineRef.current?.kill()
-                    timelineRef.current = null
-                }
+                return () => ctx.revert()
             });
 
+        }else{
+            console.log("\t\t=>Lock Gsap until onEnterd",propsForGsap.scrollerRef)
+        }
+      
+        return () => {
+            timelineRef.current?.kill()
+            timelineRef.current = null
         }
     }, [propsForGsap])
     return (

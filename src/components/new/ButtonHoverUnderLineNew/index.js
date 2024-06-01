@@ -59,7 +59,7 @@ function ButtonHoverUnderLineNew({
   };
 
   useEffect(() => {
-    console.log("Just One Time~~~~~~~~~~")
+    
     // Set props for DOM
     const appliedColor = color || "#fffcf5";
     aRef.current.style.color = appliedColor;
@@ -87,7 +87,7 @@ function ButtonHoverUnderLineNew({
       ease:easeOps,
       immediateRender: false,
     });
-    console.log("re-render")
+   /*  console.log("ButtonHoverUnderline re-render") */
     const enterAnimation = (e) => {
       let targetIndex = e.target.getAttribute("data_slider")
       timelineRef.current.tweenFromTo(0, "midway");

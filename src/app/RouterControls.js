@@ -39,7 +39,7 @@ const listPathAndIdDom = {
         '#work4page'
     ]
 }
-export const pages = [
+const pages = [
     {
         path: "/home",
         title: "Page home",
@@ -79,7 +79,7 @@ function removeSplash(target) {
 export default function RouterControls({ children }) {
 
 
-    console.log("RouterControls render )))))))))))))))))")
+    console.log("##############   RouterControls render")
     const pathName = usePathname()
     const router = useRouter()
     const pathNameFormat = removeSplash(pathName)

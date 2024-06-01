@@ -24,20 +24,29 @@ left:0;
 `;
 
 
-function About({wftState}) {
-  console.log('============== ABOUT PAGE')
+function About({stateTransitionPage}) {
+  console.log('============== ABOUT PAGE',stateTransitionPage)
   const propsForGsap = {
-    wftState: wftState,
+    stateTransitionPage: stateTransitionPage,
     scrollerRef: "#aboutpage"
+  }
+  const propsHeroSection = {
+    backgroundImage:"/about/banner.webp",
+    backgroundSize:{ width: "105%", height: "auto" }
   }
   return (
     <>
       <AboutPageStyled id="aboutpage">
         <HeroSection 
           propsForGsap={propsForGsap}
-        backgroundImage={"/about/banner.webp"} backgroundSize={{ width: "105%", height: "auto" }}/> 
+          propsHeroSection={propsHeroSection}/> 
        
         <Intro/>
+
+        {/* lazy load from here */}
+        {/* lazy load from here */}
+        {/* lazy load from here */}
+
         <Advantage />
         <SectionTitleBlend   propsForGsap={propsForGsap}/>
         <Minded/>
@@ -52,4 +61,4 @@ function About({wftState}) {
 }
 
 
-export default About
+export default memo(About)

@@ -8,10 +8,10 @@ export default function SectionTitleBlend({ propsForGsap }) {
     const timelineRef = useRef(null)
     // x 0% > 20%
     useEffect(() => {
-        if (propsForGsap.wftState === 'entered') {
+        if (propsForGsap.stateTransitionPage === 'entered') {
             if (window.innerWidth < 620) return
             gsap.registerPlugin(ScrollTrigger)
-            console.log("Reinit/init scrolltriggle on component tổng FROM child Dom of Aboutus")
+            console.log("\t\t=>Reinit/init scrolltriggle on component SectionTitleBlend")
 
             const ctx = gsap.context(() => {
                 timelineRef.current = gsap.timeline({
@@ -31,14 +31,19 @@ export default function SectionTitleBlend({ propsForGsap }) {
                 })
                 return () => {
                     ctx.revert();
-                    timelineRef.current?.kill()
-                    timelineRef.current = null
-                    WrapperTitleBlendRed.current = null
+                   
                 }
             });
 
+        }else{
+            console.log("\t\t=>Lock Gsap until onEnterd",propsForGsap.scrollerRef)
         }
-    }, [propsForGsap.wftState])
+       
+        return () => {
+            timelineRef.current?.kill()
+            timelineRef.current = null
+        }
+    }, [propsForGsap])
     return (
         <div className='section_title_blend' ref={WrapperTitleBlendRed}>
              <div className='warpper_title'>

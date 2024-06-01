@@ -1,21 +1,7 @@
-import styled, { css } from 'styled-components';
-import { TransitionStatus } from 'react-transition-group';
-import { Animation } from './animations';
-import { createAnimationStyles } from './createAnimationStyles';
-
+import styled from 'styled-components';
 
 
 const stateMap = {
-  // entering: ({ enterAnimation }) => {
-  //   return css`
-  //     ${createAnimationStyles(enterAnimation)};
-  //   `;
-  // },
-  // exiting: ({ exitAnimation }) => {
-  //   return css`
-  //     ${createAnimationStyles(exitAnimation)};
-  //   `;
-  // }
 };
 
 const PageTransitionWrapper = styled.div`

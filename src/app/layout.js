@@ -1,5 +1,5 @@
 
-import "./globals.css";
+
 
 import "@/styles/config.css";
 import "@/styles/main.css";

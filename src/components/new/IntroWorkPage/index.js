@@ -6,7 +6,7 @@ import Image from 'next/image'
 function IntroWorkPage({ propsForGsap, backgroundImage }) {
 
     useEffect(() => {
-        if (propsForGsap.wftState && propsForGsap.scrollerRef && propsForGsap.wftState === 'entered') {
+        if ( propsForGsap.stateTransitionPage === 'entered') {
             if(window.innerWidth < 620) return
  
             console.log("Reinit/init scrolltriggle on component Work 1")
